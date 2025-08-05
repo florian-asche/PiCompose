@@ -1,0 +1,14 @@
+[Unit]
+Description=PiCompose - Configure custom hostname
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/configure_hostname.sh
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=30s
+
+[Install]
+WantedBy=multi-user.target 

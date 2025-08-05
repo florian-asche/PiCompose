@@ -1,0 +1,12 @@
+[Unit]
+Description=Keep soundcard alive (play silence)
+After=user@1000.service sound.target alsa-restore.service user@1000.service:pipewire.service 
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/keep-audio-alive.sh
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
