@@ -1,0 +1,13 @@
+[Unit]
+Description=PiCompose - Docker-Compose-Manager
+After=docker.service
+Wants=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/compose-manager.sh boot
+RemainAfterExit=yes
+User=root
+
+[Install]
+WantedBy=multi-user.target

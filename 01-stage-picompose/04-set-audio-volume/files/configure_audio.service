@@ -1,0 +1,13 @@
+[Unit]
+Description=PiCompose - Configure Audio volume setting
+After=user@1000.service sound.target alsa-restore.service user@1000.service:pipewire.service 
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/configure_audio.sh
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=30s
+
+[Install]
+WantedBy=multi-user.target 

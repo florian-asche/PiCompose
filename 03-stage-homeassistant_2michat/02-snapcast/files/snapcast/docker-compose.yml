@@ -1,0 +1,34 @@
+---
+
+services:
+  snapcast:
+    # snapcast client for audio playback
+    # note that CLIENT_NAME in command is only working when the variable is passed from the .env file not from env_file. And the hostname is set in the picompose shell script.
+    container_name: snapcast
+    image: "ghcr.io/florian-asche/docker-snapcast:latest"
+    restart: unless-stopped
+    network_mode: "host"
+    entrypoint: /usr/bin/snapclient
+    environment:
+      - START_SNAPCLIENT=true
+      - PIPEWIRE_RUNTIME_DIR=/run
+      - XDG_RUNTIME_DIR=/run
+    env_file: .env
+    command:
+      #- "--list" # List devices
+      - "--hostID"
+      - ${CLIENT_NAME:-no_hostname_from_env}
+      - "--Soundcard"
+      #- "hw:CARD=seeed2micvoicec,DEV=0"
+      - "pipewire"
+      - "tcp://192.168.33.5"
+    devices:
+      - /dev/snd:/dev/snd
+      - /dev/bus/usb
+    group_add:
+      - audio
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      # 1000 is my user id from the local user i used on my ubuntu desktop or pi-compose image
+      - /run/user/1000/pipewire-0:/run/pipewire-0

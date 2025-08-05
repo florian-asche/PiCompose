@@ -1,0 +1,14 @@
+docker-ce
+docker-ce-cli
+containerd.io
+docker-buildx-plugin
+docker-compose-plugin
+git
+jq
+curl
+wget
+vim
+htop
+python3
+python3-pip
+dfu-util 
