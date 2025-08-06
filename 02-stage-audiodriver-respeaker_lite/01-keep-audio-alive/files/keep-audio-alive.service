@@ -7,6 +7,7 @@ Type=simple
 ExecStart=/usr/bin/keep-audio-alive.sh
 Restart=always
 User=root
+StandardOutput=null
 
 [Install]
 WantedBy=multi-user.target
