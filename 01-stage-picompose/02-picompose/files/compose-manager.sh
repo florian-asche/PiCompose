@@ -113,13 +113,14 @@ deploy_compose() {
             log "No compose yaml file found in $folder. Skipping."
             return 1
         fi
-
-        # Stop and remove existing containers if present
-        log "Stopping existing containers if present"
-        docker compose down --remove-orphans || true
         
         # Download latest image
         if [ "$CRON_IMAGE_PULL" = "true" ] || [ "$BOOT_IMAGE_PULL" = "true" ]; then
+            # Stop and remove existing containers if present
+            log "Stopping existing containers if present"
+            docker compose down --remove-orphans || true
+
+            log "Downloading new docker images"
             docker compose pull
         fi
 
