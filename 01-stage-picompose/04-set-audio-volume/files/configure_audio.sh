@@ -12,7 +12,7 @@ configure_audio() {
         amixer -c Lite set Speaker 100%
         amixer set Master 100%
     else
-        return 1
+        exit 1
     fi
 
     alsactl store
