@@ -4,7 +4,7 @@ services:
   satellite:
     # satellite for homeassistant - nabucasa - whyoming voice
     container_name: satellite
-    image: "ghcr.io/florian-asche/wyoming-satellite:add-docker-build"
+    image: "ghcr.io/florian-asche/wyoming-satellite:latest"
     restart: unless-stopped
     network_mode: "host"
     #user: "1000"

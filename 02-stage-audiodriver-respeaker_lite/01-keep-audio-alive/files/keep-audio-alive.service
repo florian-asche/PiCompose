@@ -1,9 +1,10 @@
 [Unit]
 Description=Keep soundcard alive (play silence)
-After=user@1000.service sound.target alsa-restore.service user@1000.service:pipewire.service 
+After=user@1000.service sound.target alsa-restore.service
 
 [Service]
 Type=simple
+ExecStartPre=/bin/bash -c 'while [ ! -S /run/user/1000/pipewire-0 ]; do sleep 0.1; done'
 ExecStart=/usr/bin/keep-audio-alive.sh
 Restart=always
 User=root

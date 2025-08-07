@@ -19,3 +19,6 @@ alias l='ls $LS_OPTIONS -lA'
 
 # set custom pipewire path
 export XDG_RUNTIME_DIR=/run/user/1000
+
+# Set hostname variable for docker compose files
+export HOSTNAME=$(hostname)
