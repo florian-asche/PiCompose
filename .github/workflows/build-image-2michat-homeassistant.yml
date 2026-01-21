@@ -158,7 +158,7 @@ jobs:
           # images in stage2 (lite), stage4 and stage5. You probably want to hook in custom 
           # stages before one of the exported stages. Otherwise, the action will make sure 
           # any custom stage will include an image export directive.
-          stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-2michat ./03-stage-homeassistant_2michat ./04-stage-finish
+          stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-2michat-v1 ./03-stage-homeassistant_2michat-v1 ./04-stage-finish
       
           # System timezone.
           timezone: Europe/London

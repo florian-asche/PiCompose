@@ -2,7 +2,7 @@ git
 build-essential
 dkms
 curl
-raspberrypi-kernel-headers
+linux-headers-rpi-v8
 dkms
 i2c-tools
 libasound2-plugins
