@@ -161,7 +161,7 @@ jobs:
           stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-2michat ./04-stage-finish
       
           # System timezone.
-          timezone: UTC
+          timezone: Europe/London
       
           # Name of the initial user account.
           username: pi
