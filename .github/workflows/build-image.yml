@@ -123,7 +123,7 @@ jobs:
       
           # The release name to use in `/etc/issue.txt`. The default should only be used for 
           # official Raspberry Pi builds.
-          pi-gen-release: PiCompose based on Raspberry Pi OS bookworm arm64
+          pi-gen-release: PiCompose based on Raspberry Pi OS arm64
       
           # GitHub repository to fetch pi-gen from, must be a fork from RPi-Distro/pi-gen.
           pi-gen-repository: RPi-Distro/pi-gen
@@ -145,7 +145,7 @@ jobs:
       
           # The release version to build images against. Valid values are jessie, stretch, 
           # buster, bullseye, bookworm, and testing.
-          release: bookworm
+          release: trixie
       
           # Setting to `1` will prevent pi-gen from dropping the "capabilities" feature. 
           # Generating the root filesystem with capabilities enabled and running it from a 
