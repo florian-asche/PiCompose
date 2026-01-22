@@ -123,7 +123,7 @@ jobs:
       
           # The release name to use in `/etc/issue.txt`. The default should only be used for 
           # official Raspberry Pi builds.
-          pi-gen-release: PiCompose based on Raspberry Pi OS arm64 with Respeaker_lite drivers
+          #pi-gen-release: PiCompose based on Raspberry Pi OS arm64 with Respeaker_lite drivers
       
           # GitHub repository to fetch pi-gen from, must be a fork from RPi-Distro/pi-gen.
           pi-gen-repository: RPi-Distro/pi-gen
