@@ -55,7 +55,7 @@ jobs:
           # 'username' stays activated. 'username' must be set for this to work. Please be 
           # aware of the implied security risk of defining a default username and password 
           # for your devices.
-          disable-first-boot-user-rename: 1
+          disable-first-boot-user-rename: 0
       
           # Additional options to include in PIGEN_DOCKER_OPTS
           docker-opts: ''
