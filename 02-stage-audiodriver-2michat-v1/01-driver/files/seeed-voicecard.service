@@ -7,10 +7,7 @@ Requires=user@1000.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-# I had to hack a bit. The service is always started to early so i implement a sleep and a rescedule.
-ExecStartPre=/bin/sleep 10
 ExecStart=/usr/bin/seeed-voicecard-v2
-ExecStartPost=/bin/sh -c 'sleep 20 && /usr/bin/seeed-voicecard-v2'
 User=root
  
 [Install]
