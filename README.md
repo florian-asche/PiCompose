@@ -12,9 +12,14 @@ PiCompose uses the official [pi-gen](https://github.com/RPi-Distro/pi-gen) tool 
 
 The image is configured to:
 
-1. Search for Docker Compose files in a special directory on the main partition
-2. Automatically deploy each Docker Compose project found
-3. Optionally set up regular re-deployments via Crontab
+1. Start seeed-voicecard service (If you use 2-MicHat)
+2. Start Pipewire service
+3. Start Keep-Audio-Alive service (If you use Respeaker Lite)
+4. Set audio volume to 100%
+5. Set hostname
+6. Search for Docker Compose files in a special directory on the main partition
+7. Automatically deploy each Docker Compose project found
+8. Optionally set up regular re-deployments via Crontab
 
 This repository also contains fully prepared images for specific voice hardware of Homeassistant with all needed drivers.
 
