@@ -1,0 +1,34 @@
+---
+services:
+  linux-voice-assistant:
+    container_name: linux-voice-assistant
+    image: "ghcr.io/florian-asche/linux-voice-assistant:dev-add-docker-support"
+    restart: unless-stopped
+    network_mode: "host"
+    user: "1000"
+    environment:
+      # common
+      - CLIENT_NAME=${HOSTNAME}
+      # Pulseaudio
+      - XDG_RUNTIME_DIR=/run/user/1000
+      - PULSE_SERVER=unix:/run/user/1000/pulse/native
+    env_file: .env
+    group_add:
+      - audio
+    volumes:
+      - wakeword_data:/app/local
+      - configuration
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      # Pulseaudio
+      - /run/user/1000:/run/user/1000
+    command:
+#      - "--debug"
+      - "--name"
+      - ${CLIENT_NAME:-no_hostname_from_env}
+      - "--wake-model"
+      - "hey_jarvis"
+
+volumes:
+  wakeword_data:
+  configuration:

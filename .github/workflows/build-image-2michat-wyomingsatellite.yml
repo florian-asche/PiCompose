@@ -1,4 +1,4 @@
-name: Build PiCompose - 2MicHAT - Homeassistant
+name: Build PiCompose - 2MicHAT - Wyoming-Satellite
 
 on:
   push:
@@ -95,7 +95,7 @@ jobs:
           hostname: picompose
       
           # Final image name.
-          image-name: PiCompose-2MicHat-homeassistant
+          image-name: PiCompose_2MicHat_Wyoming-Satellite
       
           # Enabling this option will remove plenty of components from the GitHub Actions 
           # runner that are not mandatory pre-requisites for a (vanilla) pi-gen build. This 
