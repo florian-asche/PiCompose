@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/florian-asche/PiCompose/actions/workflows/build-image.yml/badge.svg)](https://github.com/florian-asche/PiCompose/actions/workflows/build-image.yml) [![GitHub Release Version](https://img.shields.io/github/v/release/florian-asche/PiCompose?label=version)](https://github.com/florian-asche/PiCompose/releases) [![GitHub License](https://img.shields.io/github/license/florian-asche/PiCompose)](https://github.com/florian-asche/PiCompose/blob/main/LICENSE) [![GitHub last commit](https://img.shields.io/github/last-commit/florian-asche/PiCompose)](https://github.com/florian-asche/PiCompose/commits)
 
-Ready to use Raspberry Pi Images with Docker for projects like [wyoming-satellite](https://github.com/florian-asche/wyoming-satellite) and [docker-snapcast](https://github.com/florian-asche/docker-snapcast).
+Ready to use Raspberry Pi Images with Docker for projects like [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant) and [docker-snapcast](https://github.com/florian-asche/docker-snapcast).
 
 Also a tool for creating customized Raspberry Pi OS images with automatic Docker Compose deployment.
 
