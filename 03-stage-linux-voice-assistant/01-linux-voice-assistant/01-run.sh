@@ -1,13 +1,13 @@
 #!/bin/bash -e
 
-# Install satellite: Create an satellite subdirectory
-mkdir -p "${ROOTFS_DIR}/compose/satellite"
+# Install linux-voice-assistant: Create an linux-voice-assistant subdirectory
+mkdir -p "${ROOTFS_DIR}/compose/lva"
 
-# Install satellite: Copy the satellite docker-compose.yml
-install -v -m 644 files/satellite/docker-compose.yml "${ROOTFS_DIR}/compose/satellite/docker-compose.yml"
+# Install linux-voice-assistant: Copy the linux-voice-assistant docker-compose.yml
+install -v -m 644 files/lva/docker-compose.yml "${ROOTFS_DIR}/compose/lva/docker-compose.yml"
 
-# Install satellite: Copy the satellite configuration file
-install -v -m 644 files/satellite/picompose.conf "${ROOTFS_DIR}/compose/satellite/picompose.conf"
+# Install linux-voice-assistant: Copy the linux-voice-assistant configuration file
+install -v -m 644 files/lva/picompose.conf "${ROOTFS_DIR}/compose/lva/picompose.conf"
 
-# Install satellite: Copy the satellite environment
-install -v -m 644 files/satellite/.env "${ROOTFS_DIR}/compose/satellite/.env"
+# Install linux-voice-assistant: Copy the linux-voice-assistant environment
+install -v -m 644 files/lva/.env "${ROOTFS_DIR}/compose/lva/.env"
