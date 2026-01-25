@@ -17,7 +17,7 @@ services:
       - audio
     volumes:
       - wakeword_data:/app/local
-      - configuration
+      - configuration:/app/configuration
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       # Pulseaudio
@@ -26,6 +26,8 @@ services:
 #      - "--debug"
       - "--name"
       - ${CLIENT_NAME:-no_hostname_from_env}
+      - "--preferences-file"
+      - "/app/configuration/preferences.json"
       - "--wake-model"
       - "hey_jarvis"
 
