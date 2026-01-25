@@ -46,9 +46,9 @@ Here is a Image Overview specific for each hardware if needed:
 |------|----------|---------------------|
 | **Base Image** | | • Docker & Docker Compose (piCompose)<br>• Automatic Docker Compose deployment<br>• Pipewire Audio Server<br>• SSH enabled (pi User) |
 | **ReSpeaker Lite** | <img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;"> | • Base Image<br>• Audio keep-alive service (Workaround) |
-| **ReSpeaker Lite**<br>**+ Home Assistant** | <img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;"> | • ReSpeaker Lite Image<br>• Wyoming Satellite (HA Voice Assistant)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant |
+| **ReSpeaker Lite**<br>**+ Home Assistant** | <img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;"> | • ReSpeaker Lite Image<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant |
 | **ReSpeaker 2-Mic HAT v1** | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • Base Image<br>• Seeed Voicecard Driver |
-| **ReSpeaker 2-Mic HAT v1**<br>**+ Home Assistant** | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • 2-Mic HAT Image<br>• Wyoming Satellite (HA Voice Assistant)<br>• 2-Mic HAT GPIO LED Control<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant |
+| **ReSpeaker 2-Mic HAT v1**<br>**+ Home Assistant** | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • 2-Mic HAT Image<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• 2-Mic HAT GPIO LED Control<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant |
 
 ### Raspberry Pi Image
 
@@ -87,7 +87,7 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for information on local development and th
 ### Example projects, that you can run on this:
 
 - [docker-snapcast](https://github.com/florian-asche/docker-snapcast) - A Docker image for Snapcast server and client, providing multi-room audio streaming capabilities
-- [wyoming-satellite](https://github.com/florian-asche/wyoming-satellite) - A remote voice satellite implementation using the Wyoming protocol with Docker images
+- [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant) - A remote voice satellite implementation using the ESPHome protocol
 
 ## License
 
