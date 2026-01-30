@@ -2,34 +2,43 @@
 services:
   linux-voice-assistant:
     container_name: linux-voice-assistant
-    image: "ghcr.io/florian-asche/linux-voice-assistant:dev-add-docker-support"
+    image: "ghcr.io/florian-asche/linux-voice-assistant:develop-final-docker-version"
     restart: unless-stopped
     network_mode: "host"
-    user: "1000"
+    user: "${USER_ID}"
     environment:
-      # common
-      - CLIENT_NAME=${HOSTNAME}
+      # Common
+      - DEFAULT_HOSTNAME=${HOSTNAME}
       # Pulseaudio
-      - XDG_RUNTIME_DIR=/run/user/1000
-      - PULSE_SERVER=unix:/run/user/1000/pulse/native
+      - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
+      - PULSE_SERVER=${PULSE_SERVER}
     env_file: .env
     group_add:
       - audio
+    # Priority for audio process
+    cap_add:
+      - SYS_NICE
     volumes:
+      # Wakeword data and configuration
       - wakeword_data:/app/local
       - configuration:/app/configuration
+      # Time and zone
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       # Pulseaudio
-      - /run/user/1000:/run/user/1000
-    command:
-#      - "--debug"
-      - "--name"
-      - ${CLIENT_NAME:-no_hostname_from_env}
-      - "--preferences-file"
-      - "/app/configuration/preferences.json"
-      - "--wake-model"
-      - "hey_jarvis"
+      # /run/user/1000:/run/user/1000
+      - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
+    # Health check for process
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "linux_voice_assistant"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
+    #command:
+    #  - --additional-parameters-here
+    #  - --but-use-env-if-possible
+
 
 volumes:
   wakeword_data:
