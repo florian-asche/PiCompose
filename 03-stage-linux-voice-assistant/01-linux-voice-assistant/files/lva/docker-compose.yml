@@ -7,8 +7,6 @@ services:
     network_mode: "host"
     user: "${USER_ID}"
     environment:
-      # Common
-      - DEFAULT_HOSTNAME=${HOSTNAME}
       # Pulseaudio
       - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
       - PULSE_SERVER=${PULSE_SERVER}
