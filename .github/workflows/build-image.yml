@@ -44,7 +44,7 @@ jobs:
           apt-proxy: http://172.17.0.1:9999
       
           # Compression to apply on final image (either "none", "zip", "xz" or "gz").
-          compression: zip
+          compression: xz
       
           # Compression level to be used. From 0 to 9 (refer to the tool man page for more 
           # information on this. Usually 0 is no compression but very fast, up to 9 with the 
@@ -97,6 +97,10 @@ jobs:
           # Final image name.
           image-name: PiCompose
       
+          # Release name to use in `/etc/issue.txt`. The default should only be used for 
+          # official Raspberry Pi builds.
+          # pi-gen-release: PiCompose-Respeaker_lite
+
           # Enabling this option will remove plenty of components from the GitHub Actions 
           # runner that are not mandatory pre-requisites for a (vanilla) pi-gen build. This 
           # shall increase the available disk space so that also large images can be 
@@ -178,15 +182,43 @@ jobs:
           # Password of default wifi network to connect to.
           wpa-password: ''
 
-      # Generate SHA256 checksums for image files
+      # Rename image file to remove date prefix
+      - name: Rename image file
+        id: rename
+        run: |
+          ORIGINAL_PATH="${{ steps.build.outputs.image-path }}"
+          FILENAME=$(basename "$ORIGINAL_PATH")
+          
+          # Remove date prefix (format: image_YYYY-MM-DD-Name.zip or image_YYYY-MM-DD-Name.img.xz)
+          # Pattern matches: image_YYYY-MM-DD- followed by anything
+          NEW_FILENAME=$(echo "$FILENAME" | sed 's/^image_[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}-//')
+          
+          # Extract extension
+          EXTENSION="${FILENAME##*.}"
+          
+          # Create new filename with version tag
+          if [[ "$FILENAME" == *".img.xz" ]]; then
+            NEW_FILENAME="PiCompose-v${GITHUB_REF_NAME}.img.xz"
+          else
+            NEW_FILENAME="PiCompose-v${GITHUB_REF_NAME}.zip"
+          fi
+          
+          NEW_PATH="$(dirname "$ORIGINAL_PATH")/${NEW_FILENAME}"
+          
+          echo "Renaming: $FILENAME -> $NEW_FILENAME"
+          mv "$ORIGINAL_PATH" "$NEW_PATH"
+          echo "new-path=$NEW_PATH" >> $GITHUB_OUTPUT
+          echo "new-filename=$NEW_FILENAME" >> $GITHUB_OUTPUT
+
+      # Generate SHA256 checksums for renamed image file
       - name: Generate SHA256 checksums
         id: sha256
         run: |
-          IMAGE_PATH="${{ steps.build.outputs.image-path }}"
+          IMAGE_PATH="${{ steps.rename.outputs.new-path }}"
           
-          # Determine if image-path is a directory or a file
           if [ -f "$IMAGE_PATH" ]; then
             sha256sum "$IMAGE_PATH" > "${IMAGE_PATH}.sha256"
+            echo "SHA256 file created: ${IMAGE_PATH}.sha256"
           else
             echo "::warning::Image path not found: $IMAGE_PATH"
           fi
@@ -201,8 +233,8 @@ jobs:
           prerelease: false
           draft: false
           files: |
-            ${{ steps.build.outputs.image-path }}
-            ${{ steps.build.outputs.image-path }}.sha256
+            ${{ steps.rename.outputs.new-path }}
+            ${{ steps.rename.outputs.new-path }}.sha256
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -216,8 +248,8 @@ jobs:
           prerelease: true
           draft: false
           files: |
-            ${{ steps.build.outputs.image-path }}
-            ${{ steps.build.outputs.image-path }}.sha256
+            ${{ steps.rename.outputs.new-path }}
+            ${{ steps.rename.outputs.new-path }}.sha256
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       

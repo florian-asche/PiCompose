@@ -44,7 +44,7 @@ jobs:
           apt-proxy: http://172.17.0.1:9999
       
           # Compression to apply on final image (either "none", "zip", "xz" or "gz").
-          compression: zip
+          compression: xz
       
           # Compression level to be used. From 0 to 9 (refer to the tool man page for more 
           # information on this. Usually 0 is no compression but very fast, up to 9 with the 
@@ -97,6 +97,10 @@ jobs:
           # Final image name.
           image-name: PiCompose_Respeaker-lite_Linux-Voice-Assistant
       
+          # Release name to use in `/etc/issue.txt`. The default should only be used for 
+          # official Raspberry Pi builds.
+          # pi-gen-release: PiCompose-Respeaker_lite
+
           # Enabling this option will remove plenty of components from the GitHub Actions 
           # runner that are not mandatory pre-requisites for a (vanilla) pi-gen build. This 
           # shall increase the available disk space so that also large images can be 
