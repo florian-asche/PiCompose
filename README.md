@@ -57,10 +57,11 @@ Here is a Image Overview specific for each hardware if needed:
 
 ### Download and installation
 
-xxxxxx
+You can [download](https://github.com/florian-asche/PiCompose/releases) the image and configure keyboard, timezone and wifi credentials with the `raspi-config` tool. But if you use the Raspberry Pi Imager tool you can also configure the wifi credentials before you burn the image to your sd card.
 
-1. Download the latest image from [GitHub Releases](https://github.com/florian-asche/PiCompose/tagshttps:/).
-2. Write the image to an SD card, you can use the Imager tool to copy the image onto your drive or sd card. Use the customization section to add your wifi credentials. If you want to change your pi user password or something else you can also do that. Note that the hostname is automatically generated one time.
+In order to use the feature where you can change the settings in the `Raspberry Pi Imager >=v2.5.0` you need to set a custom image repository in the settings section.
+
+Use the custom repo: `https://github.com/florian-asche/PiCompose/releases/download/v1.0.4/rpi-imager-repo.json`
 
 ### Customization (optional)
 
