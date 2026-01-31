@@ -20,8 +20,8 @@ services:
       - ${CLIENT_NAME:-no_hostname_from_env}
       - "--Soundcard"
       #- "hw:CARD=seeed2micvoicec,DEV=0"
-      - "pipewire"
-      - "tcp://192.168.33.5"
+      - "default"
+      - ${SNAPCAST_REMOTE_HOST:-no_hostname_from_env}
     devices:
       - /dev/snd:/dev/snd
       - /dev/bus/usb
