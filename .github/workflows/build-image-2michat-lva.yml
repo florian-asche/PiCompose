@@ -178,10 +178,18 @@ jobs:
           # Password of default wifi network to connect to.
           wpa-password: ''
 
-      # Extract clean branch name
-      - name: Extract clean branch name
-        id: extract_branch
-        run: echo "CLEAN_BRANCH_NAME=$(echo ${{ github.head_ref || github.ref_name }} | sed 's|.*/||')" >> $GITHUB_ENV
+      # Generate SHA256 checksums for image files
+      - name: Generate SHA256 checksums
+        id: sha256
+        run: |
+          IMAGE_PATH="${{ steps.build.outputs.image-path }}"
+          
+          # Determine if image-path is a directory or a file
+          if [ -f "$IMAGE_PATH" ]; then
+            sha256sum "$IMAGE_PATH" > "${IMAGE_PATH}.sha256"
+          else
+            echo "::warning::Image path not found: $IMAGE_PATH"
+          fi
 
       # Create Release for Tags
       - name: Create Release for Tags
@@ -194,6 +202,7 @@ jobs:
           draft: false
           files: |
             ${{ steps.build.outputs.image-path }}
+            ${{ steps.build.outputs.image-path }}.sha256
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -208,6 +217,7 @@ jobs:
           draft: false
           files: |
             ${{ steps.build.outputs.image-path }}
+            ${{ steps.build.outputs.image-path }}.sha256
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
