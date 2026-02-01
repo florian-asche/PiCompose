@@ -110,15 +110,29 @@ jobs:
           github-token: ${{ github.token }}
 
       # Generate SHA256 checksums for image files
-      - name: Generate SHA256 checksums
+      - name: Generate SHA256 checksum, file_size and image_url
         id: sha256
         run: |
           IMAGE_PATH="${{ steps.build.outputs.image-path }}"
           
           # Determine if image-path is a file
           if [ -f "$IMAGE_PATH" ]; then
-            sha256sum "$IMAGE_PATH" > "${IMAGE_PATH}.sha256"
+            # Calculate SHA256 hash and extract only the hash value
+            SHA256_HASH=$(sha256sum "$IMAGE_PATH" | awk '{print $1}')
+            
+            # Get file size in bytes
+            FILE_SIZE=$(stat -c%s "$IMAGE_PATH")
+            
+            # Write hash to sha256 file
+            echo "${SHA256_HASH}  $(basename "$IMAGE_PATH")" > "${IMAGE_PATH}.sha256"
+            
+            # Set as GitHub Action outputs
+            echo "sha256_hash=${SHA256_HASH}" >> $GITHUB_OUTPUT
+            echo "file_size=${FILE_SIZE}" >> $GITHUB_OUTPUT
+            
             echo "SHA256 checksum generated for: $IMAGE_PATH"
+            echo "SHA256 hash: $SHA256_HASH"
+            echo "File size: $FILE_SIZE bytes"
           else
             echo "::warning::Image path not found: $IMAGE_PATH"
           fi
@@ -127,14 +141,14 @@ jobs:
         uses: OctoPrint/actions/rpi-imager-snippet@main
         with:
           name: "${{ inputs.image-name }}"
-          description: "PiCompose image - ${{ inputs.image-name }}"
+          description: "${{ inputs.image-name }}"
           icon: ""
           url: "${{ env.IMAGE_URL }}"
           output: "${{ steps.build.outputs.image-path }}.rpi-imager.json"
           image_sha256: ""
           image_size: ""
-          zip_sha256: ${{ steps.package-image.outputs.zip_sha256 }}
-          zip_size: ${{ steps.package-image.outputs.zip_size }}
+          zip_sha256: "${{ steps.sha256.outputs.sha256_hash }}"
+          zip_size: "${{ steps.sha256.outputs.file_size }}"
           devices: "pi5-64bit,pi4-64bit,pi3-64bit"
 
       # Create Release for Tags
