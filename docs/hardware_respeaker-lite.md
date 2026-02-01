@@ -1,4 +1,4 @@
-# wyoming-satellite - Hardware
+# Hardware - Respeaker Lite
 
 ## Base
 

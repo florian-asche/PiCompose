@@ -1,4 +1,4 @@
-# wyoming-satellite - Hardware
+# Hardware - 2-Mic HAT
 
 ## Base
 
