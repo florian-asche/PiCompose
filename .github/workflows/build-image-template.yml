@@ -123,21 +123,19 @@ jobs:
             echo "::warning::Image path not found: $IMAGE_PATH"
           fi
 
-      # Generate rpi-imager.json snippet (optional)
-      - name: Generate rpi-imager.json snippet
-        if: ${{ inputs.enable-rpi-imager-snippet }}
+      - name: "🆕 Generate rpi-imager.json snippet"
         uses: OctoPrint/actions/rpi-imager-snippet@main
         with:
           name: "${{ inputs.image-name }}"
           description: "PiCompose image - ${{ inputs.image-name }}"
           icon: ""
-          url: ""
+          url: "${{ env.IMAGE_URL }}"
           output: "${{ steps.build.outputs.image-path }}.rpi-imager.json"
           image_sha256: ""
           image_size: ""
-          zip_sha256: ""
-          zip_size: ""
-          devices: "pi5-64bit,pi4-64bit,pi3-64bit,pi2-64bit,pi1-64bit"
+          zip_sha256: ${{ steps.package-image.outputs.zip_sha256 }}
+          zip_size: ${{ steps.package-image.outputs.zip_size }}
+          devices: "pi5-64bit,pi4-64bit,pi3-64bit"
 
       # Create Release for Tags
       - name: Create Release for Tags
@@ -160,7 +158,7 @@ jobs:
         if: '!startsWith(github.ref, ''refs/tags/'')'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}-${{ inputs.image-name }}
+          tag_name: ${{ github.ref_name }}
           generate_release_notes: true
           prerelease: true
           draft: false

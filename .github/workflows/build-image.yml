@@ -14,7 +14,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose
-      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./04-stage-finish
       compression: zip
       compression-level: 6
       custom-hostname: picompose
