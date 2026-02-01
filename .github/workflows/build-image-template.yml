@@ -137,13 +137,35 @@ jobs:
             echo "::warning::Image path not found: $IMAGE_PATH"
           fi
 
+      # Build the image URL for releases
+      - name: Build image URL
+        id: image-url
+        run: |
+          # Get current date in YYYY-MM-DD format
+          DATE=$(date +%Y-%m-%d)
+
+          # URL-encode the ref name (replace / with %2F)
+          REF_NAME="${{ github.ref_name }}"
+          REF_ENCODED="${REF_NAME//\//%2F}"
+
+          # Build the filename
+          FILENAME="image_${DATE}-${{ inputs.image-name }}.zip"
+
+          # Build the full URL
+          IMAGE_URL="https://github.com/${{ github.repository }}/releases/download/${REF_ENCODED}/${FILENAME}"
+
+          # Set as GitHub Action output
+          echo "url=${IMAGE_URL}" >> $GITHUB_OUTPUT
+
+          echo "Image URL: $IMAGE_URL"
+
       - name: "🆕 Generate rpi-imager.json snippet"
         uses: OctoPrint/actions/rpi-imager-snippet@main
         with:
           name: "${{ inputs.image-name }}"
           description: "${{ inputs.image-name }}"
           icon: ""
-          url: "${{ env.IMAGE_URL }}"
+          url: "${{ steps.image-url.outputs.url }}"
           output: "${{ steps.build.outputs.image-path }}.rpi-imager.json"
           image_sha256: ""
           image_size: ""
