@@ -1,11 +1,26 @@
 ---
 services:
+  # Fix permissions for wakeword_data and configuration volume
+  fix-permissions:
+    image: "ghcr.io/florian-asche/linux-voice-assistant:develop-final-docker-version"
+    entrypoint: []
+    command: "chown -R ${USER_ID}:${USER_GROUP} /app/local /app/configuration"
+    env_file: .env
+    group_add:
+      - audio
+    volumes:
+      # Wakeword data and configuration
+      - wakeword_data:/app/local
+      - configuration:/app/configuration
+    restart: "no"
+
+  # Linux Voice Assistant
   linux-voice-assistant:
     container_name: linux-voice-assistant
     image: "ghcr.io/florian-asche/linux-voice-assistant:develop-final-docker-version"
     restart: unless-stopped
     network_mode: "host"
-    user: "${USER_ID}"
+    user: "${USER_ID}:${USER_GROUP}"
     environment:
       # Pulseaudio
       - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
@@ -26,6 +41,8 @@ services:
       # Pulseaudio
       # /run/user/1000:/run/user/1000
       - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
+    depends_on:
+      - fix-permissions
     # Health check for process
     healthcheck:
       test: ["CMD", "pgrep", "-f", "linux_voice_assistant"]
