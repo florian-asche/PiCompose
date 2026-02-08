@@ -11,8 +11,8 @@ services:
     environment:
       - START_SNAPCLIENT=true
       # Pulseaudio
-      - XDG_RUNTIME_DIR=${LVA_XDG_RUNTIME_DIR}
-      - PULSE_SERVER=${LVA_PULSE_SERVER}
+      - XDG_RUNTIME_DIR=${SC_XDG_RUNTIME_DIR}
+      - PULSE_SERVER=${SC_PULSE_SERVER}
       - CLIENT_NAME=${HOSTNAME}
     env_file: .env
     group_add:
