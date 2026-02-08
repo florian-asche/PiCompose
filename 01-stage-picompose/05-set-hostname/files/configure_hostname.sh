@@ -1,31 +1,31 @@
 #!/bin/bash
 
-# Aktives Interface ermitteln
+# Get active interface
 IFACE=$(ip route | grep default | awk '{print $5}' | head -n 1)
 
-# Prüfen, ob IFACE leer ist
+# Check if IFACE is empty
 if [ -z "$IFACE" ]; then
-    echo "Kein aktives Netzwerkinterface gefunden."
+    echo "No active network interface found."
     exit 1
 fi
 
-# Prüfen, ob Interface-Verzeichnis existiert
+# Check if interface directory exists
 if [ ! -e "/sys/class/net/$IFACE/address" ]; then
-    echo "Interface $IFACE existiert nicht oder hat keine MAC-Adresse."
+    echo "Interface $IFACE does not exist or has no MAC address."
     exit 1
 fi
 
-# MAC-Adresse auslesen und ":" entfernen
+# Read MAC address and remove ':'
 MAC=$(cat /sys/class/net/$IFACE/address | tr -d ':')
 
 if [ -z "$MAC" ]; then
-    echo "Konnte MAC-Adresse nicht lesen."
+    echo "Could not read MAC address."
     exit 1
 fi
 
-# CLIENT_NAME daraus generieren
+# Generate CLIENT_NAME from it
 CLIENT_NAME="picompose-${MAC}"
 
-# Hostname setzen
+# Set hostname
 echo "Setze Hostname auf $CLIENT_NAME"
 hostnamectl set-hostname "$CLIENT_NAME"
