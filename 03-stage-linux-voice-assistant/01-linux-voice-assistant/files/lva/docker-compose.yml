@@ -2,7 +2,7 @@
 services:
   # Fix permissions for wakeword_data and configuration volume
   fix-permissions:
-    image: "ghcr.io/florian-asche/linux-voice-assistant:develop-final-docker-version"
+    image: "ghcr.io/ohf-voice/linux-voice-assistant:add-docker"
     entrypoint: []
     command: "chown -R ${USER_ID}:${USER_GROUP} /app/local /app/configuration"
     env_file: .env
@@ -17,7 +17,7 @@ services:
   # Linux Voice Assistant
   linux-voice-assistant:
     container_name: linux-voice-assistant
-    image: "ghcr.io/florian-asche/linux-voice-assistant:develop-final-docker-version"
+    image: "ghcr.io/ohf-voice/linux-voice-assistant:add-docker"
     restart: unless-stopped
     network_mode: "host"
     user: "${USER_ID}:${USER_GROUP}"
