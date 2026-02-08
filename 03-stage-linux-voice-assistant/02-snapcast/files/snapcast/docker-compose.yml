@@ -3,32 +3,38 @@
 services:
   snapcast:
     # snapcast client for audio playback
-    # note that CLIENT_NAME in command is only working when the variable is passed from the .env file not from env_file. And the hostname is set in the picompose shell script.
     container_name: snapcast
     image: "ghcr.io/florian-asche/docker-snapcast:latest"
     restart: unless-stopped
     network_mode: "host"
-    entrypoint: /usr/bin/snapclient
+    user: "${SC_USER_ID}:${SC_USER_GROUP}"
     environment:
       - START_SNAPCLIENT=true
-      - PIPEWIRE_RUNTIME_DIR=/run
-      - XDG_RUNTIME_DIR=/run
+      # Pulseaudio
+      - XDG_RUNTIME_DIR=${LVA_XDG_RUNTIME_DIR}
+      - PULSE_SERVER=${LVA_PULSE_SERVER}
+      - CLIENT_NAME=${HOSTNAME}
     env_file: .env
-    command:
-      #- "--list" # List devices
-      - "--hostID"
-      - ${CLIENT_NAME:-no_hostname_from_env}
-      - "--soundcard"
-      #- "hw:CARD=seeed2micvoicec,DEV=0"
-      - "default"
-      - ${SNAPCAST_REMOTE_HOST:-no_hostname_from_env}
-    devices:
-      - /dev/snd:/dev/snd
-      - /dev/bus/usb
     group_add:
       - audio
+    # Priority for audio process
+    cap_add:
+      - SYS_NICE
     volumes:
+      # Time and zone
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      # 1000 is my user id from the local user i used on my ubuntu desktop or pi-compose image
-      - /run/user/1000/pipewire-0:/run/pipewire-0
+      # Pulseaudio
+      # /run/user/1000:/run/user/1000
+      - ${SC_XDG_RUNTIME_DIR}:${SC_XDG_RUNTIME_DIR}
+    # Health check for process
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "snapcast"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
+    #command:
+    #- "--list" # List devices
+    #  - --additional-parameters-here
+    #  - --but-use-env-if-possible
