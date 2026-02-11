@@ -2,12 +2,19 @@ name: Generate Imager JSON
 
 on:
   workflow_run:
-    workflows: ["*"]
-    types: [completed]
+    workflows: [
+      "Build PiCompose", 
+      "Build PiCompose - Respeaker_lite", 
+      "Build PiCompose - 2MicHAT", 
+      "Build PiCompose - Respeaker_lite - Linux-Voice-Assistant", 
+      "Build PiCompose - 2MicHAT - Linux-Voice-Assistant"
+    ]   # MUST match the 'name:' of the first workflow
+    types:
+      - completed
+  workflow_dispatch:
 
 jobs:
   release-json:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
