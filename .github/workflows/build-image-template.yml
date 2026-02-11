@@ -14,7 +14,7 @@ on:
       compression:
         required: false
         type: string
-        default: "zip"
+        default: "xz"
         description: "Compression to apply on final image (none, zip, xz, gz)"
       compression-level:
         required: false
@@ -159,20 +159,6 @@ jobs:
 
           echo "Image URL: $IMAGE_URL"
 
-      - name: "🆕 Generate rpi-imager.json snippet"
-        uses: OctoPrint/actions/rpi-imager-snippet@main
-        with:
-          name: "${{ inputs.image-name }}"
-          description: "${{ inputs.image-name }}"
-          icon: ""
-          url: "${{ steps.image-url.outputs.url }}"
-          output: "${{ steps.build.outputs.image-path }}.rpi-imager.json"
-          image_sha256: ""
-          image_size: ""
-          zip_sha256: "${{ steps.sha256.outputs.sha256_hash }}"
-          zip_size: "${{ steps.sha256.outputs.file_size }}"
-          devices: "pi5-64bit,pi4-64bit,pi3-64bit"
-
       # Create Release for Tags
       - name: Create Release for Tags
         if: startsWith(github.ref, 'refs/tags/')
@@ -185,7 +171,6 @@ jobs:
           files: |
             ${{ steps.build.outputs.image-path }}
             ${{ steps.build.outputs.image-path }}.sha256
-            ${{ steps.build.outputs.image-path }}.rpi-imager.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -201,7 +186,6 @@ jobs:
           files: |
             ${{ steps.build.outputs.image-path }}
             ${{ steps.build.outputs.image-path }}.sha256
-            ${{ steps.build.outputs.image-path }}.rpi-imager.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

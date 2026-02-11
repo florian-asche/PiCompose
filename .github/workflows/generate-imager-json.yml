@@ -1,0 +1,44 @@
+name: Generate Imager JSON
+
+on:
+  workflow_run:
+    workflows: [Build Image]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  generate-json:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y python3
+
+      - name: Generate imager JSON
+        run: |
+          chmod +x scripts/generate-imager-json.py
+          python3 scripts/generate-imager-json.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Check if there are changes
+          if git diff --quiet; then
+            echo "No changes to commit"
+          else
+            git add rpi-imager.json
+            git commit -m "Update rpi-imager.json - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push origin main
+          fi
