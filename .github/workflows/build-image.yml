@@ -18,3 +18,4 @@ jobs:
       compression: zip
       compression-level: 6
       custom-hostname: picompose
+      enable-rpi-imager-snippet: true

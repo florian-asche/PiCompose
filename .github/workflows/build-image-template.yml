@@ -189,6 +189,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Generate Raspberry Pi Imager JSON (conditional)
+      - name: Generate Raspberry Pi Imager JSON
+        if: inputs.enable-rpi-imager-snippet == true
+        run: |
+          chmod +x scripts/generate-imager-json.py
+          python3 scripts/generate-imager-json.py
+
+      - name: Create Release for RPI Imager JSON
+        if: inputs.enable-rpi-imager-snippet == true
+        uses: softprops/action-gh-release@v2
+        with:
+          release_name: RPI Imager JSON
+          body: 'Auto-generated Raspberry Pi Imager JSON file'
+          draft: false
+          prerelease: true
+          files: ./rpi-imager.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       # Save APT cache for future builds
       - name: Move packages to temp location for caching
         run: |
