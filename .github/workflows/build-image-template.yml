@@ -200,7 +200,9 @@ jobs:
         if: inputs.enable-rpi-imager-snippet == true
         uses: softprops/action-gh-release@v2
         with:
-          release_name: RPI Imager JSON
+          tag_name: rpi-imager-${{ github.run_id }}
+          generate_release_notes: false
+          name: RPI Imager JSON
           body: 'Auto-generated Raspberry Pi Imager JSON file'
           draft: false
           prerelease: true
