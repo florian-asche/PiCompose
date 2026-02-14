@@ -66,7 +66,7 @@ jobs:
           tag_name: rpi-imager-json
           generate_release_notes: false
           name: RPI Imager JSON
-          body: 'Auto-generated Raspberry Pi Imager JSON file'
+          body: 'Auto-generated Raspberry Pi Imager JSON file - ${{ github.run_id }} - ${{ github.run_number }} - ${{ github.run_started_at }}'
           draft: false
           prerelease: true
           files: ./rpi-imager.json
