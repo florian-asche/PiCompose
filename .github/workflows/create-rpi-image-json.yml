@@ -1,0 +1,75 @@
+name: Create RPI Imager JSON
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Generate Raspberry Pi Imager JSON (conditional)
+      - name: Generate Raspberry Pi Imager JSON
+        if: inputs.enable-rpi-imager-snippet == true
+        run: |
+          chmod +x scripts/generate-imager-json.py
+          python3 scripts/generate-imager-json.py
+
+      - name: Delete existing RPI Imager JSON release
+        if: inputs.enable-rpi-imager-snippet == true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              const { data: releases } = await github.rest.repos.listReleases({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                per_page: 100
+              });
+              const release = releases.find(r => r.tag_name === 'rpi-imager-json');
+              if (release) {
+                await github.rest.repos.deleteRelease({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  release_id: release.id
+                });
+                console.log('Deleted existing release rpi-imager-json');
+              }
+            } catch (error) {
+              console.log('Release rpi-imager-json does not exist or could not be deleted');
+            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Delete existing RPI Imager JSON tag
+        if: inputs.enable-rpi-imager-snippet == true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              await github.rest.git.deleteRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: 'tags/rpi-imager-json'
+              });
+              console.log('Deleted existing tag rpi-imager-json');
+            } catch (error) {
+              console.log('Tag rpi-imager-json does not exist or could not be deleted');
+            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release for RPI Imager JSON
+        if: inputs.enable-rpi-imager-snippet == true
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: rpi-imager-json
+          generate_release_notes: false
+          name: RPI Imager JSON
+          body: 'Auto-generated Raspberry Pi Imager JSON file'
+          draft: false
+          prerelease: true
+          files: ./rpi-imager.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
