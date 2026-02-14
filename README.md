@@ -138,6 +138,7 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for information on the development and buil
 - [docker-snapcast](https://github.com/florian-asche/docker-snapcast) - A Docker image for Snapcast server and client, providing multi-room audio streaming capabilities
 - [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant) - A remote voice satellite implementation using the ESPHome protocol
 
+
 ## License
 
 This project is released under the [BSD-3-Clause License](LICENSE).
