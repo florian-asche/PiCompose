@@ -61,14 +61,16 @@ You can burn the image to your sd card with the [Raspberry Pi Imager tool](https
 
 Windows
 ``` sh
-"C:\Program Files (x86)\Raspberry Pi Imager\rpi-imager.exe" --repo https://github.com/florian-asche/PiCompose/releases/download/v1.1.0/rpi-imager-repo.json
+"C:\Program Files (x86)\Raspberry Pi Imager\rpi-imager.exe" --repo https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json
 ```
 
 Linux
 
 ``` sh
-rpi-imager --repo https://github.com/florian-asche/PiCompose/releases/download/v1.1.0/rpi-imager-repo.json
+rpi-imager --repo https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json
 ```
+
+You can also put the [URL](https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json) in Settings - Image Repository - Use own URL.
 
 If you dont want to use the Raspberry Pi Imager tool you can also [download](https://github.com/florian-asche/PiCompose/releases) the image and configure keyboard, timezone and wifi credentials with the `raspi-config` tool. 
 
