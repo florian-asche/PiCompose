@@ -1,5 +1,9 @@
 name: Create RPI Imager JSON
 
+
+on:
+  workflow_call:
+
 jobs:
   build:
     runs-on: ubuntu-latest
