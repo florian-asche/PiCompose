@@ -1,6 +1,5 @@
 name: Create RPI Imager JSON
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
