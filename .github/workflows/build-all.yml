@@ -7,7 +7,6 @@ on:
       - feature/*
     tags:
       - 'v*.*.*'
-  workflow_dispatch:
 
 jobs:
   # NO SPECIFIC HARDWARE
