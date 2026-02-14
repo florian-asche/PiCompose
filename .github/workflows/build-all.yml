@@ -61,6 +61,6 @@ jobs:
   # RPI IMAGER JSON
   generate-rpi-imager-json:
     needs: [build, build-2michat, build-respeaker_lite, build-2michat-lva, build-respeaker_lite-lva]
-    uses: ./.github/workflows/build-image-template.yml
+    uses: ./.github/workflows/create-rpi-image-json.yml
     with:
       enable-rpi-imager-snippet: true
