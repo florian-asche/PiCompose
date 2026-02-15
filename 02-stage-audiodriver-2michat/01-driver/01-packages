@@ -1,9 +1,0 @@
-git
-build-essential
-dkms
-curl
-raspberrypi-kernel-headers
-dkms
-i2c-tools
-libasound2-plugins
-alsa-utils 

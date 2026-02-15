@@ -1,0 +1,40 @@
+---
+
+services:
+  snapcast:
+    # snapcast client for audio playback
+    container_name: snapcast
+    image: "ghcr.io/florian-asche/docker-snapcast:latest"
+    restart: unless-stopped
+    network_mode: "host"
+    user: "${SC_USER_ID}:${SC_USER_GROUP}"
+    environment:
+      - START_SNAPCLIENT=true
+      # Pulseaudio
+      - XDG_RUNTIME_DIR=${SC_XDG_RUNTIME_DIR}
+      - PULSE_SERVER=${SC_PULSE_SERVER}
+      - CLIENT_NAME=${HOSTNAME}
+    env_file: .env
+    group_add:
+      - audio
+    # Priority for audio process
+    cap_add:
+      - SYS_NICE
+    volumes:
+      # Time and zone
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      # Pulseaudio
+      # /run/user/1000:/run/user/1000
+      - ${SC_XDG_RUNTIME_DIR}:${SC_XDG_RUNTIME_DIR}
+    # Health check for process
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "snapcast"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
+    #command:
+    #- "--list" # List devices
+    #  - --additional-parameters-here
+    #  - --but-use-env-if-possible

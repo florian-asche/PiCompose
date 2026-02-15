@@ -2,9 +2,8 @@
 
 [![CI](https://github.com/florian-asche/PiCompose/actions/workflows/build-image.yml/badge.svg)](https://github.com/florian-asche/PiCompose/actions/workflows/build-image.yml) [![GitHub Release Version](https://img.shields.io/github/v/release/florian-asche/PiCompose?label=version)](https://github.com/florian-asche/PiCompose/releases) [![GitHub License](https://img.shields.io/github/license/florian-asche/PiCompose)](https://github.com/florian-asche/PiCompose/blob/main/LICENSE) [![GitHub last commit](https://img.shields.io/github/last-commit/florian-asche/PiCompose)](https://github.com/florian-asche/PiCompose/commits)
 
-Ready to use Raspberry Pi Images with Docker for projects like [wyoming-satellite](https://github.com/florian-asche/wyoming-satellite) and [docker-snapcast](https://github.com/florian-asche/docker-snapcast).
+Ready to use Raspberry Pi Images with Docker for projects like [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant) [docker-snapcast](https://github.com/florian-asche/docker-snapcast) and soon more.
 
-Also a tool for creating customized Raspberry Pi OS images with automatic Docker Compose deployment.
 
 ## Overview
 
@@ -12,11 +11,19 @@ PiCompose uses the official [pi-gen](https://github.com/RPi-Distro/pi-gen) tool 
 
 The image is configured to:
 
-1. Search for Docker Compose files in a special directory on the main partition
-2. Automatically deploy each Docker Compose project found
-3. Optionally set up regular re-deployments via Crontab
+1. Install needed drivers for the hardware (2-MicHat)
+2. Start seeed-voicecard service (If you use 2-MicHat)
+3. Start Pipewire service
+4. Start Keep-Audio-Alive service (If you use Respeaker Lite)
+5. Set audio volume to 100%
+6. Set hostname
+7. Search for Docker Compose files in a special directory on the main partition
+💡 **Note:** If you use the Linux-Voice-Assistant Image LVA and Snapcast will be included in the project directory.
+8. Automatically deploy each Docker Compose project found
+9. Optionally set up regular re-deployments via Crontab
 
-This repository also contains fully prepared images for specific voice hardware of Homeassistant with all needed drivers.
+This repository contains fully prepared images for specific voice hardware of Homeassistant with all needed drivers.
+
 
 ## Features
 
@@ -27,62 +34,112 @@ This repository also contains fully prepared images for specific voice hardware 
 - Image prepared for audio usage with the pipewire server
 - Prebuild images with drivers for various devices
 
+
 ## Usage
 
 ### Hardware
 
-For a detailed overview on the hardware, i have a seperated page for that here: [docs/hardware.md](docs/hardware.mdhttps:/).
+There is a seperated page for additional hardware like speaker or 3D-Prints here: [docs/hardware.md](docs/hardware.md).
 
-### Images
+### Images overview
 
-Here is a Image Overview specific for each hardware if needed:
+Here is a Overview for the specific images of each hardware:
 
-| Name | Hardware | What's in the Image? |
-|------|----------|---------------------|
-| **Base Image** | | • Docker & Docker Compose (piCompose)<br>• Automatic Docker Compose deployment<br>• Pipewire Audio Server<br>• SSH enabled (pi User) |
-| **ReSpeaker Lite** | <img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;"> | • Base Image<br>• Audio keep-alive service (Workaround) |
-| **ReSpeaker Lite**<br>**+ Home Assistant** | <img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;"> | • ReSpeaker Lite Image<br>• Wyoming Satellite (HA Voice Assistant)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant |
-| **ReSpeaker 2-Mic HAT v1** | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • Base Image<br>• Seeed Voicecard Driver |
-| **ReSpeaker 2-Mic HAT v1**<br>**+ Home Assistant** | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • 2-Mic HAT Image<br>• Wyoming Satellite (HA Voice Assistant)<br>• 2-Mic HAT GPIO LED Control<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant |
+| Name                                               | Hardware                                                                                                   | What's in the Image?                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Base Image**                                     | If you use other hardware...                                                      | • Docker & Docker Compose (piCompose)<br>• Automatic Docker Compose deployment<br>• Pipewire Audio Server<br>• SSH enabled (pi User)                                                                                                                                                                                                                                                              |
+| **[Sattelite1](docs/hardware_sattelite1.md)**                           | <img src="docs/sattelite1-hat.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;">         | • Base Image<br>• Satellite1 Hat Driver<br><br><span style="color: red;">Image is currently work in progress!</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **[Sattelite1](docs/hardware_sattelite1.md)**<br>**+Linux-Voice-Assistant**<br>**+Snapcast**   | <img src="docs/sattelite1-hat.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;">         | • Satellite1 Hat Image<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant<br><br><span style="color: red;">Image is currently work in progress!</span>                                                                                                                                                                                                                                                |
+| **[ReSpeaker 2-Mic HAT v1](docs/hardware_2mic_v1.md)**                         | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • Base Image<br>• Seeed Voicecard Driver                                                                                                                                                                                                                                                                                                                                                            |
+| **[ReSpeaker 2-Mic HAT v1](docs/hardware_2mic_v1.md)**<br>**+Linux-Voice-Assistant**<br>**+Snapcast** | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • 2-Mic HAT Image<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• 2-Mic HAT GPIO LED Control<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant                                                                                                                                                                                                                        |
+| **[ReSpeaker Lite](docs/hardware_respeaker_lite.md)**                                 | <img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;">         | • Base Image<br>• Audio keep-alive service<br>• Workaround for connectivity issues in combination with the Pi Zero 2W.<br><br><span style="color: red;">There is a USB connectivity issue with the Pi Zero 2W. I cannot recommend this board if you want to use it with that. Use Pi3 or higher.</span>                                                                                                                                                                                                |
+| **[ReSpeaker Lite](docs/hardware_respeaker_lite.md)**<br>**+Linux-Voice-Assistant**<br>**+Snapcast**         | <img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;">         | • ReSpeaker Lite Image<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant<br>• Workaround for connectivity issues in combination with the Pi Zero 2W.<br><br><span style="color: red;">There is a USB connectivity issue with the Pi Zero 2W. If you want to use it with that, you need to use Pi3 or higher.</span>                                          |
 
-### Raspberry Pi Image
+### Installation
 
-1. Download the latest image from [GitHub Releases](https://github.com/florian-asche/PiCompose/tagshttps:/).
-2. Write the image to an SD card, you can use the Imager tool to copy the image onto your drive or sd card. Use the customization section to add your wifi credentials. If you want to change your pi user password or something else you can also do that. Note that the hostname is automatically generated one time.
+You can burn the image to your sd card with the [Raspberry Pi Imager tool](https://www.raspberrypi.com/software/). You can set wifi credentials, ssh public keys and other settings before you burn the image to your sd card. In order to use the feature where you can change the settings in the `Raspberry Pi Imager >=v2.5.0` you need to set a custom image repository.
 
-### Customization (optional)
+Windows
+``` sh
+"C:\Program Files (x86)\Raspberry Pi Imager\rpi-imager.exe" --repo https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json
+```
 
-If you dont use a fully prebuild image inclusive homeassistant docker containers you can customize what piCompose will deploy in your docker instance.
+Linux
 
-1. Create directories for your Docker Compose projects in the `compose` folder on the main partition if you dont use a fully prebuild image.
-2. Place your docker-compose.yml files and associated configurations in the appropriate subdirectories (see the example directory)
+``` sh
+rpi-imager --repo https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json
+```
+
+You can also put the [URL](https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json) in Settings - Image Repository - Use own URL.
+
+If you dont want to use the Raspberry Pi Imager tool you can also [download](https://github.com/florian-asche/PiCompose/releases) the image and configure keyboard, timezone and wifi credentials with the `raspi-config` tool. 
+
+### Configuration
+
+You can customize the PiCompose configuration in the `/compose` directory on the root filesystem. You can change how it is updated, how it is handling a reboot and you can remove `snapcast` if you dont want to use it.
+
+You can also add your own docker-compose projects to the system:
+
+1. Create directories for your Docker Compose projects in the `compose` folder on the main partition.
+2. Place your `docker-compose.yml` files and associated configurations like `.env` in the appropriate subdirectories (see the `example` directory)
+3. Configure the `picompose.conf` file to include your projects.
+
+#### Configurationfile
+
+The configuration file is named `picompose.conf` and is located in specific application directories.
+
+``` ini
+# Configure if piCompose should run on boot
+# When it runs without image pull, it does a docker compose down and up.
+BOOT_ENABLED=true
+
+# Configure if piCompose should update the docker image on boot
+# BOOT_ENABLED needs to be true
+BOOT_IMAGE_PULL=true
+
+# Configure if piCompose should run periodically via cron
+# When it runs without image pull, it does a docker compose down and up.
+CRON_ENABLED=false
+
+# Cron schedule for automatic re-deployments
+# Format: Minute Hour Day Month Weekday
+# Examples:
+# "0 4 * * *"     - Every day at 4 AM
+# "0 */6 * * *"   - Every 6 hours
+# "0 0 * * 0"     - Every Sunday at midnight
+CRON_SCHEDULE="0 4 * * *"
+
+# Configure if piCompose should update the docker image on cron run
+# CRON_ENABLED needs to be true
+CRON_IMAGE_PULL=false
+```
 
 ### First start's
 
-Make sure, that you configured your wifi credentials before the first boot.
+Make sure, that you configured your wifi credentials before the first boot. You can do this with the RPI-Imager tool when burning the image to your sd card.
 
-On the first boot in will create new ssh public keys for the ssh serve. You can see that if you have a monitor connected to your system.
-The system will automatically reboot and install the audio drivers.
+On the first boot in will create new ssh server public keys for the ssh serve. You can see that if you have a monitor connected to your system.<br>
+The system will automatically reboot and install the audio drivers. After that you can login with the user `pi`. You can change the password `raspberry` if you didnt change it before with the imager tool.
 
-After that you can login with the user `pi`. You can change the password if you didnt change it before with the imager tool.
-You will notice that the hardware is not visible if you run `aplay -L`.
-
-*You need to manually reboot one more time.*
+You will notice that the hardware is not visible if you run `aplay -L`.<br>
+❗ *You need to manually reboot one more time.*
 
 After that `aplay -L` should show the `seeed2micvoicec` or `Lite` soundcard depending on your hardware.
 
 piCompose should download and install the containers.
-You can watch the /var/log/picompose.log logfile if you want to monitor the process.
+You can watch the `/var/log/picompose.log` logfile if you want to monitor the process.
 The process can take some time, since it downloads images from the internet!
+
 
 ## Development
 
-See [DEVELOPMENT.md](DEVELOPMENT.md) for information on local development and the build process.
+See [DEVELOPMENT.md](DEVELOPMENT.md) for information on the development and build process.
 
 ### Example projects, that you can run on this:
 
 - [docker-snapcast](https://github.com/florian-asche/docker-snapcast) - A Docker image for Snapcast server and client, providing multi-room audio streaming capabilities
-- [wyoming-satellite](https://github.com/florian-asche/wyoming-satellite) - A remote voice satellite implementation using the Wyoming protocol with Docker images
+- [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant) - A remote voice satellite implementation using the ESPHome protocol
+
 
 ## License
 

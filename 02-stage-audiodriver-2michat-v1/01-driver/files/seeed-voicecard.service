@@ -1,0 +1,14 @@
+[Unit]
+Description=Seeed Voicecard service
+After=user@1000.service sound.target alsa-restore.service user@1000.service:pipewire.service 
+Wants=user@1000.service sound.target alsa-restore.service user@1000.service:pipewire.service
+Requires=user@1000.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/seeed-voicecard-v2
+User=root
+ 
+[Install]
+WantedBy=multi-user.target

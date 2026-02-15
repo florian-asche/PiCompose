@@ -1,0 +1,9 @@
+git
+build-essential
+dkms
+curl
+linux-headers-rpi-v8
+dkms
+i2c-tools
+libasound2-plugins
+alsa-utils 

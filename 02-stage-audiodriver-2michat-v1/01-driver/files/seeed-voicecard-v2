@@ -1,0 +1,134 @@
+#!/bin/bash
+#
+# Copyright (c) 2018 Baozhu Zuo <zuobaozhu@gmail.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+#set -x
+#exec 1>/var/log/$(basename $0).log 2>&1
+
+export PATH=$PATH:/opt/vc/bin
+
+check_pipewire() {
+  local MAX_TRIES=30
+  local SLEEP_SEC=1
+  local COUNT=0
+
+  while [ $COUNT -lt $MAX_TRIES ]; do
+    COUNT=$((COUNT + 1))
+
+    # Check if XDG_RUNTIME_DIR is set
+    if [ -z "$XDG_RUNTIME_DIR" ]; then
+      echo "❌ XDG_RUNTIME_DIR is not set"
+      return 1
+    fi
+
+    # Check if PipeWire is running
+    if pw-cli info 0 >/dev/null 2>&1; then
+      echo "✅ PipeWire is running (checked $COUNT/$MAX_TRIES)"
+      return 0
+    fi
+
+    echo "⏳ PipeWire not running yet ($COUNT/$MAX_TRIES), retrying in $SLEEP_SEC s..."
+    sleep $SLEEP_SEC
+  done
+
+  echo "❌ PipeWire did not start after $MAX_TRIES seconds"
+  return 2
+}
+
+# Run pipewire check
+check_pipewire
+
+# load i2c module
+modprobe i2c-dev
+
+# detect boot config
+CONFIG=/boot/config.txt
+[ -f /boot/firmware/config.txt ] && CONFIG=/boot/firmware/config.txt
+[ -f /boot/firmware/usercfg.txt ] && CONFIG=/boot/firmware/usercfg.txt
+
+# detect hardware
+is_1a=$(i2cdetect -y  1 0x1a 0x1a | egrep "(1a|UU)" | awk '{print $2}')
+is_35=$(i2cdetect -y  1 0x35 0x35 | egrep "(35|UU)" | awk '{print $2}')
+is_3b=$(i2cdetect -y  1 0x3b 0x3b | egrep "(3b|UU)" | awk '{print $2}')
+
+RPI_HATS="seeed-2mic-voicecard seeed-4mic-voicecard seeed-6mic-voicecard"
+overlay=""
+
+if [ "x${is_1a}" != "x" ] && [ "x${is_35}" == "x" ] ; then
+    echo "install 2mic"
+    overlay=seeed-2mic-voicecard
+    asound_conf=/etc/voicecard/asound_2mic.conf
+    asound_state=/etc/voicecard/wm8960_asound.state
+fi
+
+if [ "x${is_3b}" != "x" ] && [ "x${is_35}" == "x" ] ; then
+    echo "install 4mic"
+    overlay=seeed-4mic-voicecard
+    asound_conf=/etc/voicecard/asound_4mic.conf
+    asound_state=/etc/voicecard/ac108_asound.state
+fi
+
+if [ "x${is_3b}" != "x" ] && [ "x${is_35}" != "x" ] ; then
+    echo "install 6mic"
+    overlay=seeed-6mic-voicecard
+    asound_conf=/etc/voicecard/asound_6mic.conf
+    asound_state=/etc/voicecard/ac108_6mic.state
+fi
+
+# config asound config and state
+if [ "$overlay" ]; then
+    echo Configure $overlay driver
+
+    # Remove any existing dtoverlay entries for seeed voice cards
+    if [ -f "$CONFIG" ]; then
+        sed -i '/^dtoverlay=seeed-2mic-voicecard/d' "$CONFIG"
+        sed -i '/^dtoverlay=seeed-4mic-voicecard/d' "$CONFIG"
+        sed -i '/^dtoverlay=seeed-6mic-voicecard/d' "$CONFIG"
+
+        grep -q "^dtoverlay=$overlay$" $CONFIG || \
+            echo "dtoverlay=$overlay" >> $CONFIG
+    fi
+
+    echo "Remove old configuration"
+    rm /etc/asound.conf
+    rm /var/lib/alsa/asound.state
+
+    echo "create $overlay asound configure file"
+    cp $asound_conf /etc/asound.conf
+    echo "create $overlay asound status file"
+    cp $asound_state /var/lib/alsa/asound.state
+fi
+
+# restore alsa
+echo "restore alsa sound settings"
+alsactl restore
+
+# Force 3.5mm ('headphone') jack
+echo "Force 3.5mm (headphone-jack)"
+#   The Raspberry Pi 4, released on 24th Jun 2019, has two HDMI ports,
+#   and can drive two displays with audios for two users simultaneously,
+#   in a "multiseat" configuration. The earlier single virtual ALSA
+#   option for re-directing audio playback between headphone jack and HDMI
+#   via a 'Routing' mixer setting was turned off eventually to allow
+#   simultaneous usage of all 3 playback devices.
+if aplay -l | grep -q "bcm2835 ALSA"; then
+    amixer cset numid=3 1 || true
+fi

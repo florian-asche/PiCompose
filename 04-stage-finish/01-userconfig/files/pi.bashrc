@@ -16,3 +16,6 @@ alias l='ls $LS_OPTIONS -lA'
 # alias rm='rm -i'
 # alias cp='cp -i'
 # alias mv='mv -i'
+
+# Set hostname variable for docker compose files
+export HOSTNAME=$(hostname)
