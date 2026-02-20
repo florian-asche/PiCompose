@@ -39,7 +39,7 @@ This repository contains fully prepared images for specific voice hardware of Ho
 
 ### Hardware
 
-There is a seperated page for additional hardware like speaker or 3D-Prints here: [docs/hardware.md](docs/hardware.md).
+There is a seperated page for the supported hardware. You can find the link to it in the list below, when you click on the Name.
 
 ### Images overview
 
