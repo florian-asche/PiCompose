@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Get current hostname
+CURRENT_HOSTNAME=$(hostname)
+
+# Only proceed if current hostname is "picompose"
+if [ "$CURRENT_HOSTNAME" != "picompose" ]; then
+    echo "Current hostname is $CURRENT_HOSTNAME (not picompose), skipping hostname change"
+    exit 0
+fi
+
 # Get active interface
 IFACE=$(ip route | grep default | awk '{print $5}' | head -n 1)
 
