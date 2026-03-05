@@ -8,6 +8,9 @@ Requires=user@1000.service
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/usr/bin/seeed-voicecard-v2
+ExecStartPost=/bin/systemctl disable --now %n
+Restart=on-failure
+RestartSec=10s
 User=root
  
 [Install]

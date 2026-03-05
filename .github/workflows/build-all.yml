@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feature/*
+      - fix/*
     tags:
       - 'v*.*.*'
 
