@@ -6,6 +6,7 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/configure_hostname.sh
+ExecStartPost=/bin/systemctl disable --now %n
 RemainAfterExit=yes
 Restart=on-failure
 RestartSec=30s
