@@ -82,7 +82,7 @@ jobs:
           compression-level: ${{ inputs.compression-level }}
           
           # Pi-gen settings
-          pi-gen-repository: RPi-Distro/pi-gen
+          pi-gen-repository: florian-asche/pi-gen
           pi-gen-version: arm64
           pi-gen-dir: pi-gen
           
