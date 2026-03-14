@@ -30,7 +30,6 @@ jobs:
       compression: xz
       compression-level: 6
       custom-hostname: picompose
-      runs-on: ubuntu-24.04
 
   build-2michat-lva:
     uses: ./.github/workflows/build-image-template.yml
@@ -40,7 +39,6 @@ jobs:
       compression: xz
       compression-level: 6
       custom-hostname: picompose
-      runs-on: ubuntu-24.04
 
   # RESPEAKER-LITE
   build-respeaker_lite:
@@ -51,7 +49,6 @@ jobs:
       compression: xz
       compression-level: 6
       custom-hostname: picompose
-      runs-on: ubuntu-24.04
 
   build-respeaker_lite-lva:
     uses: ./.github/workflows/build-image-template.yml
@@ -61,7 +58,6 @@ jobs:
       compression: xz
       compression-level: 6
       custom-hostname: picompose
-      runs-on: ubuntu-24.04
 
   # RPI IMAGER JSON
   generate-rpi-imager-json:
