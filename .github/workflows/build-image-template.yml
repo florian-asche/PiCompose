@@ -40,11 +40,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up QEMU (binfmt)
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+#      - name: Set up QEMU (binfmt)
+#        uses: docker/setup-qemu-action@v3
+#
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v3
       
       - name: Restore package cache
         uses: actions/cache@v4
@@ -88,7 +88,7 @@ jobs:
           compression-level: ${{ inputs.compression-level }}
           
           # Pi-gen settings
-          pi-gen-repository: florian-asche/pi-gen
+          pi-gen-repository: RPi-Distro/pi-gen@2e8cf2536db734cc2a3b1ad2b7b0cd935761036b
           pi-gen-version: arm64
           pi-gen-dir: pi-gen
           
