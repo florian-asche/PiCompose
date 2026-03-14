@@ -66,6 +66,10 @@ jobs:
           sudo chown -R apt-cacher-ng:apt-cacher-ng /var/cache/apt-cacher-ng
           sudo service apt-cacher-ng restart
 
+      - name: debug
+        run: |
+          uname -a
+
       - name: Build Image with pi-gen
         uses: usimd/pi-gen-action@v1
         id: build
