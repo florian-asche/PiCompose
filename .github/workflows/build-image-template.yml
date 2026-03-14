@@ -34,7 +34,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-22.04
     
     steps:
       - name: Checkout Repository
