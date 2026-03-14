@@ -93,7 +93,7 @@ jobs:
           
           # Pi-gen settings
           pi-gen-repository: florian-asche/pi-gen
-          pi-gen-version: arm64_workaround4
+          pi-gen-version: arm64_fix
           pi-gen-dir: pi-gen
           
           # Export settings
