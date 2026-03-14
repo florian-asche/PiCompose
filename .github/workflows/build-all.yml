@@ -20,7 +20,6 @@ jobs:
       compression: zip
       compression-level: 6
       custom-hostname: picompose
-      runs-on: ubuntu-24.04
 
   # 2MICHAT-v1
   build-2michat:
