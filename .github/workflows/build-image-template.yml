@@ -26,6 +26,11 @@ on:
         type: string
         default: "picompose"
         description: "Host name of the image"
+      runs-on:
+        required: false
+        type: string
+        default: "ubuntu-latest"
+        description: "Specify on which hardware to run the build"
       enable-rpi-imager-snippet:
         required: false
         type: boolean
@@ -34,7 +39,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runs-on }}
     
     steps:
       - name: Checkout Repository
