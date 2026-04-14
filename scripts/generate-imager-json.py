@@ -45,10 +45,6 @@ def main():
     for release in releases_data:
         tag_name = release['tag_name']
         
-        # Skip "main" releases
-        if tag_name == "main":
-            continue
-        
         xz_files = []
         for asset in release['assets']:
             if asset['name'].endswith('.xz') or asset['name'].endswith('.zip'):
@@ -57,7 +53,7 @@ def main():
                     'url': asset['browser_download_url']
                 })
         
-        if xz_files:
+        if xz_files and tag_name != "main":
             # Format version name
             version = tag_name[1:] if tag_name.startswith('v') else tag_name
             
@@ -93,7 +89,22 @@ def main():
 
     os_list = []
 
-    # PiCompose (Latest) - all files from the first release with .xz files
+    # Find main branch release (nightly)
+    main_release = None
+    for release in releases_data:
+        if release['tag_name'] == "main":
+            main_xz_files = []
+            for asset in release['assets']:
+                if asset['name'].endswith('.xz') or asset['name'].endswith('.zip'):
+                    main_xz_files.append({
+                        'name': asset['name'],
+                        'url': asset['browser_download_url']
+                    })
+            if main_xz_files:
+                main_release = main_xz_files
+            break
+
+    # PiCompose (Latest) - all files from the first stable release with .xz files
     if releases_with_files:
         latest = releases_with_files[0]
         os_list.append({
@@ -103,15 +114,14 @@ def main():
             "subitems": build_release_subitems(latest['files'])
         })
 
-        # PiCompose (Nightly) - files from the second release (if exists)
-        if len(releases_with_files) > 1:
-            nightly = releases_with_files[1]
-            os_list.append({
-                "name": "PiCompose (Nightly)",
-                "description": "Latest development PiCompose images",
-                "icon": "icons/cat_raspberry_pi_os.png",
-                "subitems": build_release_subitems(nightly['files'])
-            })
+    # PiCompose (Nightly) - files from main branch release if available
+    if main_release:
+        os_list.append({
+            "name": "PiCompose (Nightly / Main)",
+            "description": "Latest development build from main branch",
+            "icon": "icons/cat_raspberry_pi_os.png",
+            "subitems": build_release_subitems(main_release)
+        })
 
     # PiCompose (All Versions) - grouped by release
     os_list.append({
