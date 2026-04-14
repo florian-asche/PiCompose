@@ -85,7 +85,6 @@ jobs:
           
           # Build configuration
           release: trixie
-          devices: '["pi5-64bit", "pi4-64bit", "pi3-64bit"]'
           compression: ${{ inputs.compression }}
           compression-level: ${{ inputs.compression-level }}
           
