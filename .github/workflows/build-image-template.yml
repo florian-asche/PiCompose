@@ -34,29 +34,8 @@ on:
 
 jobs:
   build_images:
-    name: Build (${{ matrix.name }}) Image ${{ needs.tag.outputs.version }}
-    runs-on: ${{ matrix.runs-on }}
-    strategy:
-      fail-fast: false
-      matrix:
-        name: [
-        #  32bit,
-          64bit
-        ]
-        include:
-          - pi-gen-version: arm64
-            release: trixie
-            name: 64bit
-            devices: '["pi5-64bit", "pi4-64bit", "pi3-64bit"]'
-            recommended: "Recommended"
-            runs-on: ubuntu-24.04-arm
-
-        #  - pi-gen-version: master
-        #    release: trixie
-        #    name: 32bit
-        #    devices: '["pi5-32bit", "pi4-32bit", "pi3-32bit", "pi2-32bit", "pi1-32bit"]'
-        #    recommended: "Not Recommended, support will be ending Spring 2027"
-        #    runs-on: ubuntu-22.04
+    #name: Build (${{ matrix.name }}) Image ${{ needs.tag.outputs.version }}
+    runs-on: ubuntu-24.04-arm
 
 # The build
     steps:
@@ -105,13 +84,14 @@ jobs:
           stage-list: ${{ inputs.stage-list }}
           
           # Build configuration
-          release: ${{ matrix.release }}
+          release: trixie
+          devices: '["pi5-64bit", "pi4-64bit", "pi3-64bit"]'
           compression: ${{ inputs.compression }}
           compression-level: ${{ inputs.compression-level }}
           
           # Pi-gen settings
           pi-gen-repository: RPi-Distro/pi-gen
-          pi-gen-version: ${{ matrix.pi-gen-version }}
+          pi-gen-version: arm64
           pi-gen-dir: pi-gen
           
           # Export settings
