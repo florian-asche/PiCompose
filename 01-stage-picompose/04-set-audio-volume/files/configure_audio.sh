@@ -31,7 +31,7 @@ check_pipewire() {
 # Run pipewire check
 check_pipewire
 
-# Sleep 3 to give the audio service some time to be fully loaded
+# Sleep 2 seconds to give the audio service some time to be fully loaded
 sleep 2
 
 if amixer -c seeed2micvoicec info >/dev/null 2>&1; then
