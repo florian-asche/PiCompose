@@ -33,9 +33,11 @@ on:
         description: "Enable rpi-imager.json snippet generation"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    
+  build_images:
+    name: Build ${{ inputs.image-name }}
+    runs-on: ubuntu-24.04-arm
+
+# The build
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -59,6 +61,11 @@ jobs:
           sudo mv -f apt-cache/* /var/cache/apt-cacher-ng/ || true
           sudo chown -R apt-cacher-ng:apt-cacher-ng /var/cache/apt-cacher-ng
           sudo service apt-cacher-ng restart
+
+      # Only needed for 32bit build on x86_64 runner
+      - name: Set up QEMU
+        if: matrix.name == '32bit'
+        uses: docker/setup-qemu-action@v3
 
       - name: Build Image with pi-gen
         uses: usimd/pi-gen-action@v1
@@ -103,7 +110,7 @@ jobs:
           
           # Build options
           enable-noobs: false
-          increase-runner-disk-size: true
+          increase-runner-disk-size: false
           verbose-output: true
           
           # GitHub token
