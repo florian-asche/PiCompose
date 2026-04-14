@@ -153,6 +153,14 @@ scan() {
     # Search the Compose directory for subdirectories
     log "Searching for Docker Compose projects in $base_path"
     found_projects=0
+
+    # First run detection: check once before processing projects
+    FIRST_RUN_MARKER="${base_path}/.first_run_completed"
+    is_first_run=false
+    if [ ! -f "$FIRST_RUN_MARKER" ]; then
+        is_first_run=true
+        log "🔹 FIRST SYSTEM BOOT DETECTED - All projects will be deployed regardless of BOOT_ENABLED setting!"
+    fi
     
     for dir in "$base_path"/*/; do
         if [ -d "$dir" ]; then
@@ -161,7 +169,10 @@ scan() {
 
             setup_cron "$dir"
 
-            if [ "$runs_on_boot" = "true" ] && [ "$BOOT_ENABLED" != "true" ]; then
+            if $is_first_run; then
+                log "✅ First run: Deploying $dir (ignoring BOOT_ENABLED setting)"
+                deploy_compose "$dir"
+            elif [ "$runs_on_boot" = "true" ] && [ "$BOOT_ENABLED" != "true" ]; then
                 log "Run on boot is disabled, deployment of $dir skipped!"
                 continue
             else
@@ -171,6 +182,12 @@ scan() {
     done
     
     log "Total of $found_projects projects found and processed"
+
+    # Create marker file after first successful run
+    if $is_first_run; then
+        touch "$FIRST_RUN_MARKER"
+        log "First run completed - marker file created inside $base_path. Future runs will respect BOOT_ENABLED settings."
+    fi
 }
 
 # help output
