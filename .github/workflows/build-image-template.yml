@@ -34,7 +34,7 @@ on:
 
 jobs:
   build_images:
-    #name: Build (${{ matrix.name }}) Image ${{ needs.tag.outputs.version }}
+    name: Build ${{ inputs.image-name }}
     runs-on: ubuntu-24.04-arm
 
 # The build
