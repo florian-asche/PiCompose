@@ -61,7 +61,7 @@ wait_for_docker() {
     done
 
     # Additional time to ensure Docker is fully started
-    sleep 5
+    sleep 10
     log "Docker is active"
 }
 
