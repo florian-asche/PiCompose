@@ -35,7 +35,6 @@ on:
 jobs:
   build_images:
     name: Build (${{ matrix.name }}) Image ${{ needs.tag.outputs.version }}
-    needs: [tag, determine_package_versions]
     runs-on: ${{ matrix.runs-on }}
     strategy:
       fail-fast: false
