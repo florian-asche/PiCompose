@@ -31,10 +31,14 @@ check_pipewire() {
 # Run pipewire check
 check_pipewire
 
+# Sleep 2 seconds to give the audio service some time to be fully loaded
+sleep 2
+
 if amixer -c seeed2micvoicec info >/dev/null 2>&1; then
     echo "seeed2micvoicec found"
     amixer -c seeed2micvoicec set Headphone 100%
     amixer -c seeed2micvoicec set Speaker 100%
+    amixer set Master 100%
 elif amixer -c Lite info >/dev/null 2>&1; then
     echo "Lite found"
     amixer -c Lite set Headphone 100%
