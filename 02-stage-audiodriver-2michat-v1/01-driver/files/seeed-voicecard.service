@@ -7,6 +7,7 @@ Requires=user@1000.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
+Environment=XDG_RUNTIME_DIR=/run/user/1000
 ExecStart=/usr/bin/seeed-voicecard-v2
 ExecStartPost=/bin/systemctl disable --now %n
 Restart=on-failure
