@@ -4,7 +4,7 @@
 mkdir -p "${ROOTFS_DIR}/etc/pipewire"
 
 # Copy pipewire config
-install -v -m 644 files/linux-voice-assistant.conf "${ROOTFS_DIR}/etc/pipewire/pipewire.conf.d/linux-voice-assistant.conf"
+install -v -m 644 files/linux-voice-assistant.conf "${ROOTFS_DIR}/etc/pipewire.conf.d/linux-voice-assistant.conf"
 
 on_chroot << EOF
 # Activate PipeWire-ALSA Bridge
