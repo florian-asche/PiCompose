@@ -71,10 +71,14 @@ def main():
         name = re.sub(r'^image_\d{4}-\d{2}-\d{2}-?', '', name)
         # Replace underscores and hyphens with spaces
         name = name.replace('_', ' ').replace('-', ' ')
-        return name.strip()
+        clean_name = name.strip()
+        # Add original filename in brackets for clarity
+        return f"{clean_name} ({filename})"
 
     def build_release_subitems(files):
         """Build subitems list from files"""
+        # Umgekehrte Sortierung: neueste / letzte Datei zuerst anzeigen
+        reversed_files = reversed(files)
         return [
             {
                 "name": format_image_name(f['name']),
@@ -84,7 +88,7 @@ def main():
                 "devices": ["pi5-64bit", "pi4-64bit", "pi3-64bit", "pi3-32bit"],
                 "capabilities": ["ssh", "wifi", "hostname", "locale"]
             }
-            for f in files
+            for f in reversed_files
         ]
 
     os_list = []
