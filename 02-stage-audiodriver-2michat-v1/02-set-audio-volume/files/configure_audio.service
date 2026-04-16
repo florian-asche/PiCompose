@@ -1,6 +1,7 @@
 [Unit]
 Description=PiCompose - Configure Audio volume setting
-After=user@1000.service sound.target alsa-restore.service user@1000.service:pipewire.service 
+After=user@1000.service sound.target alsa-restore.service user@1000.service:pipewire.service seeed-voicecard.service
+Wants=user@1000.service sound.target alsa-restore.service user@1000.service:pipewire.service seeed-voicecard.service
 
 [Service]
 Type=oneshot
