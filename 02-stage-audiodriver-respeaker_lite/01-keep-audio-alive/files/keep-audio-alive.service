@@ -1,6 +1,6 @@
 [Unit]
 Description=Keep soundcard alive (play silence)
-After=user@1000.service sound.target alsa-restore.service user@1000.service:pipewire.service 
+After=user@1000.service sound.target alsa-restore.service
 
 [Service]
 Type=simple
