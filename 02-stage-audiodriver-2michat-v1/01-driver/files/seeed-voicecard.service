@@ -10,6 +10,7 @@ RemainAfterExit=yes
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 ExecStart=/usr/bin/seeed-voicecard-v2
 ExecStartPost=/bin/systemctl disable %n
+ExecStartPost=/bin/systemctl --no-block reboot
 Restart=on-failure
 RestartSec=10s
 User=root
