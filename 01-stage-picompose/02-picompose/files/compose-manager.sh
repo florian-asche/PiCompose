@@ -70,21 +70,22 @@ setup_cron() {
     local folder="$1"
     local config_file="$folder/picompose.conf"
     
-    if [ -f "$config_file" ]; then
-        # Read configuration from file
-        source "$config_file"
-        
-        # If CRON_ENABLED is enabled and CRON_SCHEDULE is defined
-        if [ "$CRON_ENABLED" = "true" ] && [ -n "$CRON_SCHEDULE" ]; then
-            local cron_job="$CRON_SCHEDULE /usr/local/bin/compose-manager.sh redeploy $folder > /dev/null 2>&1"
-            
-            # Create a cron job
-            log "Creating cron job for $folder: $CRON_SCHEDULE"
-            (crontab -l 2>/dev/null | grep -v "$folder" || true; echo "$cron_job") | crontab -
-        fi
-    else
+    # Check for config file and fail if missing
+    if [ ! -f "$config_file" ]; then
         log "Configuration for $folder missing"
         return 1
+    fi
+
+    # Read configuration from file
+    source "$config_file"
+    
+    # If CRON_ENABLED is enabled and CRON_SCHEDULE is defined
+    if [ "$CRON_ENABLED" = "true" ] && [ -n "$CRON_SCHEDULE" ]; then
+        local cron_job="$CRON_SCHEDULE /usr/local/bin/compose-manager.sh redeploy $folder > /dev/null 2>&1"
+        
+        # Create a cron job
+        log "Creating cron job for $folder: $CRON_SCHEDULE"
+        (crontab -l 2>/dev/null | grep -v "$folder" || true; echo "$cron_job") | crontab -
     fi
 }
 
@@ -97,53 +98,68 @@ cleanup_cron() {
 # Function to deploy a Docker Compose project
 deploy_compose() {
     local folder="$1"
+    local is_first_run="$2"
     local config_file="$folder/picompose.conf"
     
     log "Deploying Docker Compose project $folder"
     
-    if [ -f "$config_file" ]; then
-        # Read configuration from file
-        source "$config_file"
-
-        # Change to the project directory
-        cd "$folder"
-        
-        # Check if a docker-compose.yml exists
-        if [ ! -f "docker-compose.yaml" ] && [ ! -f "docker-compose.yml" ] && [ ! -f "compose.yaml" ] && [ ! -f "compose.yml" ]; then
-            log "No compose yaml file found in $folder. Skipping."
-            return 1
-        fi
-        
-        # Download latest image
-        if [ "$CRON_IMAGE_PULL" = "true" ] || [ "$BOOT_IMAGE_PULL" = "true" ]; then
-            # Stop and remove existing containers if present
-            log "Stopping existing containers if present"
-            docker compose down --remove-orphans || true
-
-            log "Downloading new docker images"
-            docker compose pull
-        fi
-
-        # set some environment variables
-        export HOSTNAME=$(hostname)
-
-        # Start Docker Compose
-        log "Starting Docker Compose"
-        if docker compose up -d; then
-            log "Deployment of $folder successful"
-            return 0
-        else
-            log "Error deploying $folder"
-            return 1
-        fi
-    else
+    # Check for config file and fail if missing
+    if [ ! -f "$config_file" ]; then
         log "Configuration for $folder missing"
+        return 1
+    fi
+
+    # Read configuration from file
+    source "$config_file"
+
+    # Change to the project directory
+    cd "$folder"
+
+    # Check if a docker-compose.yml exists
+    if [ ! -f "docker-compose.yaml" ] && [ ! -f "docker-compose.yml" ] && [ ! -f "compose.yaml" ] && [ ! -f "compose.yml" ]; then
+        log "No compose yaml file found in $folder. Skipping."
+        return 1
+    fi
+
+    # Check if project is completely disabled
+    if [ "$DISABLED" = "true" ]; then
+        log "⚠️ Project $dir is disabled in configuration - down project and skipping completely"
+        docker compose down --remove-orphans || true
+        continue
+    fi
+    
+    # Check if this script runs on boot and if it should be skipped
+    if [ "$runs_on_boot" = "true" ] && [ "$BOOT_ENABLED" = "false" ] && ["$is_first_run" = "false"]; then
+        log "No run on boot, deployment of $dir skipped!"
+        continue
+    fi
+    
+    # Download latest image
+    if [ "$CRON_IMAGE_PULL" = "true" ] || [ "$BOOT_IMAGE_PULL" = "true" ]; then
+        # Stop and remove existing containers if present
+        log "Stopping existing containers if present"
+        docker compose down --remove-orphans || true
+
+        log "Downloading new docker images"
+        docker compose pull
+    fi
+
+    # set some environment variables
+    export HOSTNAME=$(hostname)
+
+    # Start Docker Compose
+    log "Starting Docker Compose"
+    if docker compose up -d; then
+        log "Deployment of $folder successful"
+        return 0
+    else
+        log "Error deploying $folder"
         return 1
     fi
 }
 
 # Function to search for docker-compose projects
-scan() {    
+scan() {
     # Check if /boot/firmware exists, if not, try /boot
     if [ ! -d "$base_path" ]; then
         log "No $base_path found!"
@@ -166,18 +182,8 @@ scan() {
         if [ -d "$dir" ]; then
             log "Found project: $dir"
             ((found_projects++))
-
             setup_cron "$dir"
-
-            if $is_first_run; then
-                log "✅ First run: Deploying $dir (ignoring BOOT_ENABLED setting)"
-                deploy_compose "$dir"
-            elif [ "$runs_on_boot" = "true" ] && [ "$BOOT_ENABLED" != "true" ]; then
-                log "Run on boot is disabled, deployment of $dir skipped!"
-                continue
-            else
-                deploy_compose "$dir"
-            fi
+            deploy_compose "$dir" "$is_first_run"
         fi
     done
     
@@ -223,7 +229,7 @@ main() {
             wait_for_docker
 
             # Redeploy a specific project
-            deploy_compose "$base_path/$2"
+            deploy_compose "$base_path/$2" false
             ;;
         boot)
         # Runs only on boot
