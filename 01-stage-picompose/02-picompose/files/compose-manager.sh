@@ -123,15 +123,15 @@ deploy_compose() {
 
     # Check if project is completely disabled
     if [ "$DISABLED" = "true" ]; then
-        log "⚠️ Project $dir is disabled in configuration - down project and skipping completely"
+        log "⚠️ Project $folder is disabled in configuration - down project and skipping completely"
         docker compose down --remove-orphans || true
-        continue
+        return 0
     fi
     
     # Check if this script runs on boot and if it should be skipped
-    if [ "$runs_on_boot" = "true" ] && [ "$BOOT_ENABLED" = "false" ] && ["$is_first_run" = "false"]; then
-        log "No run on boot, deployment of $dir skipped!"
-        continue
+    if [ "$runs_on_boot" = "true" ] && [ "$BOOT_ENABLED" = "false" ] && [ "$is_first_run" = "false" ]; then
+        log "No run on boot, deployment of $folder skipped!"
+        return 0
     fi
     
     # Download latest image
