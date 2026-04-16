@@ -1,7 +1,7 @@
 [Unit]
 Description=Seeed Voicecard service
-After=user@1000.service sound.target alsa-restore.service user@1000.service:pipewire.service 
-Wants=user@1000.service sound.target alsa-restore.service user@1000.service:pipewire.service
+After=user@1000.service sound.target alsa-restore.service
+Wants=user@1000.service sound.target alsa-restore.service
 Requires=user@1000.service
 
 [Service]
@@ -9,7 +9,7 @@ Type=oneshot
 RemainAfterExit=yes
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 ExecStart=/usr/bin/seeed-voicecard-v2
-ExecStartPost=/bin/systemctl disable --now %n
+ExecStartPost=/bin/systemctl disable %n
 Restart=on-failure
 RestartSec=10s
 User=root
