@@ -132,9 +132,3 @@ echo "Force 3.5mm (headphone-jack)"
 if aplay -l | grep -q "bcm2835 ALSA"; then
     amixer cset numid=3 1 || true
 fi
-
-# Wait 10 seconds
-sleep 10
-
-# Reboot system
-reboot
