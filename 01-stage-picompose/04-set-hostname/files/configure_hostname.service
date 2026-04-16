@@ -2,14 +2,15 @@
 Description=PiCompose - Configure custom hostname
 After=network-online.target
 Wants=network-online.target
+ConditionPathExists=!/var/lib/picompose/hostname-configured
 
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/configure_hostname.sh
-ExecStartPost=/bin/systemctl disable %n
-RemainAfterExit=yes
+ExecStartPost=/usr/bin/mkdir -p /var/lib/picompose
+ExecStartPost=/usr/bin/touch /var/lib/picompose/hostname-configured
 Restart=on-failure
 RestartSec=30s
 
 [Install]
-WantedBy=multi-user.target 
+WantedBy=multi-user.target
