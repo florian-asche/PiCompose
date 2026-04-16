@@ -89,17 +89,20 @@ You can also add your own docker-compose projects to the system:
 The configuration file is named `picompose.conf` and is located in specific application directories.
 
 ``` ini
+# Disable this deployment
+DISABLED=false
+
 # Configure if piCompose should run on boot
 # When it runs without image pull, it does a docker compose down and up.
-BOOT_ENABLED=true
+BOOT_ENABLED=false
 
 # Configure if piCompose should update the docker image on boot
 # BOOT_ENABLED needs to be true
-BOOT_IMAGE_PULL=true
+BOOT_IMAGE_PULL=false
 
 # Configure if piCompose should run periodically via cron
 # When it runs without image pull, it does a docker compose down and up.
-CRON_ENABLED=false
+CRON_ENABLED=true
 
 # Cron schedule for automatic re-deployments
 # Format: Minute Hour Day Month Weekday
@@ -111,7 +114,7 @@ CRON_SCHEDULE="0 4 * * *"
 
 # Configure if piCompose should update the docker image on cron run
 # CRON_ENABLED needs to be true
-CRON_IMAGE_PULL=false
+CRON_IMAGE_PULL=true
 ```
 
 ### First start's
@@ -129,6 +132,8 @@ After that `aplay -L` should show the `seeed2micvoicec` or `Lite` soundcard depe
 piCompose should download and install the containers.
 You can watch the `/var/log/picompose.log` logfile if you want to monitor the process.
 The process can take some time, since it downloads images from the internet!
+
+Snapcast is disabled by default. You can change that in the `picompose.conf` and reboot.
 
 
 ## Development
