@@ -7,7 +7,8 @@ mkdir -p "${ROOTFS_DIR}/etc/wireplumber/wireplumber.conf.d"
 
 # Copy configs
 install -v -m 644 files/linux-voice-assistant.conf "${ROOTFS_DIR}/etc/pipewire.conf.d/linux-voice-assistant.conf"
-install -v -m 644 files/linux-voice-assistant.conf "${ROOTFS_DIR}/etc/pipewire.conf.d/linux-voice-assistant.conf"
+install -v -m 644 files/50-volume.conf "${ROOTFS_DIR}/etc/wireplumber/wireplumber.conf.d/50-volume.conf"
+install -v -m 644 files/51-disable-acp.conf "${ROOTFS_DIR}/etc/wireplumber/wireplumber.conf.d/51-disable-acp.conf"
 
 on_chroot << EOF
 # Activate PipeWire-ALSA Bridge
