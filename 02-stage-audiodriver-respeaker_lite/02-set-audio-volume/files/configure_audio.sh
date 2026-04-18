@@ -1,51 +1,66 @@
 #!/bin/bash
+set -u
 
-check_pipewire() {
-  local MAX_TRIES=30
-  local SLEEP_SEC=1
-  local COUNT=0
+wait_for_card_and_control() {
+  local card="$1"
+  local control="$2"
+  local max_tries=30
+  local sleep_sec=1
+  local count=0
 
-  while [ $COUNT -lt $MAX_TRIES ]; do
-    COUNT=$((COUNT + 1))
+  while [ "$count" -lt "$max_tries" ]; do
+    count=$((count + 1))
 
-    # Check if XDG_RUNTIME_DIR is set
-    if [ -z "$XDG_RUNTIME_DIR" ]; then
-      echo "❌ XDG_RUNTIME_DIR is not set"
-      return 1
+    if amixer -c "$card" info >/dev/null 2>&1; then
+      if amixer -c "$card" scontrols | grep -Fq "'$control'"; then
+        echo "Card $card with control '$control' is ready ($count/$max_tries)"
+        return 0
+      fi
+      echo "Card $card found, but control '$control' not ready yet ($count/$max_tries)"
+    else
+      echo "Card $card not ready yet ($count/$max_tries)"
     fi
 
-    # Check if PipeWire is running
-    if pw-cli info 0 >/dev/null 2>&1; then
-      echo "✅ PipeWire is running (checked $COUNT/$MAX_TRIES)"
-      return 0
-    fi
-
-    echo "⏳ PipeWire not running yet ($COUNT/$MAX_TRIES), retrying in $SLEEP_SEC s..."
-    sleep $SLEEP_SEC
+    sleep "$sleep_sec"
   done
 
-  echo "❌ PipeWire did not start after $MAX_TRIES seconds"
-  return 2
+  echo "Card $card with control '$control' did not become ready"
+  return 1
 }
 
-# Run pipewire check
-check_pipewire
+set_control_if_exists() {
+  local card="$1"
+  local control="$2"
+  local value="$3"
 
-# Sleep 2 seconds to give the audio service some time to be fully loaded
-sleep 2
+  if amixer -c "$card" scontrols | grep -Fq "'$control'"; then
+    echo "Setting $control on $card to $value"
+    amixer -c "$card" set "$control" "$value"
+    return 0
+  fi
 
-if amixer -c seeed2micvoicec info >/dev/null 2>&1; then
-    echo "seeed2micvoicec found"
-    amixer -c seeed2micvoicec set Headphone 100%
-    amixer -c seeed2micvoicec set Speaker 100%
-    amixer set Master 100%
-elif amixer -c Lite info >/dev/null 2>&1; then
-    echo "Lite found"
-    amixer -c Lite set Headphone 100%
-    amixer -c Lite set Speaker 100%
-    amixer set Master 100%
+  echo "Control '$control' not found on $card, skipping"
+  return 0
+}
+
+if wait_for_card_and_control seeed2micvoicec Headphone; then
+  CARD="seeed2micvoicec"
+  echo "seeed2micvoicec found"
+elif wait_for_card_and_control Lite Headphone; then
+  CARD="Lite"
+  echo "Lite found"
 else
-    exit 1
+  echo "No supported sound card became ready"
+  exit 1
 fi
 
+set_control_if_exists "$CARD" Headphone 100%
+set_control_if_exists "$CARD" Speaker 100%
+set_control_if_exists "$CARD" Master 100%
+set_control_if_exists "$CARD" PCM 100%
+
+# Set pipewire sink to 100%
+wpctl set-volume @DEFAULT_AUDIO_SINK@ 1.0
+
+# Alsa save
 alsactl store
