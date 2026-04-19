@@ -1,10 +1,11 @@
 #!/bin/bash
 set -u
 
-# TLV320AIC3104 on V2.0 ships quiet: HP DAC at -23.5 dB, HP/Line amps at
-# ~89% and muted on some units. PCM is driven by wpctl as hardware-volume
-# passthrough, so only the downstream stages need tuning. Runs every boot
-# because WirePlumber can reset ALSA state between sessions.
+# TLV320AIC3104 on V2.0 ships quiet on both ends: HP DAC at -23.5 dB,
+# HP/Line amps at ~89% and muted on some units, and the capture PGA at 27%
+# (16 dB) — too low for microWakeWord detection. PCM is driven by wpctl as
+# hardware-volume passthrough, so only the downstream stages need tuning.
+# Runs every boot because WirePlumber can reset ALSA state between sessions.
 
 wait_for_card_and_control() {
   local card="$1"
@@ -65,6 +66,7 @@ set_control_if_exists "$CARD" "HP DAC"   100%      || FAIL=1
 set_control_if_exists "$CARD" "Line DAC" 100%      || FAIL=1
 set_control_if_exists "$CARD" "HP"   100% unmute   || FAIL=1
 set_control_if_exists "$CARD" "Line" 100% unmute   || FAIL=1
+set_control_if_exists "$CARD" "PGA"  80%  cap      || FAIL=1
 
 if [ "$FAIL" -ne 0 ]; then
   echo "One or more amixer set calls failed; not storing state." >&2
