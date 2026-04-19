@@ -6,6 +6,10 @@ set -u
 # tuning these three separate gain stages, end users report "silent card"
 # even with HA / LVA output at maximum.
 #
+# Runs on every boot via configure_audio.service — PipeWire / WirePlumber
+# manages ALSA mixer state per session and can reset controls to 0% between
+# reboots, so a first-boot-only guard would let users end up stuck silent.
+#
 # Values below are the safe defaults calibrated against JST-connected
 # speakers (peaks clip at 100% PCM). Tune further in-field with `amixer`
 # and persist via `alsactl store`.
@@ -36,6 +40,10 @@ wait_for_card_and_control() {
   return 1
 }
 
+# Returns 0 on success OR when the control is absent (expected on hardware
+# variants without that stage). Returns 1 only when `amixer set` actually
+# failed for a control that exists — so a broken tuning surfaces as a
+# non-zero exit from the script and triggers the systemd retry.
 set_control_if_exists() {
   local card="$1"
   local control="$2"
@@ -43,8 +51,11 @@ set_control_if_exists() {
 
   if amixer -c "$card" scontrols | grep -Fq "'$control'"; then
     echo "Setting $control on $card to $*"
-    amixer -c "$card" set "$control" "$@"
-    return 0
+    if amixer -c "$card" set "$control" "$@"; then
+      return 0
+    fi
+    echo "amixer set failed for '$control' on $card" >&2
+    return 1
   fi
 
   echo "Control '$control' not found on $card, skipping"
@@ -60,16 +71,23 @@ if ! wait_for_card_and_control seeed2micvoicec PCM; then
 fi
 CARD="seeed2micvoicec"
 
+FAIL=0
+
 # Digital pre-DAC attenuator. 100% clips on typical speakers; 85% keeps
 # headroom while still being clearly audible.
-set_control_if_exists "$CARD" "PCM" 85%
+set_control_if_exists "$CARD" "PCM" 85%            || FAIL=1
 
 # DAC output gains (ship at -23.5 dB by default — main source of quietness).
-set_control_if_exists "$CARD" "HP DAC"   100%
-set_control_if_exists "$CARD" "Line DAC" 100%
+set_control_if_exists "$CARD" "HP DAC"   100%      || FAIL=1
+set_control_if_exists "$CARD" "Line DAC" 100%      || FAIL=1
 
 # Analog output amps (ship slightly below max and muted on some units).
-set_control_if_exists "$CARD" "HP"   100% unmute
-set_control_if_exists "$CARD" "Line" 100% unmute
+set_control_if_exists "$CARD" "HP"   100% unmute   || FAIL=1
+set_control_if_exists "$CARD" "Line" 100% unmute   || FAIL=1
+
+if [ "$FAIL" -ne 0 ]; then
+  echo "One or more amixer set calls failed; not storing state." >&2
+  exit 1
+fi
 
 alsactl store

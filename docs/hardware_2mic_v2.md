@@ -33,7 +33,7 @@ Unlike v1 — which needs an out-of-tree DKMS kernel module — v2 uses the main
 2. `dtparam=i2c_arm=on` in `/boot/firmware/config.txt`.
 3. Mixer tuning on first boot — the TLV320 ships with three separate attenuators all well below 100 % (`HP DAC` at -23.5 dB in particular), producing a card that appears to work but is inaudible at typical application volumes.
 
-The PiCompose `02-stage-audiodriver-2michat-v2` stage performs all three steps automatically. The mixer tuning runs once on first boot (guarded by `/var/lib/configure_audio/success`) so that subsequent manual `amixer` adjustments via `alsactl store` are preserved across reboots.
+The PiCompose `02-stage-audiodriver-2michat-v2` stage performs all three steps automatically. The mixer tuning is applied by `configure_audio.service` on every boot: PipeWire / WirePlumber manage ALSA state per session and can reset the mixer between reboots, so a first-boot-only guard would let users end up stuck at 0%. Customization via `amixer` is still possible at runtime — it just won't survive a reboot.
 
 ## Additional information
 
