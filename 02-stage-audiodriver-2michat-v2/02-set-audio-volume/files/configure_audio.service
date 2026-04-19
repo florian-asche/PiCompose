@@ -2,10 +2,13 @@
 Description=PiCompose - Configure Audio volume setting (ReSpeaker 2-Mic HAT V2.0)
 After=sound.target alsa-restore.service
 Wants=sound.target alsa-restore.service
+ConditionPathExists=!/var/lib/configure_audio/success
 
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/configure_audio.sh
+ExecStartPost=/usr/bin/mkdir -p /var/lib/configure_audio
+ExecStartPost=/usr/bin/touch /var/lib/configure_audio/success
 RemainAfterExit=yes
 Restart=on-failure
 RestartSec=30s

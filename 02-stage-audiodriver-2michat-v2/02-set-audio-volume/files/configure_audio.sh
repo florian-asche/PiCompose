@@ -72,9 +72,4 @@ set_control_if_exists "$CARD" "Line DAC" 100%
 set_control_if_exists "$CARD" "HP"   100% unmute
 set_control_if_exists "$CARD" "Line" 100% unmute
 
-# Default-route PipeWire sink to max; application-level volume still applies.
-if command -v wpctl >/dev/null 2>&1; then
-  wpctl set-volume @DEFAULT_AUDIO_SINK@ 1.0 || true
-fi
-
 alsactl store
