@@ -43,22 +43,6 @@ set_control_if_exists() {
   return 0
 }
 
-if wait_for_card_and_control seeed2micvoicec Headphone; then
-  CARD="seeed2micvoicec"
-  echo "seeed2micvoicec found"
-elif wait_for_card_and_control Lite Headphone; then
-  CARD="Lite"
-  echo "Lite found"
-else
-  echo "No supported sound card became ready"
-  exit 1
-fi
-
-set_control_if_exists "$CARD" Headphone 100%
-set_control_if_exists "$CARD" Speaker 100%
-set_control_if_exists "$CARD" Master 100%
-set_control_if_exists "$CARD" PCM 100%
-
 # Set pipewire sink to 100%
 wpctl set-volume @DEFAULT_AUDIO_SINK@ 1.0
 
