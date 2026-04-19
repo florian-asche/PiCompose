@@ -1,0 +1,6 @@
+git
+build-essential
+device-tree-compiler
+i2c-tools
+libasound2-plugins
+alsa-utils
