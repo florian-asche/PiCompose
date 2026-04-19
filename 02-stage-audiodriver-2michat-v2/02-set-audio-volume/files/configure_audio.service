@@ -1,10 +1,11 @@
 [Unit]
 Description=PiCompose - Configure Audio volume setting (ReSpeaker 2-Mic HAT V2.0)
-After=sound.target alsa-restore.service
-Wants=sound.target alsa-restore.service
+After=user@1000.service sound.target alsa-restore.service
+Wants=user@1000.service sound.target alsa-restore.service
 
 [Service]
 Type=oneshot
+Environment=XDG_RUNTIME_DIR=/run/user/1000
 ExecStart=/usr/bin/configure_audio.sh
 RemainAfterExit=yes
 Restart=on-failure
