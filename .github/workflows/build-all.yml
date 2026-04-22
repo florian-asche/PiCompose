@@ -41,6 +41,25 @@ jobs:
       compression-level: 6
       custom-hostname: picompose
 
+  # 2MICHAT-v2
+  build-2michat-v2:
+    uses: ./.github/workflows/build-image-template.yml
+    with:
+      image-name: PiCompose-2MicHat-v2
+      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-2michat-v2 ./04-stage-finish
+      compression: xz
+      compression-level: 6
+      custom-hostname: picompose
+
+  build-2michat-v2-lva:
+    uses: ./.github/workflows/build-image-template.yml
+    with:
+      image-name: PiCompose_2MicHat-v2_Linux-Voice-Assistant
+      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-2michat-v2 ./03-stage-linux-voice-assistant ./04-stage-finish
+      compression: xz
+      compression-level: 6
+      custom-hostname: picompose
+
   # RESPEAKER-LITE
   build-respeaker_lite:
     uses: ./.github/workflows/build-image-template.yml
@@ -62,5 +81,5 @@ jobs:
 
   # RPI IMAGER JSON
   generate-rpi-imager-json:
-    needs: [build, build-2michat, build-respeaker_lite, build-2michat-lva, build-respeaker_lite-lva]
+    needs: [build, build-2michat, build-2michat-v2, build-respeaker_lite, build-2michat-lva, build-2michat-v2-lva, build-respeaker_lite-lva]
     uses: ./.github/workflows/create-rpi-image-json.yml
