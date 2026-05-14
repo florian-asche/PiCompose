@@ -32,6 +32,7 @@ jobs:
       custom-hostname: picompose
   # 2MICHAT-v1
   build-2michat:
+    if: false # disabled
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose-2MicHat-v1
@@ -39,9 +40,9 @@ jobs:
       compression: xz
       compression-level: 6
       custom-hostname: picompose
-      releaseversion: bookworm
 
   build-2michat-lva:
+    if: false # disabled
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose_2MicHat-v1_Linux-Voice-Assistant
@@ -49,7 +50,6 @@ jobs:
       compression: xz
       compression-level: 6
       custom-hostname: picompose
-      releaseversion: bookworm
 
   # RESPEAKER-LITE
   build-respeaker_lite:
