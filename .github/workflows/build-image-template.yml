@@ -32,10 +32,10 @@ on:
         default: false
         description: "Enable rpi-imager.json snippet generation"
       releaseversion:
-        required: true
+        required: false
         type: string
         default: "trixie"
-        description: "Final image name"
+        description: "OS Release"
 
 jobs:
   build_images:
