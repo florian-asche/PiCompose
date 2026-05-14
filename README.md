@@ -4,7 +4,6 @@
 
 Ready to use Raspberry Pi Images with Docker for projects like [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant) or [docker-snapcast](https://github.com/florian-asche/docker-snapcast).
 
-
 ## Overview
 
 PiCompose uses the official [pi-gen](https://github.com/RPi-Distro/pi-gen) tool from Raspberry Pi to create a customized Raspberry Pi OS image.
@@ -24,7 +23,6 @@ The image is configured to:
 
 This repository contains fully prepared images for specific voice hardware of Homeassistant with all needed drivers.
 
-
 ## Features
 
 - Automated build of a customized Raspberry Pi OS image using GitHub Actions
@@ -33,7 +31,6 @@ This repository contains fully prepared images for specific voice hardware of Ho
 - No manual configuration of the Raspberry Pi required
 - Image prepared for audio usage with the pipewire server
 - Prebuild images with drivers for various devices
-
 
 ## Usage
 
@@ -57,19 +54,20 @@ Here is a Overview for the specific images of each hardware:
 You can burn the image to your sd card with the [Raspberry Pi Imager tool](https://www.raspberrypi.com/software/). You can set wifi credentials, ssh public keys and other settings before you burn the image to your sd card. In order to use the feature where you can change the settings in the `Raspberry Pi Imager >=v2.5.0` you need to set a custom image repository.
 
 Windows
-``` sh
+
+```sh
 "C:\Program Files (x86)\Raspberry Pi Imager\rpi-imager.exe" --repo https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json
 ```
 
 Linux
 
-``` sh
+```sh
 rpi-imager --repo https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json
 ```
 
 You can also put the [URL](https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json) in Settings - Image Repository - Use own URL.
 
-If you dont want to use the Raspberry Pi Imager tool you can also [download](https://github.com/florian-asche/PiCompose/releases) the image and configure keyboard, timezone and wifi credentials with the `raspi-config` tool. 
+If you dont want to use the Raspberry Pi Imager tool you can also [download](https://github.com/florian-asche/PiCompose/releases) the image and configure keyboard, timezone and wifi credentials with the `raspi-config` tool.
 
 ### Configuration
 
@@ -85,7 +83,7 @@ You can also add your own docker-compose projects to the system:
 
 The configuration file is named `picompose.conf` and is located in specific application directories.
 
-``` ini
+```ini
 # Disable this deployment
 DISABLED=false
 
@@ -132,7 +130,6 @@ The process can take some time, since it downloads images from the internet!
 
 Snapcast is disabled by default. You can change that in the `picompose.conf` and reboot.
 
-
 ## Development
 
 See [DEVELOPMENT.md](DEVELOPMENT.md) for information on the development and build process.
@@ -142,8 +139,6 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for information on the development and buil
 - [docker-snapcast](https://github.com/florian-asche/docker-snapcast) - A Docker image for Snapcast server and client, providing multi-room audio streaming capabilities
 - [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant) - A remote voice satellite implementation using the ESPHome protocol
 
-
 ## License
 
 This project is released under the [BSD-3-Clause License](LICENSE).
-

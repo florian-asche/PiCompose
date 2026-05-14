@@ -3,7 +3,6 @@
 <img src="respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 300px; height: auto;"></img>
 
 Features:
-- Support the Raspberry Pi 3B,4B
 - Two microphones (Mic L and Mic R)
 - Two Grove connectors
 - One User-defined button
@@ -15,15 +14,14 @@ Features:
 
 ### Base:
 
-- [Raspberry Pi Zero 2 W](https://amzn.to/3M0G4hC)
+- Raspberry Pi Zero 2 WH (currently no link) or if you can solder the pins yourself [Raspberry Pi Zero 2 W](https://amzn.to/3M0G4hC)
 - [SD-Card](https://amzn.to/4qfx06l)
 - [US MicroUSB Power Supply](https://amzn.to/4c52mt3)
-- [Cable for Speaker](https://amzn.to/3ZvU0Dz)
 
 ### ReSpeaker 2-Mics Pi HAT v1
 
 - [ReSpeaker 2Mic HAT](https://wiki.keyestudio.com/Ks0314_keyestudio_ReSpeaker_2-Mic_Pi_HAT_V1.0)
-
+- [Cable for Speaker](https://amzn.to/3ZvU0Dz)
 
 ## Additional information:
 
