@@ -9,7 +9,6 @@ Features:
 - Interference Cancellation (IC)
 - Voice-to-Noise Ratio (VNR)
 
-
 ## Order
 
 ### Base:
@@ -26,10 +25,6 @@ Features:
 
 
 ## Important information:
-
-### Workaround:
-
-In connection with the Raspberry Pi Zero 2W there is a bug in RPI-OS where the board stops working after 7 or 8 sound outputs with a reconnect to the audio card. I implemented a workaround for that where a constant not hearable output is played to the card.
 
 ### Firmware:
 

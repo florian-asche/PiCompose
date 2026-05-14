@@ -3,7 +3,6 @@
 <img src="respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 300px; height: auto;"></img>
 
 Features:
-- Support the Raspberry Pi Zero 2WH
 - Two microphones (Mic L and Mic R)
 - Two Grove connectors
 - One User-defined button
