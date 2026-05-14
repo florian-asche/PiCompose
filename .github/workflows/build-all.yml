@@ -39,6 +39,7 @@ jobs:
       compression: xz
       compression-level: 6
       custom-hostname: picompose
+      releaseversion: bookworm
 
   build-2michat-lva:
     uses: ./.github/workflows/build-image-template.yml
@@ -48,6 +49,7 @@ jobs:
       compression: xz
       compression-level: 6
       custom-hostname: picompose
+      releaseversion: bookworm
 
   # RESPEAKER-LITE
   build-respeaker_lite:

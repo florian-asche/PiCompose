@@ -31,6 +31,11 @@ on:
         type: boolean
         default: false
         description: "Enable rpi-imager.json snippet generation"
+      releaseversion:
+        required: true
+        type: string
+        default: "trixie"
+        description: "Final image name"
 
 jobs:
   build_images:
@@ -84,7 +89,7 @@ jobs:
           stage-list: ${{ inputs.stage-list }}
           
           # Build configuration
-          release: trixie
+          release: ${{ inputs.releaseversion }}
           compression: ${{ inputs.compression }}
           compression-level: ${{ inputs.compression-level }}
           
