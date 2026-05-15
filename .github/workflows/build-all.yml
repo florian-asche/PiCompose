@@ -22,20 +22,30 @@ jobs:
       compression-level: 6
       custom-hostname: picompose
 
-  # 2MICHAT-v1
-  build-2michat:
+  build-lva:
     uses: ./.github/workflows/build-image-template.yml
     with:
-      image-name: PiCompose-2MicHat
+      image-name: PiCompose_Linux-Voice-Assistant
+      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-other ./03-stage-linux-voice-assistant ./04-stage-finish
+      compression: zip
+      compression-level: 6
+      custom-hostname: picompose
+  # 2MICHAT-v1
+  build-2michat:
+    if: false # disabled
+    uses: ./.github/workflows/build-image-template.yml
+    with:
+      image-name: PiCompose-2MicHat-v1
       stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-2michat-v1 ./04-stage-finish
       compression: xz
       compression-level: 6
       custom-hostname: picompose
 
   build-2michat-lva:
+    if: false # disabled
     uses: ./.github/workflows/build-image-template.yml
     with:
-      image-name: PiCompose_2MicHat_Linux-Voice-Assistant
+      image-name: PiCompose_2MicHat-v1_Linux-Voice-Assistant
       stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-2michat-v1 ./03-stage-linux-voice-assistant ./04-stage-finish
       compression: xz
       compression-level: 6
@@ -54,7 +64,7 @@ jobs:
   build-respeaker_lite-lva:
     uses: ./.github/workflows/build-image-template.yml
     with:
-      image-name: PiCompose_Respeaker-lite_Linux-Voice-Assistant
+      image-name: PiCompose_Respeaker_lite_Linux-Voice-Assistant
       stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-respeaker_lite ./03-stage-linux-voice-assistant ./04-stage-finish
       compression: xz
       compression-level: 6
@@ -63,4 +73,5 @@ jobs:
   # RPI IMAGER JSON
   generate-rpi-imager-json:
     needs: [build, build-2michat, build-respeaker_lite, build-2michat-lva, build-respeaker_lite-lva]
+    if: always()
     uses: ./.github/workflows/create-rpi-image-json.yml
