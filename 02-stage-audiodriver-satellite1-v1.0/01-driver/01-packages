@@ -1,0 +1,8 @@
+git
+dkms
+curl
+wget
+dkms
+i2c-tools
+libasound2-plugins
+alsa-utils 
