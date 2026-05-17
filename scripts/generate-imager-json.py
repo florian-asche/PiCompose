@@ -13,9 +13,6 @@ REPO = "PiCompose"
 OUTPUT_FILE = "rpi-imager.json"
 API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/releases"
 
-HARDWARE_TYPES = ["Respeaker-lite", "2MicHat", "2MicHat-v1", "2MicHat-v2", "Satellite1-v1.0", "Satellite1-v1.1", "None"]
-
-
 def fetch_releases():
     """Fetch releases from GitHub API."""
     print("Fetching releases from GitHub...")
@@ -88,6 +85,10 @@ def extract_metadata(filename):
     
     if 'Respeaker' in name and 'lite' in name.lower():
         hardware = "Respeaker-lite"
+    elif 'Satellite1-v1.1' in name:
+        hardware = "Satellite1-v1.1"
+    elif 'Satellite1' in name:
+        hardware = "Satellite1-v1.0"
     elif '2MicHat' in name:
         if '2MicHat-v2' in name:
             hardware = "2MicHat-v2"
