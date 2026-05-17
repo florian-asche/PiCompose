@@ -13,7 +13,7 @@ REPO = "PiCompose"
 OUTPUT_FILE = "rpi-imager.json"
 API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/releases"
 
-HARDWARE_TYPES = ["Respeaker-lite", "2MicHat", "2MicHat-v1", "2MicHat-v2", "None"]
+HARDWARE_TYPES = ["Respeaker-lite", "2MicHat", "2MicHat-v1", "2MicHat-v2", "Satellite1-v1.0", "Satellite1-v1.1", "None"]
 
 
 def fetch_releases():
