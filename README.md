@@ -58,7 +58,7 @@ You can burn the image to your sd card with the [Raspberry Pi Imager tool](https
 Windows
 
 ```sh
-"C:\Program Files (x86)\Raspberry Pi Imager\rpi-imager.exe" --repo https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json
+"C:\Program Files\Raspberry Pi Ltd\Imager\rpi-imager.exe" --repo https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json
 ```
 
 Linux
