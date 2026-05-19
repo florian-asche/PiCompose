@@ -19,7 +19,7 @@ What you need to buy:
 
 ### Base:
 
-- [Raspberry Pi Zero 2 W](https://amzn.to/3M0G4hC)
+- Raspberry Pi Zero 2 WH (currently no link) or if you can solder the pins yourself [Raspberry Pi Zero 2 W](https://amzn.to/3M0G4hC)
 - [SD-Card](https://amzn.to/4qfx06l)
 
 ### Satellite1 HAT Board:
@@ -32,7 +32,7 @@ What you need to buy:
 
 - [Whole Speaker kit](https://futureproofhomes.net/products/satellite1-smart-speaker-enclosure-kit)
 
-Or if you want to print it yourself:
+Or if you want to build and 3D-Print it yourself:
 
 - [Speaker](https://amzn.to/4k9gkfu) or [Aliexpress](https://de.aliexpress.com/item/1005011560142502.html?spm=a2g0o.productlist.main.3.33c9JJacJJacEB&algo_pvid=64814943-53f2-4063-858b-24b8bff7bd47&algo_exp_id=64814943-53f2-4063-858b-24b8bff7bd47-2&pdp_ext_f=%7B%22order%22%3A%22-1%22%2C%22eval%22%3A%221%22%2C%22fromPage%22%3A%22search%22%7D&pdp_npi=6%40dis%21EUR%217.78%213.89%21%21%2162.89%2131.44%21%402103868817699707030983290ea297%2112000055921741746%21sea%21DE%21797676231%21X%211%210%21n_tag%3A-29919%3Bd%3A64670a7c%3Bm03_new_user%3A-29895&curPageLogUid=uNvseW668v4i&utparam-url=scene%3Asearch%7Cquery_from%3A%7Cx_object_id%3A1005011560142502%7C_p_origin_prod%3A)
 - Optional: [Alternative Speaker](https://amzn.to/3ZIgnFA)
