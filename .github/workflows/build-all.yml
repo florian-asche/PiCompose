@@ -89,6 +89,25 @@ jobs:
       compression-level: 6
       custom-hostname: picompose
 
+  # Satellite-1 1.0
+  build-satellite1-v1dot0:
+    uses: ./.github/workflows/build-image-template.yml
+    with:
+      image-name: PiCompose_Satellite1-v1.0
+      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-satellite1-v1.0 ./04-stage-finish
+      compression: xz
+      compression-level: 6
+      custom-hostname: picompose
+
+  build-satellite1-v1dot0-lva:
+    uses: ./.github/workflows/build-image-template.yml
+    with:
+      image-name: PiCompose_Satellite1-v1.0_Linux-Voice-Assistant
+      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-satellite1-v1.0 ./03-stage-linux-voice-assistant ./04-stage-finish
+      compression: xz
+      compression-level: 6
+      custom-hostname: picompose
+
   # RPI IMAGER JSON
   generate-rpi-imager-json:
     needs: [build, build-2michat, build-respeaker_lite, build-2michat-lva, build-respeaker_lite-lva]
