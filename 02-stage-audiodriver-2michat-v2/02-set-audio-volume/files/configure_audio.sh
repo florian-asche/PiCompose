@@ -1,16 +1,45 @@
 #!/bin/bash
 set -u
 
-# TLV320AIC3104 on V2.0 ships quiet on both ends: HP DAC at -23.5 dB,
-# HP/Line amps at ~89% and muted on some units, and the capture PGA at 27%
-# (16 dB) — too low for microWakeWord detection. PCM is driven by wpctl as
-# hardware-volume passthrough, so only the downstream stages need tuning.
-# Runs every boot because WirePlumber can reset ALSA state between sessions.
+
+set_volume_safe() {
+    local volume="${1:-1.0}"
+
+    if wpctl get-volume @DEFAULT_AUDIO_SINK@ >/dev/null 2>&1; then
+        wpctl set-volume @DEFAULT_AUDIO_SINK@ "$volume"
+        echo "Volume set to $volume"
+        return 0
+    else
+        echo "No default audio sink available"
+        exit 1
+    fi
+}
+
+wait_for_audio() {
+    local max_tries="${1:-30}"
+    local sleep_time="${2:-1}"
+
+    local i=0
+    while [ $i -lt $max_tries ]; do
+        if wpctl get-volume @DEFAULT_AUDIO_SINK@ >/dev/null 2>&1; then
+            echo "Audio ready"
+            return 0
+        fi
+
+        echo "Waiting for audio... ($i/$max_tries)"
+        sleep "$sleep_time"
+        i=$((i+1))
+    done
+
+    echo "Timeout: Audio not ready"
+    exit 1
+}
 
 wait_for_card_and_control() {
   local card="$1"
   local control="$2"
   local max_tries=30
+  local sleep_sec=1
   local count=0
 
   while [ "$count" -lt "$max_tries" ]; do
@@ -26,32 +55,30 @@ wait_for_card_and_control() {
       echo "Card $card not ready yet ($count/$max_tries)"
     fi
 
-    sleep 1
+    sleep "$sleep_sec"
   done
 
   echo "Card $card with control '$control' did not become ready"
   return 1
 }
 
-# Returns 0 on set-success or missing control; 1 on set-failure.
-# Non-zero exit triggers the systemd retry.
 set_control_if_exists() {
   local card="$1"
   local control="$2"
-  shift 2
+  local value="$3"
 
   if amixer -c "$card" scontrols | grep -Fq "'$control'"; then
-    echo "Setting $control on $card to $*"
-    if amixer -c "$card" set "$control" "$@"; then
-      return 0
-    fi
-    echo "amixer set failed for '$control' on $card" >&2
-    return 1
+    echo "Setting $control on $card to $value"
+    amixer -c "$card" set "$control" "$value"
+    return 0
   fi
 
   echo "Control '$control' not found on $card, skipping"
   return 0
 }
+
+# Wait for audio system to be ready
+wait_for_audio 30 1
 
 # Same kernel alias as V1 (`seeed2micvoicec`); the PCM control distinguishes
 # V2's tlv320aic3x from V1's wm8960.
@@ -73,8 +100,8 @@ if [ "$FAIL" -ne 0 ]; then
   exit 1
 fi
 
-# Keep PipeWire sink at unity so HA/LVA volume reaches the ALSA stages
-# above. Matches the 2michat-v1 pattern from #42.
-wpctl set-volume @DEFAULT_AUDIO_SINK@ 1.0
+# Set pipewire sink volume
+set_volume_safe 1.0
 
+# Alsa save
 alsactl store
