@@ -80,21 +80,6 @@ set_control_if_exists() {
 # Wait for audio system to be ready
 wait_for_audio 30 1
 
-# Check if the card is ok
-if wait_for_card_and_control seeed2micvoicec Headphone; then
-  CARD="seeed2micvoicec"
-  echo "seeed2micvoicec found"
-else
-  echo "No supported sound card became ready"
-  exit 1
-fi
-
-# Set volume
-set_control_if_exists "$CARD" Headphone 100%
-set_control_if_exists "$CARD" Speaker 100%
-set_control_if_exists "$CARD" Master 100%
-set_control_if_exists "$CARD" PCM 100%
-
 # Set pipewire sink volume
 set_volume_safe 1.0
 
