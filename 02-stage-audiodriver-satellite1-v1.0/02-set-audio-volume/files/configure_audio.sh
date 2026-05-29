@@ -80,15 +80,6 @@ set_control_if_exists() {
 # Wait for audio system to be ready
 wait_for_audio 30 1
 
-# Check if the card is ok
-if wait_for_card_and_control Satellite1 Headphone; then
-  CARD="Satellite1"
-  echo "Satellite1 found"
-else
-  echo "No supported sound card became ready"
-  exit 1
-fi
-
 # Set pipewire sink volume
 set_volume_safe 1.0
 
