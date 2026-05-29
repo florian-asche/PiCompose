@@ -110,6 +110,6 @@ jobs:
 
   # RPI IMAGER JSON
   generate-rpi-imager-json:
-    needs: [build, build-lva, build-2michat-v2, build-2michat-v2-lva, build-respeaker_lite, build-respeaker_lite-lva, build-satellite1-v1dot0, build-satellite1-v1dot0-lva]
+    needs: [build, build-2michat, build-respeaker_lite, build-2michat-lva, build-respeaker_lite-lva]
     if: always()
     uses: ./.github/workflows/create-rpi-image-json.yml
