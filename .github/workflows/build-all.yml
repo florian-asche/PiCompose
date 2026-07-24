@@ -111,3 +111,4 @@ jobs:
     needs: [build, build-lva, build-2michat, build-2michat-v2, build-2michat-lva, build-2michat-v2-lva, build-respeaker_lite, build-respeaker_lite-lva, build-satellite1-v1dot0, build-satellite1-v1dot0-lva]
     if: always()
     uses: ./.github/workflows/create-rpi-image-json.yml
+    secrets: inherit
