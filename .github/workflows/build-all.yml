@@ -32,7 +32,6 @@ jobs:
       custom-hostname: picompose
   # 2MICHAT-v1
   build-2michat:
-    if: false # disabled
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose-2MicHat-v1
@@ -42,7 +41,6 @@ jobs:
       custom-hostname: picompose
 
   build-2michat-lva:
-    if: false # disabled
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose_2MicHat-v1_Linux-Voice-Assistant
@@ -110,6 +108,7 @@ jobs:
 
   # RPI IMAGER JSON
   generate-rpi-imager-json:
-    needs: [build, build-2michat, build-respeaker_lite, build-2michat-lva, build-respeaker_lite-lva]
+    needs: [build, build-lva, build-2michat, build-2michat-v2, build-2michat-lva, build-2michat-v2-lva, build-respeaker_lite, build-respeaker_lite-lva, build-satellite1-v1dot0, build-satellite1-v1dot0-lva]
     if: always()
     uses: ./.github/workflows/create-rpi-image-json.yml
+    secrets: inherit
