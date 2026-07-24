@@ -17,8 +17,8 @@ CONFIG=/boot/config.txt
 [ -f /boot/firmware/usercfg.txt ] && CONFIG=/boot/firmware/usercfg.txt
 
 # Set the custom kernel in boot config
-grep -q "^kernel=../vmlinuz-6.18.32-fusb302-rpi-v8$" "$CONFIG" || echo "kernel=../vmlinuz-6.18.32-fusb302-rpi-v8" >> "$CONFIG"
-grep -q "^initramfs ../initrd.img-6.18.32-fusb302-rpi-v8 followkernel$" "$CONFIG" || echo "initramfs ../initrd.img-6.18.32-fusb302-rpi-v8 followkernel" >> "$CONFIG"
+grep -q "^kernel=vmlinuz-6.18.32-fusb302-rpi-v8$" "$CONFIG" || echo "kernel=vmlinuz-6.18.32-fusb302-rpi-v8" >> "$CONFIG"
+grep -q "^initramfs initrd.img-6.18.32-fusb302-rpi-v8 followkernel$" "$CONFIG" || echo "initramfs initrd.img-6.18.32-fusb302-rpi-v8 followkernel" >> "$CONFIG"
 
 # 2. Install System Configuration
 echo "Download and install System configuration"
