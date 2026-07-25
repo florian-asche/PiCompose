@@ -8,17 +8,13 @@ echo "Starting satellite1 driver installation..."
 
 # 1. Install the Custom Kernel
 echo "Download and install Custom Kernel"
-wget https://github.com/FutureProofHomes/RPi-Kernel-Fusb302/releases/download/develop/linux-image-6.18.32-fusb302-rpi-v8_2_arm64.deb
+wget https://github.com/FutureProofHomes/RPi-Kernel-Fusb302/releases/download/feature%2Fupdate_to_6.18.34/linux-image-6.18.39-fusb302-rpi-v8_2_arm64.deb
 dpkg -i linux-image-*-fusb302-rpi-v8_*_arm64.deb
 
 # detect boot config
 CONFIG=/boot/config.txt
 [ -f /boot/firmware/config.txt ] && CONFIG=/boot/firmware/config.txt
 [ -f /boot/firmware/usercfg.txt ] && CONFIG=/boot/firmware/usercfg.txt
-
-# Set the custom kernel in boot config
-grep -q "^kernel=vmlinuz-6.18.32-fusb302-rpi-v8$" "$CONFIG" || echo "kernel=vmlinuz-6.18.32-fusb302-rpi-v8" >> "$CONFIG"
-grep -q "^initramfs initrd.img-6.18.32-fusb302-rpi-v8 followkernel$" "$CONFIG" || echo "initramfs initrd.img-6.18.32-fusb302-rpi-v8 followkernel" >> "$CONFIG"
 
 # 2. Install System Configuration
 echo "Download and install System configuration"
