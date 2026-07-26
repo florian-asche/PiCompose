@@ -1,3 +1,18 @@
+<a id="v1.1.4"></a>
+# [v1.1.4](https://github.com/florian-asche/PiCompose/releases/tag/v1.1.4) - 2026-07-26
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Other Changes
+* feat(lva): add new environment configuration options by [@florian-asche](https://github.com/florian-asche) in [#64](https://github.com/florian-asche/PiCompose/pull/64)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.3...v1.1.4
+
+[Changes][v1.1.4]
+
+
 <a id="v1.1.3"></a>
 # [v1.1.3](https://github.com/florian-asche/PiCompose/releases/tag/v1.1.3) - 2026-07-26
 
@@ -11,6 +26,24 @@
 **Full Changelog**: https://github.com/florian-asche/PiCompose/commits/v1.1.3
 
 <!-- Release notes generated using configuration in .github/release.yml at main -->
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.3 -->
+
+## What's Changed
+### Other Changes
+* fix(sat1): Fix several documentation issues and default sat1 hardware volume by [@florian-asche](https://github.com/florian-asche) in [#63](https://github.com/florian-asche/PiCompose/pull/63)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.2...v1.1.3
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.3 -->
+
+## What's Changed
+### Other Changes
+* fix(sat1): Fix several documentation issues and default sat1 hardware volume by [@florian-asche](https://github.com/florian-asche) in [#63](https://github.com/florian-asche/PiCompose/pull/63)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.2...v1.1.3
 
 [Changes][v1.1.3]
 
@@ -158,6 +191,7 @@
 [Changes][v1.0.0]
 
 
+[v1.1.4]: https://github.com/florian-asche/PiCompose/compare/v1.1.3...v1.1.4
 [v1.1.3]: https://github.com/florian-asche/PiCompose/compare/v1.1.2...v1.1.3
 [v1.1.2]: https://github.com/florian-asche/PiCompose/compare/v1.1.1...v1.1.2
 [v1.1.1]: https://github.com/florian-asche/PiCompose/compare/v1.1.0...v1.1.1
