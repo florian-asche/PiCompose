@@ -8,13 +8,13 @@ echo "Starting satellite1 driver installation..."
 
 # 1. Install the Custom Kernel
 echo "Download and install Custom Kernel"
-wget https://github.com/FutureProofHomes/RPi-Kernel-Fusb302/releases/download/develop/linux-image-6.18.32-fusb302-rpi-v8_2_arm64.deb
+wget https://github.com/FutureProofHomes/RPi-Kernel-Fusb302/releases/download/v6.18.34/linux-image-6.18.34-fusb302-rpi-v8_2_arm64.deb
 dpkg -i linux-image-*-fusb302-rpi-v8_*_arm64.deb
 
 
 # 2. Install System Configuration
 echo "Download and install System configuration"
-wget https://github.com/FutureProofHomes/Satellite1-RPi-Setup/releases/download/develop/satellite1-rpi-setup_1.0-1_arm64.deb
+wget https://github.com/FutureProofHomes/Satellite1-RPi-Setup/releases/download/v1.1-1/satellite1-rpi-setup_1.0-1_arm64.deb
 dpkg -i satellite1-rpi-setup_*_arm64.deb
 
 
