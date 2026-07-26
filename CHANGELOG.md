@@ -19,6 +19,33 @@
 
 **Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.2...v1.1.3
 
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.3 -->
+
+## What's Changed
+### Other Changes
+* fix(sat1): Fix several documentation issues and default sat1 hardware volume by [@florian-asche](https://github.com/florian-asche) in [#63](https://github.com/florian-asche/PiCompose/pull/63)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.2...v1.1.3
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.3 -->
+
+## What's Changed
+### Other Changes
+* fix(sat1): Fix several documentation issues and default sat1 hardware volume by [@florian-asche](https://github.com/florian-asche) in [#63](https://github.com/florian-asche/PiCompose/pull/63)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.2...v1.1.3
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.3 -->
+
+## What's Changed
+### Other Changes
+* fix(sat1): Fix several documentation issues and default sat1 hardware volume by [@florian-asche](https://github.com/florian-asche) in [#63](https://github.com/florian-asche/PiCompose/pull/63)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.2...v1.1.3
+
 [Changes][v1.1.3]
 
 
@@ -29,8 +56,6 @@
 
 ## What's Changed
 ### Exciting New Features 🎉
-* Bugfix/volume on 2michat by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
-* Add ReSpeaker V2.0 HAT by [@genericJE](https://github.com/genericJE) in [#41](https://github.com/florian-asche/PiCompose/pull/41)
 * Add Satellite1 v1.0 from FutureProofHomes by [@florian-asche](https://github.com/florian-asche) in [#51](https://github.com/florian-asche/PiCompose/pull/51)
 * Fix/sat1 audioconfig by [@florian-asche](https://github.com/florian-asche) in [#55](https://github.com/florian-asche/PiCompose/pull/55)
 * Re-Enable the Respeaker v1 version builds by [@florian-asche](https://github.com/florian-asche) in [#61](https://github.com/florian-asche/PiCompose/pull/61)
@@ -38,23 +63,6 @@
 * perf(pipewire): enable real-time scheduling by [@florian-asche](https://github.com/florian-asche) in [#60](https://github.com/florian-asche/PiCompose/pull/60)
 
 ### Other Changes
-* add first initial version by [@florian-asche](https://github.com/florian-asche) in [#5](https://github.com/florian-asche/PiCompose/pull/5)
-* Enable pull image on boot for the homeassistant images by [@florian-asche](https://github.com/florian-asche) in [#10](https://github.com/florian-asche/PiCompose/pull/10)
-* PiCompose and audio setup by [@florian-asche](https://github.com/florian-asche) in [#11](https://github.com/florian-asche/PiCompose/pull/11)
-* Refactoring by [@florian-asche](https://github.com/florian-asche) in [#19](https://github.com/florian-asche/PiCompose/pull/19)
-* remove wyoming-satellite by [@florian-asche](https://github.com/florian-asche) in [#20](https://github.com/florian-asche/PiCompose/pull/20)
-* Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
-* Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
-* add sleep and also set master volume by [@florian-asche](https://github.com/florian-asche) in [#26](https://github.com/florian-asche/PiCompose/pull/26)
-* skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
-* Update LVA to latest version by [@florian-asche](https://github.com/florian-asche) in [#31](https://github.com/florian-asche/PiCompose/pull/31)
-* add deploy on first boot by [@florian-asche](https://github.com/florian-asche) in [#32](https://github.com/florian-asche/PiCompose/pull/32)
-* feat(picompose): add project disable flag and refactor deploy logic by [@florian-asche](https://github.com/florian-asche) in [#33](https://github.com/florian-asche/PiCompose/pull/33)
-* ci(github): add release config and changelog generation workflow by [@florian-asche](https://github.com/florian-asche) in [#35](https://github.com/florian-asche/PiCompose/pull/35)
-* fix(picompose): fix deploy function flow and variable references by [@florian-asche](https://github.com/florian-asche) in [#37](https://github.com/florian-asche/PiCompose/pull/37)
-* Feature/reboot on driver install by [@florian-asche](https://github.com/florian-asche) in [#38](https://github.com/florian-asche/PiCompose/pull/38)
-* Bugfix/set audio volume by [@florian-asche](https://github.com/florian-asche) in [#39](https://github.com/florian-asche/PiCompose/pull/39)
-* fix(audiodriver): remove alsa setup use pipewire volume only by [@florian-asche](https://github.com/florian-asche) in [#42](https://github.com/florian-asche/PiCompose/pull/42)
 * feat(lva): add support for custom docker image and tag overrides by [@florian-asche](https://github.com/florian-asche) in [#44](https://github.com/florian-asche/PiCompose/pull/44)
 * docs: update hardware documentation and README by [@florian-asche](https://github.com/florian-asche) in [#48](https://github.com/florian-asche/PiCompose/pull/48)
 * Fix/build images by [@florian-asche](https://github.com/florian-asche) in [#49](https://github.com/florian-asche/PiCompose/pull/49)
@@ -79,10 +87,6 @@
 
 ### Other Changes
 * Bugfix: Set volume to 100% on startup by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
-* Enable pull image on boot for the homeassistant images by [@florian-asche](https://github.com/florian-asche) in [#10](https://github.com/florian-asche/PiCompose/pull/10)
-* PiCompose and audio setup by [@florian-asche](https://github.com/florian-asche) in [#11](https://github.com/florian-asche/PiCompose/pull/11)
-* Refactoring by [@florian-asche](https://github.com/florian-asche) in [#19](https://github.com/florian-asche/PiCompose/pull/19)
-* remove wyoming-satellite by [@florian-asche](https://github.com/florian-asche) in [#20](https://github.com/florian-asche/PiCompose/pull/20)
 * Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
 * Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
 * skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
