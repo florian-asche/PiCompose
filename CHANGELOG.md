@@ -25,6 +25,226 @@
 
 **Full Changelog**: https://github.com/florian-asche/PiCompose/commits/v1.1.1
 
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.1 -->
+
+## What's Changed
+### Exciting New Features 🎉
+* Bugfix/volume on 2michat by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
+### Other Changes
+* Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
+* Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
+* add sleep and also set master volume by [@florian-asche](https://github.com/florian-asche) in [#26](https://github.com/florian-asche/PiCompose/pull/26)
+* skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
+* Update LVA to latest version by [@florian-asche](https://github.com/florian-asche) in [#31](https://github.com/florian-asche/PiCompose/pull/31)
+* add deploy on first boot by [@florian-asche](https://github.com/florian-asche) in [#32](https://github.com/florian-asche/PiCompose/pull/32)
+* feat(picompose): add project disable flag and refactor deploy logic by [@florian-asche](https://github.com/florian-asche) in [#33](https://github.com/florian-asche/PiCompose/pull/33)
+* ci(github): add release config and changelog generation workflow by [@florian-asche](https://github.com/florian-asche) in [#35](https://github.com/florian-asche/PiCompose/pull/35)
+* fix(picompose): fix deploy function flow and variable references by [@florian-asche](https://github.com/florian-asche) in [#37](https://github.com/florian-asche/PiCompose/pull/37)
+* Feature/reboot on driver install by [@florian-asche](https://github.com/florian-asche) in [#38](https://github.com/florian-asche/PiCompose/pull/38)
+* Bugfix/set audio volume by [@florian-asche](https://github.com/florian-asche) in [#39](https://github.com/florian-asche/PiCompose/pull/39)
+* fix(audiodriver): remove alsa setup use pipewire volume only by [@florian-asche](https://github.com/florian-asche) in [#42](https://github.com/florian-asche/PiCompose/pull/42)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.0...v1.1.1
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.1 -->
+
+## What's Changed
+### Exciting New Features 🎉
+* Bugfix/volume on 2michat by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
+### Other Changes
+* Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
+* Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
+* add sleep and also set master volume by [@florian-asche](https://github.com/florian-asche) in [#26](https://github.com/florian-asche/PiCompose/pull/26)
+* skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
+* Update LVA to latest version by [@florian-asche](https://github.com/florian-asche) in [#31](https://github.com/florian-asche/PiCompose/pull/31)
+* add deploy on first boot by [@florian-asche](https://github.com/florian-asche) in [#32](https://github.com/florian-asche/PiCompose/pull/32)
+* feat(picompose): add project disable flag and refactor deploy logic by [@florian-asche](https://github.com/florian-asche) in [#33](https://github.com/florian-asche/PiCompose/pull/33)
+* ci(github): add release config and changelog generation workflow by [@florian-asche](https://github.com/florian-asche) in [#35](https://github.com/florian-asche/PiCompose/pull/35)
+* fix(picompose): fix deploy function flow and variable references by [@florian-asche](https://github.com/florian-asche) in [#37](https://github.com/florian-asche/PiCompose/pull/37)
+* Feature/reboot on driver install by [@florian-asche](https://github.com/florian-asche) in [#38](https://github.com/florian-asche/PiCompose/pull/38)
+* Bugfix/set audio volume by [@florian-asche](https://github.com/florian-asche) in [#39](https://github.com/florian-asche/PiCompose/pull/39)
+* fix(audiodriver): remove alsa setup use pipewire volume only by [@florian-asche](https://github.com/florian-asche) in [#42](https://github.com/florian-asche/PiCompose/pull/42)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.0...v1.1.1
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.1 -->
+
+## What's Changed
+### Exciting New Features 🎉
+* Bugfix/volume on 2michat by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
+### Other Changes
+* Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
+* Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
+* add sleep and also set master volume by [@florian-asche](https://github.com/florian-asche) in [#26](https://github.com/florian-asche/PiCompose/pull/26)
+* skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
+* Update LVA to latest version by [@florian-asche](https://github.com/florian-asche) in [#31](https://github.com/florian-asche/PiCompose/pull/31)
+* add deploy on first boot by [@florian-asche](https://github.com/florian-asche) in [#32](https://github.com/florian-asche/PiCompose/pull/32)
+* feat(picompose): add project disable flag and refactor deploy logic by [@florian-asche](https://github.com/florian-asche) in [#33](https://github.com/florian-asche/PiCompose/pull/33)
+* ci(github): add release config and changelog generation workflow by [@florian-asche](https://github.com/florian-asche) in [#35](https://github.com/florian-asche/PiCompose/pull/35)
+* fix(picompose): fix deploy function flow and variable references by [@florian-asche](https://github.com/florian-asche) in [#37](https://github.com/florian-asche/PiCompose/pull/37)
+* Feature/reboot on driver install by [@florian-asche](https://github.com/florian-asche) in [#38](https://github.com/florian-asche/PiCompose/pull/38)
+* Bugfix/set audio volume by [@florian-asche](https://github.com/florian-asche) in [#39](https://github.com/florian-asche/PiCompose/pull/39)
+* fix(audiodriver): remove alsa setup use pipewire volume only by [@florian-asche](https://github.com/florian-asche) in [#42](https://github.com/florian-asche/PiCompose/pull/42)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.0...v1.1.1
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.1 -->
+
+## What's Changed
+### Exciting New Features 🎉
+* Bugfix/volume on 2michat by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
+### Other Changes
+* Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
+* Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
+* add sleep and also set master volume by [@florian-asche](https://github.com/florian-asche) in [#26](https://github.com/florian-asche/PiCompose/pull/26)
+* skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
+* Update LVA to latest version by [@florian-asche](https://github.com/florian-asche) in [#31](https://github.com/florian-asche/PiCompose/pull/31)
+* add deploy on first boot by [@florian-asche](https://github.com/florian-asche) in [#32](https://github.com/florian-asche/PiCompose/pull/32)
+* feat(picompose): add project disable flag and refactor deploy logic by [@florian-asche](https://github.com/florian-asche) in [#33](https://github.com/florian-asche/PiCompose/pull/33)
+* ci(github): add release config and changelog generation workflow by [@florian-asche](https://github.com/florian-asche) in [#35](https://github.com/florian-asche/PiCompose/pull/35)
+* fix(picompose): fix deploy function flow and variable references by [@florian-asche](https://github.com/florian-asche) in [#37](https://github.com/florian-asche/PiCompose/pull/37)
+* Feature/reboot on driver install by [@florian-asche](https://github.com/florian-asche) in [#38](https://github.com/florian-asche/PiCompose/pull/38)
+* Bugfix/set audio volume by [@florian-asche](https://github.com/florian-asche) in [#39](https://github.com/florian-asche/PiCompose/pull/39)
+* fix(audiodriver): remove alsa setup use pipewire volume only by [@florian-asche](https://github.com/florian-asche) in [#42](https://github.com/florian-asche/PiCompose/pull/42)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.0...v1.1.1
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.1 -->
+
+## What's Changed
+### Exciting New Features 🎉
+* Bugfix/volume on 2michat by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
+### Other Changes
+* Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
+* Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
+* add sleep and also set master volume by [@florian-asche](https://github.com/florian-asche) in [#26](https://github.com/florian-asche/PiCompose/pull/26)
+* skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
+* Update LVA to latest version by [@florian-asche](https://github.com/florian-asche) in [#31](https://github.com/florian-asche/PiCompose/pull/31)
+* add deploy on first boot by [@florian-asche](https://github.com/florian-asche) in [#32](https://github.com/florian-asche/PiCompose/pull/32)
+* feat(picompose): add project disable flag and refactor deploy logic by [@florian-asche](https://github.com/florian-asche) in [#33](https://github.com/florian-asche/PiCompose/pull/33)
+* ci(github): add release config and changelog generation workflow by [@florian-asche](https://github.com/florian-asche) in [#35](https://github.com/florian-asche/PiCompose/pull/35)
+* fix(picompose): fix deploy function flow and variable references by [@florian-asche](https://github.com/florian-asche) in [#37](https://github.com/florian-asche/PiCompose/pull/37)
+* Feature/reboot on driver install by [@florian-asche](https://github.com/florian-asche) in [#38](https://github.com/florian-asche/PiCompose/pull/38)
+* Bugfix/set audio volume by [@florian-asche](https://github.com/florian-asche) in [#39](https://github.com/florian-asche/PiCompose/pull/39)
+* fix(audiodriver): remove alsa setup use pipewire volume only by [@florian-asche](https://github.com/florian-asche) in [#42](https://github.com/florian-asche/PiCompose/pull/42)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.0...v1.1.1
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.1 -->
+
+## What's Changed
+### Exciting New Features 🎉
+* Bugfix/volume on 2michat by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
+### Other Changes
+* Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
+* Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
+* add sleep and also set master volume by [@florian-asche](https://github.com/florian-asche) in [#26](https://github.com/florian-asche/PiCompose/pull/26)
+* skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
+* Update LVA to latest version by [@florian-asche](https://github.com/florian-asche) in [#31](https://github.com/florian-asche/PiCompose/pull/31)
+* add deploy on first boot by [@florian-asche](https://github.com/florian-asche) in [#32](https://github.com/florian-asche/PiCompose/pull/32)
+* feat(picompose): add project disable flag and refactor deploy logic by [@florian-asche](https://github.com/florian-asche) in [#33](https://github.com/florian-asche/PiCompose/pull/33)
+* ci(github): add release config and changelog generation workflow by [@florian-asche](https://github.com/florian-asche) in [#35](https://github.com/florian-asche/PiCompose/pull/35)
+* fix(picompose): fix deploy function flow and variable references by [@florian-asche](https://github.com/florian-asche) in [#37](https://github.com/florian-asche/PiCompose/pull/37)
+* Feature/reboot on driver install by [@florian-asche](https://github.com/florian-asche) in [#38](https://github.com/florian-asche/PiCompose/pull/38)
+* Bugfix/set audio volume by [@florian-asche](https://github.com/florian-asche) in [#39](https://github.com/florian-asche/PiCompose/pull/39)
+* fix(audiodriver): remove alsa setup use pipewire volume only by [@florian-asche](https://github.com/florian-asche) in [#42](https://github.com/florian-asche/PiCompose/pull/42)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.0...v1.1.1
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.1 -->
+
+## What's Changed
+### Exciting New Features 🎉
+* Bugfix/volume on 2michat by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
+### Other Changes
+* Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
+* Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
+* add sleep and also set master volume by [@florian-asche](https://github.com/florian-asche) in [#26](https://github.com/florian-asche/PiCompose/pull/26)
+* skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
+* Update LVA to latest version by [@florian-asche](https://github.com/florian-asche) in [#31](https://github.com/florian-asche/PiCompose/pull/31)
+* add deploy on first boot by [@florian-asche](https://github.com/florian-asche) in [#32](https://github.com/florian-asche/PiCompose/pull/32)
+* feat(picompose): add project disable flag and refactor deploy logic by [@florian-asche](https://github.com/florian-asche) in [#33](https://github.com/florian-asche/PiCompose/pull/33)
+* ci(github): add release config and changelog generation workflow by [@florian-asche](https://github.com/florian-asche) in [#35](https://github.com/florian-asche/PiCompose/pull/35)
+* fix(picompose): fix deploy function flow and variable references by [@florian-asche](https://github.com/florian-asche) in [#37](https://github.com/florian-asche/PiCompose/pull/37)
+* Feature/reboot on driver install by [@florian-asche](https://github.com/florian-asche) in [#38](https://github.com/florian-asche/PiCompose/pull/38)
+* Bugfix/set audio volume by [@florian-asche](https://github.com/florian-asche) in [#39](https://github.com/florian-asche/PiCompose/pull/39)
+* fix(audiodriver): remove alsa setup use pipewire volume only by [@florian-asche](https://github.com/florian-asche) in [#42](https://github.com/florian-asche/PiCompose/pull/42)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.0...v1.1.1
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.1 -->
+
+## What's Changed
+### Exciting New Features 🎉
+* Bugfix/volume on 2michat by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
+### Other Changes
+* Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
+* Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
+* add sleep and also set master volume by [@florian-asche](https://github.com/florian-asche) in [#26](https://github.com/florian-asche/PiCompose/pull/26)
+* skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
+* Update LVA to latest version by [@florian-asche](https://github.com/florian-asche) in [#31](https://github.com/florian-asche/PiCompose/pull/31)
+* add deploy on first boot by [@florian-asche](https://github.com/florian-asche) in [#32](https://github.com/florian-asche/PiCompose/pull/32)
+* feat(picompose): add project disable flag and refactor deploy logic by [@florian-asche](https://github.com/florian-asche) in [#33](https://github.com/florian-asche/PiCompose/pull/33)
+* ci(github): add release config and changelog generation workflow by [@florian-asche](https://github.com/florian-asche) in [#35](https://github.com/florian-asche/PiCompose/pull/35)
+* fix(picompose): fix deploy function flow and variable references by [@florian-asche](https://github.com/florian-asche) in [#37](https://github.com/florian-asche/PiCompose/pull/37)
+* Feature/reboot on driver install by [@florian-asche](https://github.com/florian-asche) in [#38](https://github.com/florian-asche/PiCompose/pull/38)
+* Bugfix/set audio volume by [@florian-asche](https://github.com/florian-asche) in [#39](https://github.com/florian-asche/PiCompose/pull/39)
+* fix(audiodriver): remove alsa setup use pipewire volume only by [@florian-asche](https://github.com/florian-asche) in [#42](https://github.com/florian-asche/PiCompose/pull/42)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.0...v1.1.1
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.1 -->
+
+## What's Changed
+### Exciting New Features 🎉
+* Bugfix/volume on 2michat by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
+### Other Changes
+* Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
+* Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
+* add sleep and also set master volume by [@florian-asche](https://github.com/florian-asche) in [#26](https://github.com/florian-asche/PiCompose/pull/26)
+* skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
+* Update LVA to latest version by [@florian-asche](https://github.com/florian-asche) in [#31](https://github.com/florian-asche/PiCompose/pull/31)
+* add deploy on first boot by [@florian-asche](https://github.com/florian-asche) in [#32](https://github.com/florian-asche/PiCompose/pull/32)
+* feat(picompose): add project disable flag and refactor deploy logic by [@florian-asche](https://github.com/florian-asche) in [#33](https://github.com/florian-asche/PiCompose/pull/33)
+* ci(github): add release config and changelog generation workflow by [@florian-asche](https://github.com/florian-asche) in [#35](https://github.com/florian-asche/PiCompose/pull/35)
+* fix(picompose): fix deploy function flow and variable references by [@florian-asche](https://github.com/florian-asche) in [#37](https://github.com/florian-asche/PiCompose/pull/37)
+* Feature/reboot on driver install by [@florian-asche](https://github.com/florian-asche) in [#38](https://github.com/florian-asche/PiCompose/pull/38)
+* Bugfix/set audio volume by [@florian-asche](https://github.com/florian-asche) in [#39](https://github.com/florian-asche/PiCompose/pull/39)
+* fix(audiodriver): remove alsa setup use pipewire volume only by [@florian-asche](https://github.com/florian-asche) in [#42](https://github.com/florian-asche/PiCompose/pull/42)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.0...v1.1.1
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.1 -->
+
+## What's Changed
+### Exciting New Features 🎉
+* Bugfix/volume on 2michat by [@florian-asche](https://github.com/florian-asche) in [#34](https://github.com/florian-asche/PiCompose/pull/34)
+### Other Changes
+* Fix github build by [@florian-asche](https://github.com/florian-asche) in [#30](https://github.com/florian-asche/PiCompose/pull/30)
+* Disable voicecard install script after sucessfull run by [@florian-asche](https://github.com/florian-asche) in [#28](https://github.com/florian-asche/PiCompose/pull/28)
+* add sleep and also set master volume by [@florian-asche](https://github.com/florian-asche) in [#26](https://github.com/florian-asche/PiCompose/pull/26)
+* skip hostname change if hostname is already changed by rpi-imager by [@florian-asche](https://github.com/florian-asche) in [#25](https://github.com/florian-asche/PiCompose/pull/25)
+* Update LVA to latest version by [@florian-asche](https://github.com/florian-asche) in [#31](https://github.com/florian-asche/PiCompose/pull/31)
+* add deploy on first boot by [@florian-asche](https://github.com/florian-asche) in [#32](https://github.com/florian-asche/PiCompose/pull/32)
+* feat(picompose): add project disable flag and refactor deploy logic by [@florian-asche](https://github.com/florian-asche) in [#33](https://github.com/florian-asche/PiCompose/pull/33)
+* ci(github): add release config and changelog generation workflow by [@florian-asche](https://github.com/florian-asche) in [#35](https://github.com/florian-asche/PiCompose/pull/35)
+* fix(picompose): fix deploy function flow and variable references by [@florian-asche](https://github.com/florian-asche) in [#37](https://github.com/florian-asche/PiCompose/pull/37)
+* Feature/reboot on driver install by [@florian-asche](https://github.com/florian-asche) in [#38](https://github.com/florian-asche/PiCompose/pull/38)
+* Bugfix/set audio volume by [@florian-asche](https://github.com/florian-asche) in [#39](https://github.com/florian-asche/PiCompose/pull/39)
+* fix(audiodriver): remove alsa setup use pipewire volume only by [@florian-asche](https://github.com/florian-asche) in [#42](https://github.com/florian-asche/PiCompose/pull/42)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.0...v1.1.1
+
 [Changes][v1.1.1]
 
 
