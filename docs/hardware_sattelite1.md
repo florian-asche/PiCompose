@@ -5,45 +5,41 @@
 Features:
 - Microphone Processing: High-performance microphones with an XMOS audio processing chip. 
 - Audio Output: Supports high-quality Snapcast multi-room music playback via the powerful 25W built-in amplifier or headphone jack.
-- Controls: 4 programmable tactile buttons, including hardware mute for privacy.  360 degree addressable LED ring.
+- Controls: 4 programmable tactile buttons, including hardware mute for privacy. 360 degree addressable LED ring.
 - Sensors: Monitors room temperature, humidity, luminosity, and human presence (when paired with a mmWave radar sensor).
 - Radios: Built-in 2.4 GHz Wi-Fi and Bluetooth® 5 (LE).
 - Expandable: FX23L expansion connector for future accessories.
 - Compatible: Works with Home Assistant, Music Assistant
 - Audio Processor: XMOS XU316, 16-core 32-bit RISC running at 800 MHz with 3200 MIPS, 1024 KB SRAM, and 8 MB Flash.
 
+## Order Options
 
-## Order
+### Full Kit
 
-What you need to buy:
+Buy the [full kit](https://futureproofhomes.net/products/satellite1-smart-speaker) and add a Raspberry Pi Zero 2 WH.
 
-### Base:
+### Individual Parts
 
-- Raspberry Pi Zero 2 WH (currently no link) or if you can solder the pins yourself [Raspberry Pi Zero 2 W](https://amzn.to/3M0G4hC)
-- [SD-Card](https://amzn.to/4qfx06l)
+💡 **Note:** You will need to buy a Pi Zero 2 board with the pins already attached (WH version) to use a HAT board. You can buy the Pi board with factory-installed pins from authorized resellers, or use a hammer-in kit to install the pins on the board. There are probably a few adventurous souls that want to solder in the pins but I expect that most people won't.
 
-### Satellite1 HAT Board:
+| Part | Primary Source | Alternative Sources |
+|------|------------------|---------------------|
+| Satellite1 HAT Board | [FutureProofHomes](https://futureproofhomes.net/products/satellite1-1-hat-board) | - |
+| Raspberry Pi Zero 2 WH or Raspberry Pi Zero 2 W | - | [Amazon](https://amzn.to/3M0G4hC) |
+| Charger | [FutureProofHomes](https://futureproofhomes.net/products/30w-usb-c-pd-charger) | [Amazon: Anker Nano Charger](https://www.amazon.com/dp/B0B2MLRF93) |
+| Charger Cable (USB-C) | [FutureProofHomes](https://futureproofhomes.net/products/usb-c-cable) | - |
+| SD Card | - | [Amazon](https://amzn.to/4qfx06l) |
+| Speaker | [FutureProofHomes](https://futureproofhomes.net/products/3-inch-woofer-4ohm-20w) | [Amazon](https://www.amazon.com/dp/B0822XCPT8), [Aliexpress](https://s.click.aliexpress.com/e/_c33mJJNH) |
+| Tweeter | [FutureProofHomes](https://futureproofhomes.net/products/tweeter-4ohm-20w) | [Amazon](https://amzn.to/4k9gHXq), [Aliexpress](https://de.aliexpress.com/item/1005008134122115.html) |
+| Two Way Speaker Crossover Board | [FutureProofHomes](https://futureproofhomes.net/products/two-way-speaker-crossover) | [Aliexpress](https://de.aliexpress.com/item/1005006342929950.html) |
+| Speaker Cable 2x | [FutureProofHomes (Red)](https://futureproofhomes.net/products/4-8mm-spade-cable-red), [FutureProofHomes (Black)](https://futureproofhomes.net/products/2-8mm-spade-cable-black) | - |
+| JST Connector | [FutureProofHomes](https://futureproofhomes.net/products/jst-xh-2-54mm-2-pin-male-connector) | [Amazon](https://amzn.to/3TC4Urq) |
+| Screws | [FutureProofHomes](https://futureproofhomes.net/products/m3x10mm-hex-socket-head-cap-screws) | [Amazon](https://amzn.to/3RiytxE) |
+| Sealing Foam | [FutureProofHomes](https://futureproofhomes.net/products/epdm-sealing-foam-strip) | [Amazon](https://amzn.to/4yHYA1I) |
+| OEM 3D Print Design | [FutureProofHomes GitHub](https://github.com/FutureProofHomes/Satellite1-Enclosures/tree/main/OEM%20Enclosures/Satellite1.1%20Smart%20Speaker%20Enclosure%20Kit) | - |
 
-- [Satellite1 HAT Board](https://futureproofhomes.net/products/satellite1-top-microphone-board)
-- [9V 3A Power Supply for US](https://amzn.to/49RDELn)
-
-
-## Speaker:
-
-- [Whole Speaker kit](https://futureproofhomes.net/products/satellite1-smart-speaker-enclosure-kit)
-
-Or if you want to build and 3D-Print it yourself:
-
-- [Speaker](https://amzn.to/4k9gkfu) or [Aliexpress](https://de.aliexpress.com/item/1005011560142502.html?spm=a2g0o.productlist.main.3.33c9JJacJJacEB&algo_pvid=64814943-53f2-4063-858b-24b8bff7bd47&algo_exp_id=64814943-53f2-4063-858b-24b8bff7bd47-2&pdp_ext_f=%7B%22order%22%3A%22-1%22%2C%22eval%22%3A%221%22%2C%22fromPage%22%3A%22search%22%7D&pdp_npi=6%40dis%21EUR%217.78%213.89%21%21%2162.89%2131.44%21%402103868817699707030983290ea297%2112000055921741746%21sea%21DE%21797676231%21X%211%210%21n_tag%3A-29919%3Bd%3A64670a7c%3Bm03_new_user%3A-29895&curPageLogUid=uNvseW668v4i&utparam-url=scene%3Asearch%7Cquery_from%3A%7Cx_object_id%3A1005011560142502%7C_p_origin_prod%3A)
-- Optional: [Alternative Speaker](https://amzn.to/3ZIgnFA)
-- [Cable for Speaker](https://amzn.to/3NQtEJT)
-- [Crossover](https://de.aliexpress.com/item/1005006342929950.html?invitationCode=RElGaGNTVnp5aVh0S3dka2VST2FHR2l1eUNRV2NZcThRWmgvWnRFdUtnYWVQemFTZUJrNWVWT0s1MU1hdTAyWg&srcSns=sns_Copy&spreadType=socialShare&social_params=61399346706&bizType=ProductDetail&spreadCode=RElGaGNTVnp5aVh0S3dka2VST2FHR2l1eUNRV2NZcThRWmgvWnRFdUtnYWVQemFTZUJrNWVWT0s1MU1hdTAyWg&aff_fcid=2fae6e0ee0d445b393d87f5cf6411c9f-1769967697975-07738-_EIJyBko&tt=MG&aff_fsk=_EIJyBko&aff_platform=default&sk=_EIJyBko&aff_trace_key=2fae6e0ee0d445b393d87f5cf6411c9f-1769967697975-07738-_EIJyBko&shareId=61399346706&businessType=ProductDetail&platform=AE&terminal_id=29ee5f8658dd4e0898da1a1fba47d83e&afSmartRedirect=y)
-- [Tweeter](https://amzn.to/4k9gHXq) or [Aliexpress](https://de.aliexpress.com/item/1005008134122115.html?spm=a2g0o.productlist.main.1.593aGJ4bGJ4bug&algo_pvid=d39a4e60-913d-4c2c-b30e-7b5e0f643b71&algo_exp_id=d39a4e60-913d-4c2c-b30e-7b5e0f643b71-0&pdp_ext_f=%7B%22order%22%3A%225%22%2C%22eval%22%3A%221%22%2C%22fromPage%22%3A%22search%22%7D&pdp_npi=6%40dis%21EUR%218.05%218.05%21%21%219.37%219.37%21%40211b61ae17699713550016574ea8ce%2112000043930964935%21sea%21DE%21797676231%21X%211%210%21n_tag%3A-29919%3Bd%3A64670a7c%3Bm03_new_user%3A-29895&curPageLogUid=QHG13DgSQL42&utparam-url=scene%3Asearch%7Cquery_from%3A%7Cx_object_id%3A1005008134122115%7C_p_origin_prod%3A)
-- [Insulation](https://amzn.to/4t7Gtj3)
-
-
-## Additional information:
+## Additional Information
 
 - [Hardware Documentation](https://docs.futureproofhomes.net/satellite1-assembly/#first-boot-powering-on)
-- [Speaker Enclosure](https://docs.futureproofhomes.net/satellite1-smart-speaker-enclosure-kit/)
-- [OEM 3D Print Design](https://github.com/FutureProofHomes/Satellite1-Enclosures/tree/main/OEM%20Enclosures/Satellite1%20Smart%20Speaker%20Enclosure%20Kit)
+- [How to build the Speaker Enclosure](https://docs.futureproofhomes.net/satellite1-smart-speaker-enclosure-kit/)
+- [Alternative 3D Designs](https://docs.futureproofhomes.net/satellite1-squircle-enclosures) - Compatible with [alternative speakers](https://amzn.to/4pGP4rp)
