@@ -14,7 +14,7 @@ The image is configured to:
 2. Start seeed-voicecard service (If you use 2-MicHat)
 3. Start Pipewire service
 4. Start Keep-Audio-Alive service (If you use Respeaker Lite)
-5. Set audio volume to 100%
+5. Set system audio volume to 100%
 6. Set hostname
 7. Search for Docker Compose files in a special directory on the main partition
    💡 **Note:** If you use the Linux-Voice-Assistant Image LVA and Snapcast will be included in the project directory.

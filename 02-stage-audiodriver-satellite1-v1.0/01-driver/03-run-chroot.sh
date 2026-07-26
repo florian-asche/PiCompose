@@ -20,5 +20,5 @@ dpkg -i satellite1-rpi-setup_*_arm64.deb
 
 # 3. Install the Python SDK
 #echo "Download and install Python SDK"
-wget https://github.com/FutureProofHomes/Satellite1-RPi-SDK/releases/download/develop/satellite1-rpi-sdk_0.1.5_arm64.deb
+wget https://github.com/FutureProofHomes/Satellite1-RPi-SDK/releases/download/v0.1.6/satellite1-rpi-sdk_0.1.6_arm64.deb
 dpkg -i satellite1-rpi-sdk_*_arm64.deb
