@@ -10,7 +10,7 @@ PiCompose uses the official [pi-gen](https://github.com/RPi-Distro/pi-gen) tool 
 
 The image is configured to:
 
-1. Install needed drivers for the hardware (2-MicHat)
+1. Install needed drivers for the hardware (2-MicHat, Satellite1)
 2. Start seeed-voicecard service (If you use 2-MicHat)
 3. Start Pipewire service
 4. Start Keep-Audio-Alive service (If you use Respeaker Lite)
@@ -36,7 +36,7 @@ This repository contains fully prepared images for specific voice hardware of Ho
 
 ### Hardware
 
-There is a seperated page for the supported hardware. You can find the link to it in the list below, when you click on the Name.
+There is a separate page for the supported hardware. You can find the link to it in the list below, when you click on the Name.
 
 ### Images overview
 
@@ -53,7 +53,11 @@ Here is a Overview for the specific images of each hardware:
 
 ### Installation
 
-You can burn the image to your sd card with the [Raspberry Pi Imager tool](https://www.raspberrypi.com/software/). You can set wifi credentials, ssh public keys and other settings before you burn the image to your sd card. In order to use the feature where you can change the settings in the `Raspberry Pi Imager >=v2.5.0` you need to set a custom image repository.
+You can burn the image to your sd card with the [Raspberry Pi Imager tool](https://www.raspberrypi.com/documentation/computers/getting-started.html#imager-install). You can set wifi credentials, ssh public keys and other settings before you burn the image to your sd card. In order to use the feature where you can change the settings in the `Raspberry Pi Imager >= v2.0` you need to set a custom image repository.
+
+💡 **Note:** If you use the Customisation" (sic) part of the "Raspberry Pi Imager tool", the "User" must be set to "pi".
+
+Windows, macOS, and Linux are supported. On macOS, you can use the Raspberry Pi Imager application or install it via Homebrew.
 
 Windows
 
@@ -67,9 +71,15 @@ Linux
 rpi-imager --repo https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json
 ```
 
+macOS
+
+```sh
+rpi-imager --repo https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json
+```
+
 You can also put the [URL](https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json) in Settings - Image Repository - Use own URL.
 
-If you dont want to use the Raspberry Pi Imager tool you can also [download](https://github.com/florian-asche/PiCompose/releases) the image and configure keyboard, timezone and wifi credentials with the `raspi-config` tool.
+If you don't want to use the Raspberry Pi Imager tool you can also [download](https://github.com/florian-asche/PiCompose/releases) the image and configure keyboard, timezone and wifi credentials with the [`raspi-config` tool](https://www.raspberrypi.com/documentation/computers/configuration.html#raspi-config). If you don't use the Raspberry Pi Imager customization, you'll need to connect a monitor, keyboard, and mouse to access the Pi initially to configure SSH and WiFi via `raspi-config`.
 
 ### Configuration
 
@@ -124,7 +134,7 @@ The system will automatically reboot and install the audio drivers. After that y
 You will notice that the hardware is not visible if you run `aplay -L`.<br>
 ❗ *You need to manually reboot one more time.*
 
-After that `aplay -L` should show the `seeed2micvoicec` or `Lite` soundcard depending on your hardware.
+After that `aplay -L` should show the `seeed2micvoicec`, `Lite`, or `Satellite1` soundcard depending on your hardware.
 
 piCompose should download and install the containers.
 You can watch the `/var/log/picompose.log` logfile if you want to monitor the process.
