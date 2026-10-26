@@ -14,6 +14,11 @@ on_chroot << EOF
 echo "Activate PipeWire-ALSA Bridge"
 ln -sf /usr/share/alsa/alsa.conf.d/50-pipewire.conf /etc/alsa/conf.d/
 
+# The rtprio/nice limits of PipeWire (/etc/security/limits.d/25-pw-rlimits.conf)
+# only apply to members of the pipewire group
+echo "Allow pi to use real-time scheduling for PipeWire"
+usermod -aG pipewire pi
+
 # Allow services to run without an active user session
 echo "Allow services to run without an active user session"
 mkdir -p /var/lib/systemd/linger
