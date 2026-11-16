@@ -70,7 +70,7 @@ jobs:
       # Only needed for 32bit build on x86_64 runner
       - name: Set up QEMU
         if: matrix.name == '32bit'
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
 
       - name: Build Image with pi-gen
         uses: usimd/pi-gen-action@v1
