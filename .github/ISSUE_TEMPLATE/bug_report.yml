@@ -1,0 +1,61 @@
+name: 🐛 Bug report
+description: Report a problem with a PiCompose image, the boot process or compose-manager.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please read [AI_POLICY.md](https://github.com/florian-asche/PiCompose/blob/main/.github/AI_POLICY.md) before submitting. Issues for the voice assistant itself belong in the [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant/issues) repository.
+  - type: dropdown
+    id: image
+    attributes:
+      label: Image
+      options:
+        - PiCompose (base)
+        - PiCompose Linux-Voice-Assistant
+        - 2-Mic HAT v1
+        - 2-Mic HAT v2
+        - ReSpeaker Lite
+        - Satellite1
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Image version or release tag
+      placeholder: v1.1.4
+    validations:
+      required: true
+  - type: dropdown
+    id: pi
+    attributes:
+      label: Raspberry Pi model
+      options:
+        - Pi 5
+        - Pi 4
+        - Pi 3
+        - Pi Zero 2 W
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected instead. Include the steps to reproduce it.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Output of `sudo cat /var/log/picompose.log` and, for audio problems, `aplay -L` and `wpctl status`.
+      render: shell
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: AI policy
+      options:
+        - label: I wrote or reviewed this report myself and it was not created by an autonomous agent.
+          required: true

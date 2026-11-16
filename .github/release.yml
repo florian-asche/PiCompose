@@ -12,7 +12,11 @@ changelog:
     - title: Exciting New Features 🎉
       labels:
         - Semver-Minor
+        - new-feature
         - enhancement
+    - title: Bug Fixes 🐛
+      labels:
+        - bugfix
     - title: Other Changes
       labels:
         - "*"
