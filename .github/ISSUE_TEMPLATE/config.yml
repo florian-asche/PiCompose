@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "🗣 Linux Voice Assistant problems"
+    url: https://github.com/OHF-Voice/linux-voice-assistant/issues
+    about: Wake word, pipeline, timer or other issues inside the voice assistant itself belong in the LVA repository.
+  - name: "❓ Questions & how-to (Q&A)"
+    url: https://github.com/florian-asche/PiCompose/discussions
+    about: Ask how-to questions and search previous answers.
+  - name: "💡 Feature requests & ideas"
+    url: https://github.com/florian-asche/PiCompose/discussions
+    about: Suggest new hardware, images and features.
