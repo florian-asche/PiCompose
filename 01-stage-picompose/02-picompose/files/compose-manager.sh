@@ -81,7 +81,7 @@ setup_cron() {
     
     # If CRON_ENABLED is enabled and CRON_SCHEDULE is defined
     if [ "$CRON_ENABLED" = "true" ] && [ -n "$CRON_SCHEDULE" ]; then
-        local cron_job="$CRON_SCHEDULE /usr/local/bin/compose-manager.sh redeploy $folder > /dev/null 2>&1"
+        local cron_job="$CRON_SCHEDULE /usr/bin/compose-manager.sh redeploy $folder > /dev/null 2>&1"
         
         # Create a cron job
         log "Creating cron job for $folder: $CRON_SCHEDULE"
@@ -92,7 +92,7 @@ setup_cron() {
 # Function to clean up cron jobs
 cleanup_cron() {
     log "Cleaning up old cron jobs"
-    (crontab -l 2>/dev/null | grep -v "/usr/local/bin/compose-manager.sh redeploy" || true) | crontab -
+    (crontab -l 2>/dev/null | grep -v "compose-manager.sh redeploy" || true) | crontab -
 }
 
 # Function to deploy a Docker Compose project
