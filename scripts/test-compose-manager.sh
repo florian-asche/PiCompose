@@ -60,7 +60,13 @@ CRON_IMAGE_PULL=true
 EOF
 
 # Kopiere das Compose-Manager-Skript
-cp 01-stage-base/03-picompose/files/compose-manager.sh $TEST_DIR/
+# The script is part of the package picompose-core (repository PiCompose-Package-Core)
+COMPOSE_MANAGER="${1:-../PiCompose-Package-Core/files/usr/bin/compose-manager.sh}"
+if [ ! -f "$COMPOSE_MANAGER" ]; then
+    log_error "compose-manager.sh not found at $COMPOSE_MANAGER, pass the path as first argument"
+    exit 1
+fi
+cp "$COMPOSE_MANAGER" $TEST_DIR/
 
 # Passe das Skript für Testzwecke an
 sed -i 's|base_path=.*|base_path="/compose"|g' $TEST_DIR/compose-manager.sh

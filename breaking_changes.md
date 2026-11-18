@@ -5,6 +5,8 @@ If you use the homeassistant image please also follow the snapcast and satellite
 
 # Versions
 ## Unreleased
+The compose manager, the hostname service and the PipeWire and WirePlumber configuration files are installed by the package `picompose-core` instead of the image build. `apt upgrade` updates `/usr/bin/compose-manager.sh` and `/usr/bin/configure_hostname.sh`. The two configuration files below `/etc/pipewire` and `/etc/wireplumber` are conffiles, so changes you made to them are kept and dpkg asks if both sides changed. `/compose` is never overwritten.
+
 The `lva` and `snapcast` projects are installed by the package `picompose-software-ha-satellite` instead of the image build. `apt upgrade` replaces `/compose/lva/docker-compose.yml` and `/compose/snapcast/docker-compose.yml`, so changes you made to these two files are lost. `picompose.conf` and `.env` are never overwritten, but new options of a newer `.env` have to be added by hand.
 
 ## From unstable to v1.0.0

@@ -19,12 +19,9 @@ The project follows the standard structure for custom pi-gen stages:
 - `01-stage-base/` - Base stage of every image
   - `00-apt-repository/` - PiCompose APT repository and `picompose-archive-keyring`
   - `01-docker/` - Docker repository and Docker packages
-  - `02-packages/` - Helper tools
-  - `03-picompose/` - Docker Compose manager
-    - `files/compose-manager.sh` - The main script for the Docker Compose manager
-    - `01-run.sh` - Installation script for the manager and systemd service
-  - `04-install-pipewire-audio/` - PipeWire and WirePlumber configuration
-  - `05-set-hostname/` - Hostname service
+  - `02-install-optional-packages/` - Helper tools
+  - `03-install-picompose-core/` - Installs the package `picompose-core` (Docker Compose manager, hostname service, PipeWire and WirePlumber configuration files)
+  - `04-install-pipewire-audio/` - PipeWire packages, ALSA bridge and settings of the user `pi`
 - `02-stage-audiodriver-*/` - Audio driver stage of one hardware variant
 - `03-stage-linux-voice-assistant/` - Linux Voice Assistant and Snapcast projects
 - `04-stage-finish/` - User configuration and cleanup of the final image
@@ -39,7 +36,7 @@ The project follows the standard structure for custom pi-gen stages:
    ```
 
 2. The main development work focuses on:
-   - Modifying the Compose manager script (`01-stage-base/03-picompose/files/compose-manager.sh`)
+   - Modifying the Compose manager script (`files/usr/bin/compose-manager.sh` in the repository [PiCompose-Package-Core](https://github.com/florian-asche/PiCompose-Package-Core))
    - Adjusting the installation scripts in `01-stage-base/`
 
 3. To perform local tests of the pi-gen process, you can consult the [pi-gen-action](https://github.com/usimd/pi-gen-action) README and apply the methods described there.
