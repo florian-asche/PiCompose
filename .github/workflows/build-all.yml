@@ -17,7 +17,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose
-      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-other ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-other ./04-stage-finish
       compression: zip
       compression-level: 6
       custom-hostname: picompose
@@ -26,7 +26,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose_Linux-Voice-Assistant
-      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-other ./03-stage-linux-voice-assistant ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-other ./03-stage-linux-voice-assistant ./04-stage-finish
       compression: zip
       compression-level: 6
       custom-hostname: picompose
@@ -35,7 +35,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose-2MicHat-v1
-      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-2michat-v1 ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-2michat-v1 ./04-stage-finish
       compression: xz
       compression-level: 6
       custom-hostname: picompose
@@ -44,7 +44,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose_2MicHat-v1_Linux-Voice-Assistant
-      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-2michat-v1 ./03-stage-linux-voice-assistant ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-2michat-v1 ./03-stage-linux-voice-assistant ./04-stage-finish
       compression: xz
       compression-level: 6
       custom-hostname: picompose
@@ -54,7 +54,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose-2MicHat-v2
-      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-2michat-v2 ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-2michat-v2 ./04-stage-finish
       compression: xz
       compression-level: 6
       custom-hostname: picompose
@@ -63,7 +63,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose_2MicHat-v2_Linux-Voice-Assistant
-      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-2michat-v2 ./03-stage-linux-voice-assistant ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-2michat-v2 ./03-stage-linux-voice-assistant ./04-stage-finish
       compression: xz
       compression-level: 6
       custom-hostname: picompose
@@ -73,7 +73,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose-Respeaker_lite
-      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-respeaker_lite ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-respeaker_lite ./04-stage-finish
       compression: xz
       compression-level: 6
       custom-hostname: picompose
@@ -82,7 +82,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose_Respeaker_lite_Linux-Voice-Assistant
-      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-respeaker_lite ./03-stage-linux-voice-assistant ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-respeaker_lite ./03-stage-linux-voice-assistant ./04-stage-finish
       compression: xz
       compression-level: 6
       custom-hostname: picompose
@@ -92,7 +92,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose_Satellite1-v1.0
-      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-satellite1-v1.0 ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-satellite1-v1.0 ./04-stage-finish
       compression: xz
       compression-level: 6
       custom-hostname: picompose
@@ -101,7 +101,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose_Satellite1-v1.0_Linux-Voice-Assistant
-      stage-list: stage0 stage1 stage2 ./01-stage-picompose ./02-stage-audiodriver-satellite1-v1.0 ./03-stage-linux-voice-assistant ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-satellite1-v1.0 ./03-stage-linux-voice-assistant ./04-stage-finish
       compression: xz
       compression-level: 6
       custom-hostname: picompose

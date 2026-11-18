@@ -16,14 +16,17 @@ PiCompose uses [pi-gen-action](https://github.com/usimd/pi-gen-action), a wrappe
 
 The project follows the standard structure for custom pi-gen stages:
 
-- `stage-picompose/` - Custom stage for PiCompose
-  - `00-boot-scripts/` - Boot scripts and Docker Compose manager
+- `01-stage-base/` - Base stage of every image
+  - `00-apt-repository/` - PiCompose APT repository and `picompose-archive-keyring`
+  - `01-packages/` - Docker repository and packages, helper tools
+  - `02-picompose/` - Docker Compose manager
     - `files/compose-manager.sh` - The main script for the Docker Compose manager
     - `01-run.sh` - Installation script for the manager and systemd service
-  - `00-packages/` - Docker installation and repository setup
-    - `00-packages-nr` - List of packages to be installed
-    - `01-run.sh` - Script to set up the Docker repository
-  - `99-cleanup/` - Cleanup scripts for the final image
+  - `03-install-pipewire-audio/` - PipeWire and WirePlumber configuration
+  - `04-set-hostname/` - Hostname service
+- `02-stage-audiodriver-*/` - Audio driver stage of one hardware variant
+- `03-stage-linux-voice-assistant/` - Linux Voice Assistant and Snapcast projects
+- `04-stage-finish/` - User configuration and cleanup of the final image
 - `.github/workflows/` - GitHub Actions workflow files
 
 ## Local Development
@@ -35,8 +38,8 @@ The project follows the standard structure for custom pi-gen stages:
    ```
 
 2. The main development work focuses on:
-   - Modifying the Compose manager script (`stage-picompose/00-boot-scripts/files/compose-manager.sh`)
-   - Adjusting the installation scripts in `stage-picompose/`
+   - Modifying the Compose manager script (`01-stage-base/02-picompose/files/compose-manager.sh`)
+   - Adjusting the installation scripts in `01-stage-base/`
 
 3. To perform local tests of the pi-gen process, you can consult the [pi-gen-action](https://github.com/usimd/pi-gen-action) README and apply the methods described there.
 
@@ -46,7 +49,7 @@ The build process runs automatically via GitHub Actions:
 
 1. Checkout of the repository
 2. Execution of the build with pi-gen-action and the specified parameters
-   - The existing `stage-picompose` is directly referenced in the `stage-list`
+   - The stages, for example `./01-stage-base`, are directly referenced in the `stage-list`
 3. Compression and upload of the finished image
 
 The workflow supports:
@@ -80,7 +83,7 @@ The project uses GitHub Actions to automatically build images and publish them a
 
 Based on the [pi-gen-action examples](https://github.com/usimd/pi-gen-action#scenarios), the following features have been implemented:
 
-1. **Custom Stage Structure**: Using a custom stage structure in `stage-picompose/`
+1. **Custom Stage Structure**: Using a custom stage structure in `01-stage-base/` and the other numbered stages
 2. **Detailed Build Output**: Activation of the `verbose-output` option for better troubleshooting
 3. **Disk Space Optimization**: Activation of the `increase-runner-disk-size` option for larger images
 
