@@ -3,6 +3,9 @@
 log "Cleaning up the system before creating the image"
 
 on_chroot << EOF
+# The proxy bypass of the image build is not part of the image
+rm -f /etc/apt/apt.conf.d/52picompose-direct
+
 # Clean apt cache
 apt-get clean
 
