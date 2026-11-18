@@ -58,7 +58,7 @@ Driver approach differs per hardware, all in `01-driver/03-run-chroot.sh`:
 
 ## Runtime: compose-manager
 
-`01-stage-base/03-picompose/files/compose-manager.sh` is installed as `/usr/bin/compose-manager.sh` and started by `picompose.service` (oneshot, `boot` argument, after Docker and network-online).
+`compose-manager.sh` is not part of this repository. The package `picompose-core` ([PiCompose-Package-Core](https://github.com/florian-asche/PiCompose-Package-Core)) ships it as `/usr/bin/compose-manager.sh`, and the step `01-stage-base/03-install-picompose-core` installs the package. The script is started by `picompose.service` (oneshot, `boot` argument, after Docker and network-online).
 
 - `boot` and no argument: wait for Docker (90 s timeout), clear old cron entries, scan `/compose/*/`, for each project set up cron and deploy.
 - `redeploy <project>`: deploy one project, called from cron.
@@ -68,11 +68,11 @@ Driver approach differs per hardware, all in `01-driver/03-run-chroot.sh`:
 - A project is a directory with a compose file (`docker-compose.yml/.yaml` or `compose.yml/.yaml`) plus `picompose.conf`. Directories without a config are skipped with a log line.
 - The script exports `HOSTNAME` before `docker compose up`, so compose files can use it.
 
-Preinstalled projects: `example` (hello-world) from `01-stage-base`, and `lva` plus `snapcast` from `03-stage-linux-voice-assistant`. Snapcast ships with `DISABLED=true`. The `lva` project has a one-shot `fix-permissions` service that chowns the volumes before the main container starts, and uses the PipeWire PulseAudio socket of user 1000.
+Preinstalled projects: `example` (hello-world) from the package `picompose-core`, and `lva` plus `snapcast` from `03-stage-linux-voice-assistant`. Snapcast ships with `DISABLED=true`. The `lva` project has a one-shot `fix-permissions` service that chowns the volumes before the main container starts, and uses the PipeWire PulseAudio socket of user 1000.
 
 ## Audio setup
 
-- `01-stage-base/04-install-pipewire-audio`: PipeWire drop-in configs (clock rate, real-time scheduling module), a WirePlumber rule for ALSA outputs (volume, no suspend), the ALSA bridge, `pi` in the `pipewire` group for rtprio, and lingering for `pi` so services run without a login session.
+- The package `picompose-core` ships the PipeWire drop-in config (clock rate, real-time scheduling module) and the WirePlumber rule for ALSA outputs (volume, no suspend). `01-stage-base/04-install-pipewire-audio` installs the PipeWire packages and sets the ALSA bridge, `pi` in the `pipewire` group for rtprio, and lingering for `pi` so services run without a login session.
 - Hardware stages add a `configure_audio.service` plus script that waits (with a retry limit) for the card/control and sets the hardware volume through `wpctl`/`amixer`. The ReSpeaker Lite stage adds a keep-audio-alive service as a workaround for connectivity problems on the Pi Zero 2W.
 - Some earlier file names in git history differ (for example `50-volume.conf`). Check `git log` before assuming a file never existed.
 - Debugging notes for users: `docs/pipewire_debugging.md`.
@@ -86,8 +86,8 @@ Preinstalled projects: `example` (hello-world) from `01-stage-base`, and `lva` p
 4. Row in the README image table and a `docs/hardware_<name>.md` page.
 
 **New `picompose.conf` option**
-1. Handle it in `compose-manager.sh` (`setup_cron` / `deploy_compose`) with a safe default.
-2. Add it to the template files under `01-stage-base/03-picompose/files/example/`, `03-stage-linux-voice-assistant/*/files/*/` and to the README block.
+1. Handle it in `compose-manager.sh` (`setup_cron` / `deploy_compose`) with a safe default. The script lives in the repository PiCompose-Package-Core.
+2. Add it to the template files under `files/usr/share/picompose/compose/example/` of PiCompose-Package-Core, to `03-stage-linux-voice-assistant/*/files/*/` and to the README block.
 
 **New preinstalled compose project**
 1. Directory under `03-stage-linux-voice-assistant/` with `01-run.sh` and `files/<name>/{docker-compose.yml,.env,picompose.conf}`.
