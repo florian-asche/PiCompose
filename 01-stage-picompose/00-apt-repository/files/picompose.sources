@@ -1,0 +1,5 @@
+Types: deb
+URIs: https://florian-asche.github.io/PiCompose-Repository/
+Suites: trixie
+Components: main
+Signed-By: /usr/share/keyrings/picompose-archive-keyring.gpg

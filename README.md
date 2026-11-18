@@ -30,6 +30,7 @@ This repository contains fully prepared images for specific voice hardware of Ho
 - Configurable regular re-deployments via a simple configuration file
 - No manual configuration of the Raspberry Pi required
 - Image prepared for audio usage with the pipewire server
+- The [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository) is set up on the device (package `picompose-archive-keyring`, suite `trixie`), so packages of the PiCompose project can be installed with `apt` and the signing key is updated through `apt upgrade`
 - Prebuild images with drivers for various devices
 
 ## Usage
