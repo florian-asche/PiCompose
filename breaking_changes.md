@@ -4,6 +4,9 @@ This document contains information about breaking changes if a new version is re
 If you use the homeassistant image please also follow the snapcast and satellite breaking changes.
 
 # Versions
+## Unreleased
+The `lva` and `snapcast` projects are installed by the package `picompose-software-ha-satellite` instead of the image build. `apt upgrade` replaces `/compose/lva/docker-compose.yml` and `/compose/snapcast/docker-compose.yml`, so changes you made to these two files are lost. `picompose.conf` and `.env` are never overwritten, but new options of a newer `.env` have to be added by hand.
+
 ## From unstable to v1.0.0
 I released the first stable version from piCompose. There is still some things todo but i think this release can be marked as a first stable and working version.
 

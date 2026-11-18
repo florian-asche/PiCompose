@@ -17,7 +17,7 @@ The image is configured to:
 5. Set system audio volume to 100%
 6. Set hostname
 7. Search for Docker Compose files in a special directory on the main partition
-   💡 **Note:** If you use the Linux-Voice-Assistant Image LVA and Snapcast will be included in the project directory.
+   💡 **Note:** If you use the Linux-Voice-Assistant Image LVA and Snapcast will be included in the project directory. They come from the package `picompose-software-ha-satellite` of the [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository).
 8. Automatically deploy each Docker Compose project found
 9. Optionally set up regular re-deployments via Crontab
 
@@ -84,7 +84,7 @@ If you don't want to use the Raspberry Pi Imager tool you can also [download](ht
 
 ### Configuration
 
-You can customize the PiCompose configuration in the `/compose` directory on the root filesystem. You can change how it is updated, how it is handling a reboot and you can remove `snapcast` if you dont want to use it.
+You can customize the PiCompose configuration in the `/compose` directory on the root filesystem. You can change how it is updated, how it is handling a reboot and you can remove `snapcast` if you dont want to use it. The `docker-compose.yml` of `lva` and `snapcast` belongs to the package and is replaced when the package is upgraded, so change `picompose.conf` and `.env` instead.
 
 You can also add your own docker-compose projects to the system:
 
