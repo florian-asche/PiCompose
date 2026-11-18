@@ -80,7 +80,7 @@ Before claiming completion:
 
 ## Areas Requiring Extra Care
 
-- `01-stage-base/02-picompose/files/compose-manager.sh` - runs as root on every boot and from cron, and can take down or redeploy user containers
+- `01-stage-base/03-picompose/files/compose-manager.sh` - runs as root on every boot and from cron, and can take down or redeploy user containers
 - `02-stage-audiodriver-*/` - kernel driver builds and ALSA/WirePlumber configuration are hardware dependent
 - `.github/workflows/` - a broken stage list or release step wastes a long ARM image build
 - `scripts/generate-imager-json.py` - parses release asset file names, so renaming an `image-name` breaks hardware detection

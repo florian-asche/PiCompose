@@ -1,0 +1,9 @@
+git
+jq
+curl
+wget
+vim
+htop
+python3
+python3-pip
+dfu-util

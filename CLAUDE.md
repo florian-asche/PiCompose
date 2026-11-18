@@ -58,7 +58,7 @@ Driver approach differs per hardware, all in `01-driver/03-run-chroot.sh`:
 
 ## Runtime: compose-manager
 
-`01-stage-base/02-picompose/files/compose-manager.sh` is installed as `/usr/bin/compose-manager.sh` and started by `picompose.service` (oneshot, `boot` argument, after Docker and network-online).
+`01-stage-base/03-picompose/files/compose-manager.sh` is installed as `/usr/bin/compose-manager.sh` and started by `picompose.service` (oneshot, `boot` argument, after Docker and network-online).
 
 - `boot` and no argument: wait for Docker (90 s timeout), clear old cron entries, scan `/compose/*/`, for each project set up cron and deploy.
 - `redeploy <project>`: deploy one project, called from cron.
@@ -72,7 +72,7 @@ Preinstalled projects: `example` (hello-world) from `01-stage-base`, and `lva` p
 
 ## Audio setup
 
-- `01-stage-base/03-install-pipewire-audio`: PipeWire drop-in configs (clock rate, real-time scheduling module), a WirePlumber rule for ALSA outputs (volume, no suspend), the ALSA bridge, `pi` in the `pipewire` group for rtprio, and lingering for `pi` so services run without a login session.
+- `01-stage-base/04-install-pipewire-audio`: PipeWire drop-in configs (clock rate, real-time scheduling module), a WirePlumber rule for ALSA outputs (volume, no suspend), the ALSA bridge, `pi` in the `pipewire` group for rtprio, and lingering for `pi` so services run without a login session.
 - Hardware stages add a `configure_audio.service` plus script that waits (with a retry limit) for the card/control and sets the hardware volume through `wpctl`/`amixer`. The ReSpeaker Lite stage adds a keep-audio-alive service as a workaround for connectivity problems on the Pi Zero 2W.
 - Some earlier file names in git history differ (for example `50-volume.conf`). Check `git log` before assuming a file never existed.
 - Debugging notes for users: `docs/pipewire_debugging.md`.
@@ -87,7 +87,7 @@ Preinstalled projects: `example` (hello-world) from `01-stage-base`, and `lva` p
 
 **New `picompose.conf` option**
 1. Handle it in `compose-manager.sh` (`setup_cron` / `deploy_compose`) with a safe default.
-2. Add it to the template files under `01-stage-base/02-picompose/files/example/`, `03-stage-linux-voice-assistant/*/files/*/` and to the README block.
+2. Add it to the template files under `01-stage-base/03-picompose/files/example/`, `03-stage-linux-voice-assistant/*/files/*/` and to the README block.
 
 **New preinstalled compose project**
 1. Directory under `03-stage-linux-voice-assistant/` with `01-run.sh` and `files/<name>/{docker-compose.yml,.env,picompose.conf}`.
