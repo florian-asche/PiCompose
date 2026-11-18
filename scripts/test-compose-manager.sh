@@ -60,7 +60,7 @@ CRON_IMAGE_PULL=true
 EOF
 
 # Kopiere das Compose-Manager-Skript
-cp 01-stage-base/02-picompose/files/compose-manager.sh $TEST_DIR/
+cp 01-stage-base/03-picompose/files/compose-manager.sh $TEST_DIR/
 
 # Passe das Skript für Testzwecke an
 sed -i 's|base_path=.*|base_path="/compose"|g' $TEST_DIR/compose-manager.sh
