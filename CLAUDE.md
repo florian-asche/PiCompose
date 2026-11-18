@@ -101,7 +101,7 @@ The LVA options live in `03-stage-linux-voice-assistant/01-linux-voice-assistant
 - Docker images in the preinstalled compose files come from `ghcr.io/ohf-voice/linux-voice-assistant`. A user report about a missing LVA feature is often a stale image tag in `.env` (`LVA_IMAGE_TAG`), not a PiCompose bug.
 - The default login is `pi` / `raspberry`, and the Raspberry Pi Imager customization must keep the user `pi` because services and paths assume it.
 - A manual reboot after the first boot is required for the audio driver to show up. This is documented behavior, not a bug.
-- `DEVELOPMENT.md` and `scripts/test-compose-manager.sh` still reference the old `stage-picompose/00-boot-scripts/` layout, and the test script has German comments and log text. Do not trust their paths. New code and docs are English.
+- `scripts/test-compose-manager.sh` has German comments and log text. New code and docs are English.
 - Pushing a `feature/*`, `fix/*`, `hotfix/*` or `bugfix/*` branch builds all ten images and publishes prereleases. Do not push without consent. Changes to the image still need such a branch name (and a PR from it), because that build is the test. Documentation-only changes use a `docs/*` or `ci/*` branch, which is not built. See "Branching and PRs" in `AGENTS.md`.
 - `README.md` links the badge to a workflow file named `build-image.yml`, the real file is `build-all.yml`.
 
