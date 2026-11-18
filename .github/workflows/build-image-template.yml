@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v7
       
       - name: Restore package cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           # Unpacking directly into /var/cache would result in permission errors
           # so we need to work around this a bit.
