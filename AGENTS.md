@@ -19,7 +19,7 @@
 - **Distribution**: images are attached to GitHub Releases. A generated `rpi-imager.json` makes them selectable in Raspberry Pi Imager.
 
 ### Key Components
-- `01-stage-picompose/` - base stage: PiCompose APT repository (`picompose-archive-keyring`), Docker repository and packages, `compose-manager.sh`, PipeWire config, hostname service
+- `01-stage-base/` - base stage: PiCompose APT repository (`picompose-archive-keyring`), Docker repository and packages, `compose-manager.sh`, PipeWire config, hostname service
 - `02-stage-audiodriver-*/` - one stage per hardware (2-Mic HAT v1/v2, ReSpeaker Lite, Satellite1, other)
 - `03-stage-linux-voice-assistant/` - preconfigured `lva` and `snapcast` compose projects under `/compose`
 - `04-stage-finish/` - user shell config and image cleanup
@@ -80,7 +80,7 @@ Before claiming completion:
 
 ## Areas Requiring Extra Care
 
-- `01-stage-picompose/02-picompose/files/compose-manager.sh` - runs as root on every boot and from cron, and can take down or redeploy user containers
+- `01-stage-base/02-picompose/files/compose-manager.sh` - runs as root on every boot and from cron, and can take down or redeploy user containers
 - `02-stage-audiodriver-*/` - kernel driver builds and ALSA/WirePlumber configuration are hardware dependent
 - `.github/workflows/` - a broken stage list or release step wastes a long ARM image build
 - `scripts/generate-imager-json.py` - parses release asset file names, so renaming an `image-name` breaks hardware detection
