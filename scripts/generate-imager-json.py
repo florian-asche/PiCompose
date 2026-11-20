@@ -2,11 +2,14 @@
 # generate-imager-json.py
 # Generiert eine JSON-Datei für rpi-imager mit allen Releases
 
+import io
 import json
 import sys
 import re
 import urllib.request
+import zipfile
 from collections import defaultdict
+from functools import lru_cache
 
 OWNER = "florian-asche"
 REPO = "PiCompose"
@@ -51,7 +54,8 @@ def extract_image_files(release):
         if asset['name'].endswith('.xz') or asset['name'].endswith('.zip'):
             xz_files.append({
                 'name': asset['name'],
-                'url': asset['browser_download_url']
+                'url': asset['browser_download_url'],
+                'size': asset['size']
             })
     return xz_files
 
@@ -107,19 +111,120 @@ def format_image_name(parts, original):
     return clean_name, original
 
 
-def create_image_entry(filename, url):
-    """Create a single image entry for subitems."""
-    date_prefix, hardware, parts, original = extract_metadata(filename)
+class HttpRangeFile(io.RawIOBase):
+    """Read-only seekable file object backed by HTTP range requests."""
+
+    def __init__(self, url, size):
+        """
+        :param url: Download URL of the file, the server must support range requests.
+        :param size: Total size of the file in bytes.
+        """
+        self.url = url
+        self.size = size
+        self.pos = 0
+
+    def readable(self):
+        return True
+
+    def seekable(self):
+        return True
+
+    def tell(self):
+        return self.pos
+
+    def seek(self, offset, whence=io.SEEK_SET):
+        if whence == io.SEEK_SET:
+            self.pos = offset
+        elif whence == io.SEEK_CUR:
+            self.pos += offset
+        else:
+            self.pos = self.size + offset
+        return self.pos
+
+    def read(self, size=-1):
+        if size is None or size < 0 or self.pos + size > self.size:
+            size = self.size - self.pos
+        if size <= 0:
+            return b''
+        request = urllib.request.Request(self.url, headers={'Range': f'bytes={self.pos}-{self.pos + size - 1}'})
+        with urllib.request.urlopen(request) as response:
+            data = response.read()
+        self.pos += len(data)
+        return data
+
+
+def read_varint(data, offset):
+    """Decode an xz variable-length integer and return the value and the next offset."""
+    value = 0
+    for shift in range(0, 63, 7):
+        byte = data[offset]
+        offset += 1
+        value |= (byte & 0x7F) << shift
+        if not byte & 0x80:
+            return value, offset
+    raise ValueError("Invalid xz varint")
+
+
+def get_xz_extract_size(file):
+    """Sum the uncompressed block sizes from the index of a single-stream xz file."""
+    file.seek(-12, io.SEEK_END)
+    footer = file.read(12)
+    if footer[10:] != b'YZ':
+        raise ValueError("Missing xz stream footer")
+    index_size = (int.from_bytes(footer[4:8], 'little') + 1) * 4
+    file.seek(-12 - index_size, io.SEEK_END)
+    index = file.read(index_size)
+    if index[0] != 0:
+        raise ValueError("Invalid xz index")
+    records, offset = read_varint(index, 1)
+    total = 0
+    for _ in range(records):
+        _, offset = read_varint(index, offset)
+        uncompressed, offset = read_varint(index, offset)
+        total += uncompressed
+    return total
+
+
+def get_zip_extract_size(file):
+    """Sum the uncompressed sizes of the files in a zip archive."""
+    with zipfile.ZipFile(file) as archive:
+        return sum(info.file_size for info in archive.infolist())
+
+
+@lru_cache(maxsize=None)
+def get_extract_size(url, name, size):
+    """Get the uncompressed size of an image by reading only its index, None if it cannot be determined."""
+    try:
+        file = HttpRangeFile(url, size)
+        if name.endswith('.zip'):
+            return get_zip_extract_size(file)
+        return get_xz_extract_size(file)
+    except Exception as e:
+        print(f"Warning: Could not determine extract size of {name} - {e}")
+        return None
+
+
+def create_image_entry(file_info):
+    """
+    Create a single image entry for subitems.
+    :param file_info: Image file as returned by extract_image_files().
+    """
+    date_prefix, hardware, parts, original = extract_metadata(file_info['name'])
     clean_name, original = format_image_name(parts, original)
-    
-    return {
+
+    entry = {
         "name": clean_name,
         "description": "PiCompose image",
-        "url": url,
+        "url": file_info['url'],
+        "image_download_size": file_info['size'],
         "init_format": "systemd",
         "devices": ["pi5-64bit", "pi4-64bit", "pi3-64bit", "pi3-32bit"],
         "capabilities": ["ssh", "wifi", "hostname", "locale"]
     }
+    extract_size = get_extract_size(file_info['url'], file_info['name'], file_info['size'])
+    if extract_size:
+        entry["extract_size"] = extract_size
+    return entry
 
 
 def group_files_by_date_and_hardware(files):
@@ -148,7 +253,7 @@ def build_date_hardware_subitems(files):
         
         for hardware in grouped[date]:
             image_entries = [
-                create_image_entry(f['name'], f['url'])
+                create_image_entry(f)
                 for f in grouped[date][hardware]
             ]
             
@@ -172,7 +277,7 @@ def build_date_hardware_subitems(files):
 def build_simple_subitems(files):
     """Build simple subitems without date/hardware grouping."""
     return [
-        create_image_entry(f['name'], f['url'])
+        create_image_entry(f)
         for f in reversed(files)
     ]
 
