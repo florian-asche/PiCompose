@@ -20,7 +20,7 @@
 
 ### Key Components
 - `01-stage-base/` - base stage: PiCompose APT repository (`picompose-archive-keyring`), Docker repository and packages, optional packages, the package `picompose-core` (compose manager, PipeWire config files, hostname service), PipeWire packages
-- `02-stage-audiodriver-*/` - one stage per hardware (2-Mic HAT v1/v2, ReSpeaker Lite, Satellite1, other)
+- `02-stage-audiodriver-*/` - one stage per hardware (2-Mic HAT v1/v2, ReSpeaker Lite, Satellite1)
 - `03-stage-linux-voice-assistant/` - preconfigured `lva` and `snapcast` compose projects under `/compose`
 - `04-stage-finish/` - user shell config and image cleanup
 - `.github/workflows/` - `build-all.yml` (all variants), `build-image-template.yml` (one image), `create-rpi-image-json.yml`, `gen_changelog.yml`

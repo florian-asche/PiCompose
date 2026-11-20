@@ -34,15 +34,16 @@ release published → gen_changelog.yml → CHANGELOG.md on main
 
 ### Stage lists per variant
 
-Every variant is `stage0 stage1 stage2 ./01-stage-base <hardware stage> [./03-stage-linux-voice-assistant] ./04-stage-finish`. The image name decides the output file, so renaming one breaks `scripts/generate-imager-json.py`.
+Every variant is `stage0 stage1 stage2 ./01-stage-base [<hardware stage>] [./03-stage-linux-voice-assistant] ./04-stage-finish`. The image name decides the output file, so renaming one breaks `scripts/generate-imager-json.py`.
 
 | Hardware stage | Plain image | With LVA + Snapcast |
 |----------------|-------------|---------------------|
-| `02-stage-audiodriver-other` | `PiCompose` | `PiCompose_Linux-Voice-Assistant` |
 | `02-stage-audiodriver-2michat-v1` | `PiCompose-2MicHat-v1` | `PiCompose_2MicHat-v1_Linux-Voice-Assistant` |
 | `02-stage-audiodriver-2michat-v2` | `PiCompose-2MicHat-v2` | `PiCompose_2MicHat-v2_Linux-Voice-Assistant` |
 | `02-stage-audiodriver-respeaker_lite` | `PiCompose-Respeaker_lite` | `PiCompose_Respeaker_lite_Linux-Voice-Assistant` |
 | `02-stage-audiodriver-satellite1-v1.0` | `PiCompose_Satellite1-v1.0` | `PiCompose_Satellite1-v1.0_Linux-Voice-Assistant` |
+
+The images `PiCompose` and `PiCompose_Linux-Voice-Assistant` for hardware without a driver have no hardware stage. The volume default of a sound card comes from `picompose-core` (`51-default-volume.conf`).
 
 Driver approach differs per hardware, all in `01-driver/03-run-chroot.sh`:
 - `2michat-v1` builds the seeed-voicecard DKMS driver and ships `seeed-voicecard.service`. The README flags this image as pinned to an older build, see the linked upstream issue.
