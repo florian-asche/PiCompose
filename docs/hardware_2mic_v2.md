@@ -31,9 +31,11 @@ Unlike v1 — which needs an out-of-tree DKMS kernel module — v2 uses the main
 
 1. The device-tree overlay `respeaker-2mic-v2_0.dtbo` (built from [Seeed-Studio/seeed-linux-dtoverlays](https://github.com/Seeed-Studio/seeed-linux-dtoverlays)), enabled via `dtoverlay=respeaker-2mic-v2_0` in `/boot/firmware/config.txt`.
 2. `dtparam=i2c_arm=on` in `/boot/firmware/config.txt`.
-3. Per-boot mixer tuning — the TLV320 ships with several attenuators well below 100 % (`HP DAC` at -23.5 dB in particular), producing a card that appears to work but is inaudible at typical application volumes.
+3. Mixer tuning — the TLV320 ships with several attenuators well below 100 % (`HP DAC` at -23.5 dB in particular), producing a card that appears to work but is inaudible at typical application volumes.
 
-The PiCompose `02-stage-audiodriver-2michat-v2` stage performs all three steps automatically. The mixer tuning is applied by `configure_audio.service` on every boot, the same pattern other audiodriver stages follow after #42: amixer on the codec-specific controls, then `wpctl set-volume @DEFAULT_AUDIO_SINK@ 1.0` to keep the PipeWire sink at unity. PipeWire / WirePlumber manage ALSA state per session and can reset the mixer between reboots, so a first-boot-only guard would let users end up stuck at 0%. Customization via `amixer` is still possible at runtime — it just won't survive a reboot.
+The PiCompose `02-stage-audiodriver-2michat-v2` stage installs the package `picompose-driver-2michat-v2` from the APT repository ([PiCompose-Package-Driver-2MicHat-V2](https://github.com/florian-asche/PiCompose-Package-Driver-2MicHat-V2)), which does the first two steps. The stage itself only keeps the WirePlumber rule `51-disable-acp.conf`.
+
+The mixer tuning of step 3 is no longer done: `configure_audio.service` is gone, the same as in the other audiodriver stages. The default volume of the PipeWire sink comes from `picompose-core` (`51-default-volume.conf`), but that does not change the ALSA controls of the codec. If the card is inaudible after a fresh install, raise `HP DAC` and the other output controls with `amixer` or `alsamixer`. Whether this is needed has not been checked on hardware yet.
 
 ## Additional information
 
