@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
-# disable acp
-mkdir -p "${ROOTFS_DIR}/etc/wireplumber/wireplumber.conf.d"
-install -v -m 644 files/51-disable-acp.conf "${ROOTFS_DIR}/etc/wireplumber/wireplumber.conf.d/51-disable-acp.conf"
+# The package brings the WirePlumber configuration (ACP disabled). The default volume of the sound card comes from picompose-core.
+on_chroot << EOF2
+apt-get update
+apt-get install -y picompose-driver-satellite1
+EOF2
