@@ -16,7 +16,8 @@ echo "Starting satellite1 driver installation..."
 # 2. Install System Configuration
 echo "Download and install System configuration"
 wget https://github.com/FutureProofHomes/Satellite1-RPi-Setup/releases/download/v1.1-1/satellite1-rpi-setup_1.0-1_arm64.deb
-dpkg -i satellite1-rpi-setup_*_arm64.deb
+# Test only: the package depends on the custom kernel, which is not installed any more
+dpkg -i --force-depends satellite1-rpi-setup_*_arm64.deb
 
 
 # 3. Install the Python SDK

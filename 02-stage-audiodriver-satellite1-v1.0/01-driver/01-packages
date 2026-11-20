@@ -6,3 +6,5 @@ dkms
 i2c-tools
 libasound2-plugins
 alsa-utils 
+python3-venv
+flashrom
