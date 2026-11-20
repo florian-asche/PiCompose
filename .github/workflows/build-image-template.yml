@@ -73,7 +73,7 @@ jobs:
         uses: docker/setup-qemu-action@v3
 
       - name: Build Image with pi-gen
-        uses: usimd/pi-gen-action@v1
+        uses: usimd/pi-gen-action@v2
         id: build
         with:
           # APT proxy for caching
