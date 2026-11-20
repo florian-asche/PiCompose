@@ -14,13 +14,13 @@ echo "Starting satellite1 driver installation..."
 
 
 # 2. Install System Configuration
-echo "Download and install System configuration"
-wget https://github.com/FutureProofHomes/Satellite1-RPi-Setup/releases/download/v1.3-1-trixie/satellite1-rpi-setup-trixie_1.3-1_arm64.deb
-# Test only: the package depends on the custom kernel, which is not installed any more
-dpkg -i --force-depends satellite1-rpi-setup-trixie_*_arm64.deb
+#echo "Download and install System configuration"
+#wget https://github.com/FutureProofHomes/Satellite1-RPi-Setup/releases/download/v1.3-1-trixie/satellite1-rpi-setup-trixie_1.3-1_arm64.deb
+## Test only: the package depends on the custom kernel, which is not installed any more
+#dpkg -i --force-depends satellite1-rpi-setup-trixie_*_arm64.deb
 
 
 # 3. Install the Python SDK
 #echo "Download and install Python SDK"
-wget https://github.com/FutureProofHomes/Satellite1-RPi-SDK/releases/download/v0.1.6/satellite1-rpi-sdk_0.1.6_arm64.deb
-dpkg -i satellite1-rpi-sdk_*_arm64.deb
+#wget https://github.com/FutureProofHomes/Satellite1-RPi-SDK/releases/download/v0.1.6/satellite1-rpi-sdk_0.1.6_arm64.deb
+#dpkg -i satellite1-rpi-sdk_*_arm64.deb
