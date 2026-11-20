@@ -33,7 +33,7 @@ Unlike v1 — which needs an out-of-tree DKMS kernel module — v2 uses the main
 2. `dtparam=i2c_arm=on` in `/boot/firmware/config.txt`.
 3. Mixer tuning — the TLV320 ships with several attenuators well below 100 % (`HP DAC` at -23.5 dB in particular), producing a card that appears to work but is inaudible at typical application volumes.
 
-The PiCompose `02-stage-audiodriver-2michat-v2` stage installs the package `picompose-driver-2michat-v2` from the APT repository ([PiCompose-Package-Driver-2MicHat-V2](https://github.com/florian-asche/PiCompose-Package-Driver-2MicHat-V2)), which does the first two steps. The stage itself only keeps the WirePlumber rule `51-disable-acp.conf`.
+The PiCompose `02-stage-audiodriver-2michat-v2` stage installs the package `picompose-driver-2michat-v2` from the APT repository ([PiCompose-Package-Driver-2MicHat-V2](https://github.com/florian-asche/PiCompose-Package-Driver-2MicHat-V2)), which does the first two steps. The package also brings the WirePlumber rule `51-disable-acp.conf`.
 
 The mixer tuning of step 3 is no longer done: `configure_audio.service` is gone, the same as in the other audiodriver stages. The default volume of the PipeWire sink comes from `picompose-core` (`51-default-volume.conf`), but that does not change the ALSA controls of the codec. If the card is inaudible after a fresh install, raise `HP DAC` and the other output controls with `amixer` or `alsamixer`. Whether this is needed has not been checked on hardware yet.
 
