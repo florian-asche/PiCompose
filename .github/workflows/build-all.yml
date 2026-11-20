@@ -17,7 +17,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose
-      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-other ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./04-stage-finish
       compression: zip
       compression-level: 6
       custom-hostname: picompose
@@ -26,7 +26,7 @@ jobs:
     uses: ./.github/workflows/build-image-template.yml
     with:
       image-name: PiCompose_Linux-Voice-Assistant
-      stage-list: stage0 stage1 stage2 ./01-stage-base ./02-stage-audiodriver-other ./03-stage-linux-voice-assistant ./04-stage-finish
+      stage-list: stage0 stage1 stage2 ./01-stage-base ./03-stage-linux-voice-assistant ./04-stage-finish
       compression: zip
       compression-level: 6
       custom-hostname: picompose
