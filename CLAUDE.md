@@ -74,7 +74,7 @@ Preinstalled projects: `example` (hello-world) from the package `picompose-core`
 ## Audio setup
 
 - The package `picompose-core` ships the PipeWire drop-in config (clock rate, real-time scheduling module) and the WirePlumber rule for ALSA outputs (volume, no suspend). `01-stage-base/04-install-pipewire-audio` installs the PipeWire packages and sets the ALSA bridge, `pi` in the `pipewire` group for rtprio, and lingering for `pi` so services run without a login session.
-- The hardware stages install their driver as a package from the APT repository and do not set the hardware volume. The default volume of a sound card without a stored state comes from `picompose-core`. The ReSpeaker Lite stage adds a keep-audio-alive service as a workaround for connectivity problems on the Pi Zero 2W.
+- The hardware stages install their driver as a package from the APT repository and do not set the hardware volume themselves. The default volume of a sound card without a stored state comes from `picompose-core`. The package of the 2-Mic HAT V2.0 maps the sink volume to the DAC controls of the codec through an ACP profile set. The ReSpeaker Lite stage adds a keep-audio-alive service as a workaround for connectivity problems on the Pi Zero 2W.
 - Some earlier file names in git history differ (for example `50-volume.conf`). Check `git log` before assuming a file never existed.
 - Debugging notes for users: `docs/pipewire_debugging.md`.
 

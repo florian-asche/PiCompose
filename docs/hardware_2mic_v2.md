@@ -33,9 +33,7 @@ Unlike v1 — which needs an out-of-tree DKMS kernel module — v2 uses the main
 2. `dtparam=i2c_arm=on` in `/boot/firmware/config.txt`.
 3. Mixer tuning — the TLV320 ships with several attenuators well below 100 % (`HP DAC` at -23.5 dB in particular), producing a card that appears to work but is inaudible at typical application volumes.
 
-The PiCompose `02-stage-audiodriver-2michat-v2` stage installs the package `picompose-driver-2michat-v2` from the APT repository ([PiCompose-Package-Driver-2MicHat-V2](https://github.com/florian-asche/PiCompose-Package-Driver-2MicHat-V2)), which does the first two steps. The package also brings the WirePlumber rule `51-disable-acp.conf`.
-
-The mixer tuning of step 3 is no longer done: `configure_audio.service` is gone, the same as in the other audiodriver stages. The default volume of the PipeWire sink comes from `picompose-core` (`51-default-volume.conf`), but that does not change the ALSA controls of the codec. If the card is inaudible after a fresh install, raise `HP DAC` and the other output controls with `amixer` or `alsamixer`. Whether this is needed has not been checked on hardware yet.
+The PiCompose `02-stage-audiodriver-2michat-v2` stage installs the package `picompose-driver-2michat-v2` from the APT repository ([PiCompose-Package-Driver-2MicHat-V2](https://github.com/florian-asche/PiCompose-Package-Driver-2MicHat-V2)), which does the first two steps. The package also does the mixer tuning of step 3. `configure_audio.service` is gone. Instead the package (version 0.2.0 and later) ships an ACP profile set for the sound card, selected by a udev rule. It merges `HP DAC` and `Line DAC` into the volume of the PipeWire sink, so the default volume of 100 % (`51-default-volume.conf` of `picompose-core`) puts both at 0 dB, and a lower sink volume lowers `HP DAC`. Checked on one device after a reboot: both controls at 100 %, and the sink volume changes `HP DAC`. How loud the card is has not been checked, and the other controls (`HP`, `HPCOM DAC`, the input gain `PGA`) are left as the codec starts. Raise them with `amixer` or `alsamixer` if you need more.
 
 ## Additional information
 
