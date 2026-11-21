@@ -19,7 +19,7 @@ jobs:
           python3 scripts/generate-imager-json.py
 
       - name: Delete existing RPI Imager JSON release
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             try {
@@ -44,7 +44,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Delete existing RPI Imager JSON tag
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             try {
