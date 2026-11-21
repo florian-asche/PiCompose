@@ -4,6 +4,7 @@
 
 import io
 import json
+import os
 import sys
 import re
 import urllib.request
@@ -16,6 +17,15 @@ REPO = "PiCompose"
 OUTPUT_FILE = "rpi-imager.json"
 API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/releases?per_page=100"
 
+def get_api_headers():
+    """Build the GitHub API headers, authenticated when GITHUB_TOKEN is set to avoid the anonymous rate limit."""
+    headers = {'Accept': 'application/vnd.github+json'}
+    token = os.environ.get('GITHUB_TOKEN')
+    if token:
+        headers['Authorization'] = f'Bearer {token}'
+    return headers
+
+
 def fetch_releases():
     """Fetch releases from GitHub API."""
     print("Fetching releases from GitHub...")
@@ -23,7 +33,8 @@ def fetch_releases():
     try:
         page = 1
         while True:
-            with urllib.request.urlopen(f"{API_URL}&page={page}") as response:
+            request = urllib.request.Request(f"{API_URL}&page={page}", headers=get_api_headers())
+            with urllib.request.urlopen(request) as response:
                 page_data = json.loads(response.read().decode())
             if not page_data:
                 break
