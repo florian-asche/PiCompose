@@ -14,14 +14,21 @@ from functools import lru_cache
 OWNER = "florian-asche"
 REPO = "PiCompose"
 OUTPUT_FILE = "rpi-imager.json"
-API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/releases"
+API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/releases?per_page=100"
 
 def fetch_releases():
     """Fetch releases from GitHub API."""
     print("Fetching releases from GitHub...")
+    releases_data = []
     try:
-        with urllib.request.urlopen(API_URL) as response:
-            releases_data = json.loads(response.read().decode())
+        page = 1
+        while True:
+            with urllib.request.urlopen(f"{API_URL}&page={page}") as response:
+                page_data = json.loads(response.read().decode())
+            if not page_data:
+                break
+            releases_data.extend(page_data)
+            page += 1
     except Exception as e:
         print(f"Error: Failed to fetch releases - {e}")
         sys.exit(1)
