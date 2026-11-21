@@ -3,6 +3,7 @@ name: Create RPI Imager JSON
 
 on:
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   build:
