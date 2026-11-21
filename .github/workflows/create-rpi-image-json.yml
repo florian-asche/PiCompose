@@ -17,6 +17,8 @@ jobs:
         run: |
           chmod +x scripts/generate-imager-json.py
           python3 scripts/generate-imager-json.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Delete existing RPI Imager JSON release
         uses: actions/github-script@v9
