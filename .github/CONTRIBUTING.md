@@ -7,7 +7,7 @@ Everybody is invited and welcome to contribute to PiCompose. Documentation fixes
 - Check your changes (`bash -n` for shell scripts, `yamllint` for workflows).
 - Create a Pull Request against the `main` branch and tick exactly one box under "Types of changes". CI derives the label from it, and the label decides where the PR appears in the release notes.
 
-Pushing a branch to your fork starts the image build workflows if Actions are enabled there, so expect long build times.
+Images are not built for branches or pull requests automatically. A maintainer starts the `Build All PiCompose` workflow manually for a branch when an image is needed to test a change. In your fork you can run it yourself from the Actions tab if Actions are enabled there, so expect long build times.
 
 ## Feature suggestions
 
