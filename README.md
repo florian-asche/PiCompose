@@ -11,12 +11,11 @@ PiCompose uses the official [pi-gen](https://github.com/RPi-Distro/pi-gen) tool 
 The image is configured to:
 
 1. Install needed drivers for the hardware (2-MicHat, Satellite1)
-2. Start seeed-voicecard service (If you use 2-MicHat)
-3. Start Pipewire service
-4. Start Keep-Audio-Alive service (If you use Respeaker Lite)
-5. Set system audio volume to 100%
-6. Set hostname
-7. Search for Docker Compose files in a special directory on the main partition
+2. Start Pipewire service
+3. Start Keep-Audio-Alive service (If you use Respeaker Lite)
+4. Set system audio volume to 100%
+5. Set hostname
+6. Search for Docker Compose files in a special directory on the main partition
    💡 **Note:** If you use the Linux-Voice-Assistant Image LVA and Snapcast will be included in the project directory. They come from the package `picompose-software-ha-satellite` of the [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository).
 8. Automatically deploy each Docker Compose project found
 9. Optionally set up regular re-deployments via Crontab
@@ -49,7 +48,7 @@ Here is a Overview for the specific images of each hardware:
 | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Base Image**                                           | If you use other hardware...                                                                               | • Docker & Docker Compose (piCompose)<br>• Automatic Docker Compose deployment<br>• Pipewire Audio Server<br>• SSH enabled (pi User)                                                                                                                                                                                                              |
 | **[Satellite1](docs/hardware_sattelite1.md)**            | <img src="docs/sattelite1-hat.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;">         | • * Everything from Base Image<br>• Satellite1 Hat Driver<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant                                                                               |
-| **[ReSpeaker 2-Mic HAT v1](docs/hardware_2mic_v1.md)**   | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • * Everything from Base Image<br>• Seeed Voicecard Driver<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant<br><br><span style="color: yellow;">Current latest available build version is 1.1.1</span> See [#41](https://github.com/HinTak/seeed-voicecard/issues/41) |
+| **[ReSpeaker 2-Mic HAT v1](docs/hardware_2mic_v1.md)**   | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • * Everything from Base Image<br>• Seeed Voicecard Driver (overlay)<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant |
 | **[ReSpeaker 2-Mic HAT v2.0](docs/hardware_2mic_v2.md)** | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • * Everything from Base Image<br>• Seeed Voicecard Driver<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant                                                                                                                                                           |
 | **[ReSpeaker Lite](docs/hardware_respeaker_lite.md)**    | <img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;">         | • * Everything from Base Image<br>• Audio keep-alive service<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant<br>• Workaround for connectivity issues in combination with the Pi Zero 2W.                                                                            |
 
