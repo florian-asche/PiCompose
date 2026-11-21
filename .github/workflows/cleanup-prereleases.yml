@@ -1,0 +1,42 @@
+name: Cleanup old prereleases
+
+# Branch builds publish a prerelease named after the branch. Deletes every prerelease
+# that is older than three months, together with its tag. The releases `main` (feeds the
+# development entry of the imager JSON) and `rpi-imager-json` are never deleted.
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: "Only list what would be deleted"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete prereleases older than 3 months
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          DRY_RUN: ${{ inputs.dry-run }}
+        run: |
+          CUTOFF=$(date -u -d '3 months ago' +%Y-%m-%dT%H:%M:%SZ)
+          echo "Deleting prereleases published before $CUTOFF"
+
+          gh release list --limit 1000 --json tagName,isPrerelease,publishedAt \
+            --jq ".[] | select(.isPrerelease and .publishedAt < \"$CUTOFF\" and .tagName != \"main\" and .tagName != \"rpi-imager-json\") | .tagName" |
+          while read -r TAG; do
+            if [ "$DRY_RUN" = "true" ]; then
+              echo "Would delete: $TAG"
+            else
+              echo "Deleting: $TAG"
+              gh release delete "$TAG" --cleanup-tag --yes
+            fi
+          done
