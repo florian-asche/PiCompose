@@ -3,7 +3,7 @@
 ## Behaviour
 
 - NEVER automatically reply on GitHub (PRs, issues or discussions) and NEVER push or open a PR without explicit consent from the developer.
-- Pushing a `feature/*`, `fix/*`, `hotfix/*` or `bugfix/*` branch starts a full image build of every variant and publishes a prerelease named after the branch. Only push when the developer asks for it, because the build is expensive. See "Branching and PRs" for the branch names.
+- Pushing a branch does not build images. A full image build of every variant, published as a prerelease named after the branch, only starts when the developer runs `Build All PiCompose` manually (`workflow_dispatch`) for that branch, because the build is expensive. See "Branching and PRs".
 - Images cannot be built or booted locally. Never claim that image, driver, audio or boot behavior is verified unless it was actually exercised on hardware. State plainly what was only syntax-checked.
 - When a change alters what users see or must configure (`picompose.conf` options, `/compose` layout, default services, supported hardware), update `README.md` and the matching file in `docs/` in the same change. Breaking changes also go into `breaking_changes.md`.
 - When the code and the docs contradict each other, ask which one is wrong instead of silently picking one.
@@ -64,9 +64,9 @@ Titles describe the change functionally in the style of the existing history, fo
 
 - All PRs target `main`.
 - Release images are built from `v*.*.*` tags.
-- Name the branch of a change after its type: `feature/<name>`, `fix/<name>`, `hotfix/<name>` or `bugfix/<name>`. Only these prefixes (and `main` and tags) start the image build of `build-all.yml`, which is how a change to a stage, a driver, a configuration file or any other content of the image is tested before the merge. A change to the image must therefore never use another prefix, for example `my-change` or `picompose-fix`, because then the PR has no build.
-- Changes that do not affect the image (documentation, AI instructions, repository settings) use another prefix, for example `docs/<name>` or `ci/<name>`, so that no build of ten images is started for them.
-- Do not push a branch with one of the build prefixes before the developer asked for it, and say in the PR that the build runs.
+- Name the branch of a change after its type: `feature/<name>`, `fix/<name>`, `hotfix/<name>` or `bugfix/<name>` for changes to the image, `docs/<name>` or `ci/<name>` for documentation, AI instructions and repository settings.
+- The image build of `build-all.yml` starts only for pushes to `main`, for `v*.*.*` tags and on request. A change to a stage, a driver, a configuration file or any other content of the image is tested before the merge by running `Build All PiCompose` manually for the branch (Actions tab, "Run workflow", or `gh workflow run build-all.yml --ref <branch>`). The branch name does not matter for this.
+- Never start the build yourself. Ask the developer to start it and say in the PR that an image build is still pending.
 
 ## Verification Checklist
 
@@ -76,7 +76,7 @@ Before claiming completion:
 - [ ] Did NOT claim image or hardware behavior is verified unless it was actually run on a Raspberry Pi
 - [ ] `README.md`, `docs/` and `breaking_changes.md` match the change
 - [ ] Changes are focused on one feature or fix per change
-- [ ] The branch name fits the change: a build prefix for changes to the image, another prefix for documentation only
+- [ ] The branch name fits the change: `feature/`, `fix/`, `hotfix/` or `bugfix/` for changes to the image, `docs/` or `ci/` for the rest
 
 ## Areas Requiring Extra Care
 
