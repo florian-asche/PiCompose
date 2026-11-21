@@ -45,9 +45,9 @@ Every variant is `stage0 stage1 stage2 ./01-stage-base [<hardware stage>] [./03-
 
 The images `PiCompose` and `PiCompose_Linux-Voice-Assistant` for hardware without a driver have no hardware stage. The volume default of a sound card comes from `picompose-core` (`51-default-volume.conf`).
 
-Driver approach differs per hardware, all in `01-driver/03-run-chroot.sh`:
-- `2michat-v1` builds the seeed-voicecard DKMS driver and ships `seeed-voicecard.service`. The README flags this image as pinned to an older build, see the linked upstream issue.
-- `2michat-v2` only builds a device-tree overlay, the codec driver is in the mainline kernel.
+Driver approach differs per hardware:
+- `2michat-v1` installs the package `picompose-driver-2michat-v1` from the APT repository (`01-install-driver-package/01-run.sh`). The package builds the device-tree overlay `respeaker-2mic-v1_0` of Seeed, enables I2C and SPI and ships an ACP profile set, the codec driver (`snd-soc-wm8960`) is in the Raspberry Pi kernel. There is no DKMS driver any more, so the 4-Mics and 6-Mics HATs (AC108 codec) are not supported.
+- `2michat-v2` installs the package `picompose-driver-2michat-v2` from the APT repository, which builds a device-tree overlay, the codec driver is in the mainline kernel.
 - `satellite1-v1.0` downloads a custom FutureProofHomes kernel and setup/SDK `.deb` packages from GitHub releases. Bumping those versions changes the image kernel.
 
 ## pi-gen conventions used here
