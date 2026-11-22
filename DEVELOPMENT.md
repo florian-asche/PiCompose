@@ -23,7 +23,7 @@ The project follows the standard structure for custom pi-gen stages:
   - `03-install-picompose-core/` - Installs the package `picompose-core` (Docker Compose manager, hostname service, PipeWire and WirePlumber configuration files)
   - `04-install-pipewire-audio/` - PipeWire packages, ALSA bridge and settings of the user `pi`
 - `02-stage-audiodriver-*/` - Audio driver stage of one hardware variant
-- `03-stage-linux-voice-assistant/` - Linux Voice Assistant and Snapcast projects
+- `03-stage-linux-voice-assistant/` - Docker Compose projects of the package `picompose-software-ha-satellite`
 - `04-stage-finish/` - User configuration and cleanup of the final image
 - `.github/workflows/` - GitHub Actions workflow files
 

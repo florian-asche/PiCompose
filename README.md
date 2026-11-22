@@ -16,7 +16,7 @@ The image is configured to:
 4. Set system audio volume to 100%
 5. Set hostname
 6. Search for Docker Compose files in a special directory on the main partition
-   💡 **Note:** If you use the Linux-Voice-Assistant Image LVA and Snapcast will be included in the project directory. They come from the package `picompose-software-ha-satellite` of the [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository).
+   💡 **Note:** If you use the Linux-Voice-Assistant Image LVA, Snapcast, Music Assistant Local Audio and the Bluetooth proxy will be included in the project directory. They come from the package `picompose-software-ha-satellite` of the [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository).
 8. Automatically deploy each Docker Compose project found
 9. Optionally set up regular re-deployments via Crontab
 
@@ -47,10 +47,10 @@ Here is a Overview for the specific images of each hardware:
 | Name                                                     | Hardware                                                                                                   | What's in the Image?                                                                                                                                                                                                                                                                                                                                  |
 | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Base Image**                                           | If you use other hardware...                                                                               | • Docker & Docker Compose (piCompose)<br>• Automatic Docker Compose deployment<br>• Pipewire Audio Server<br>• SSH enabled (pi User)                                                                                                                                                                                                              |
-| **[Satellite1](docs/hardware_sattelite1.md)**            | <img src="docs/sattelite1-hat.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;">         | • * Everything from Base Image<br>• Satellite1 Hat Driver<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant                                                                               |
-| **[ReSpeaker 2-Mic HAT v1](docs/hardware_2mic_v1.md)**   | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • * Everything from Base Image<br>• Seeed Voicecard Driver (overlay)<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant |
-| **[ReSpeaker 2-Mic HAT v2.0](docs/hardware_2mic_v2.md)** | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • * Everything from Base Image<br>• Seeed Voicecard Driver<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant                                                                                                                                                           |
-| **[ReSpeaker Lite](docs/hardware_respeaker_lite.md)**    | <img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;">         | • * Everything from Base Image<br>• Audio keep-alive service<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Pre-configured for Home Assistant<br>• Workaround for connectivity issues in combination with the Pi Zero 2W.                                                                            |
+| **[Satellite1](docs/hardware_sattelite1.md)**            | <img src="docs/sattelite1-hat.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;">         | • * Everything from Base Image<br>• Satellite1 Hat Driver<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Music Assistant Local Audio (Sendspin player)<br>• Bluetooth proxy (ESPHome)<br>• Pre-configured for Home Assistant                                                                               |
+| **[ReSpeaker 2-Mic HAT v1](docs/hardware_2mic_v1.md)**   | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • * Everything from Base Image<br>• Seeed Voicecard Driver (overlay)<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Music Assistant Local Audio (Sendspin player)<br>• Bluetooth proxy (ESPHome)<br>• Pre-configured for Home Assistant |
+| **[ReSpeaker 2-Mic HAT v2.0](docs/hardware_2mic_v2.md)** | <img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" style="width: 200px; height: auto;"> | • * Everything from Base Image<br>• Seeed Voicecard Driver<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Music Assistant Local Audio (Sendspin player)<br>• Bluetooth proxy (ESPHome)<br>• Pre-configured for Home Assistant                                                                                                                                                           |
+| **[ReSpeaker Lite](docs/hardware_respeaker_lite.md)**    | <img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" style="width: 200px; height: auto;">         | • * Everything from Base Image<br>• Audio keep-alive service<br>• Linux-Voice-Assistant (OpenHomeFoundation)<br>• Snapcast MultiRoom Audio Client<br>• Music Assistant Local Audio (Sendspin player)<br>• Bluetooth proxy (ESPHome)<br>• Pre-configured for Home Assistant<br>• Workaround for connectivity issues in combination with the Pi Zero 2W.                                                                            |
 
 ### Installation
 
@@ -84,7 +84,7 @@ If you don't want to use the Raspberry Pi Imager tool you can also [download](ht
 
 ### Configuration
 
-You can customize the PiCompose configuration in the `/compose` directory on the root filesystem. You can change how it is updated, how it is handling a reboot and you can remove `snapcast` if you dont want to use it. The `docker-compose.yml` of `lva` and `snapcast` belongs to the package and is replaced when the package is upgraded, so change `picompose.conf` and `.env` instead.
+You can customize the PiCompose configuration in the `/compose` directory on the root filesystem. You can change how it is updated, how it is handling a reboot and you can remove `snapcast`, `local-audio` or `bt-proxy` if you dont want to use them. The `docker-compose.yml` of `lva`, `snapcast`, `local-audio` and `bt-proxy` belongs to the package and is replaced when the package is upgraded, so change `picompose.conf` and `.env` instead.
 
 You can also add your own docker-compose projects to the system:
 
@@ -141,7 +141,7 @@ piCompose should download and install the containers.
 You can watch the `/var/log/picompose.log` logfile if you want to monitor the process.
 The process can take some time, since it downloads images from the internet!
 
-Snapcast is disabled by default. You can change that in the `picompose.conf` and reboot.
+Snapcast is disabled by default, `lva`, `local-audio` and `bt-proxy` are enabled. You can change that in the `picompose.conf` of the project and reboot.
 
 ## Development
 
@@ -151,6 +151,8 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for information on the development and buil
 
 - [docker-snapcast](https://github.com/florian-asche/docker-snapcast) - A Docker image for Snapcast server and client, providing multi-room audio streaming capabilities
 - [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant) - A remote voice satellite implementation using the ESPHome protocol
+- [local-audio-addon](https://github.com/music-assistant/local-audio-addon) - Music Assistant Local Audio, a Sendspin player for Music Assistant
+- [bt-proxy](https://github.com/denvera/bt-proxy) - An ESPHome-compatible Bluetooth proxy for Home Assistant
 
 ## License
 
