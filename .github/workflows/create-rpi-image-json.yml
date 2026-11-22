@@ -20,8 +20,7 @@ jobs:
       # Generate Raspberry Pi Imager JSON (conditional)
       - name: Generate Raspberry Pi Imager JSON
         run: |
-          chmod +x scripts/generate-imager-json.py
-          python3 scripts/generate-imager-json.py
+          ./scripts/generate-imager-json.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
