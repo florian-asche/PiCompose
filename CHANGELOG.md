@@ -1,7 +1,137 @@
+<a id="v1.2.0"></a>
+# [v1.2.0](https://github.com/florian-asche/PiCompose/releases/tag/v1.2.0) - 2026-11-22
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+See https://github.com/florian-asche/PiCompose/discussions/89 for more information about our news!
+
+## What's Changed
+### Breaking Changes 🛠
+* Remove the audiodriver-other stage and build the plain images without a hardware stage by [@florian-asche](https://github.com/florian-asche) in [#96](https://github.com/florian-asche/PiCompose/pull/96)
+* feat(2michat-v2): install picompose-driver-2michat-v2 from the APT repository by [@florian-asche](https://github.com/florian-asche) in [#97](https://github.com/florian-asche/PiCompose/pull/97)
+* feat(2michat-v1): install picompose-driver-2michat-v1 from the APT repository by [@florian-asche](https://github.com/florian-asche) in [#98](https://github.com/florian-asche/PiCompose/pull/98)
+* Install the Home Assistant satellite projects from the picompose-software-ha-satellite package by [@florian-asche](https://github.com/florian-asche) in [#85](https://github.com/florian-asche/PiCompose/pull/85)
+* feat(respeaker-lite): install the audio setup from picompose-driver-respeaker-lite by [@florian-asche](https://github.com/florian-asche) in [#91](https://github.com/florian-asche/PiCompose/pull/91)
+* feat(satellite1): install satellite1-rpi-setup-trixie and satellite1-rpi-sdk from the APT repository by [@florian-asche](https://github.com/florian-asche) in [#92](https://github.com/florian-asche/PiCompose/pull/92)
+### Exciting New Features 🎉
+* feat(apt): set up the PiCompose APT repository with picompose-archive-keyring by [@florian-asche](https://github.com/florian-asche) in [#82](https://github.com/florian-asche/PiCompose/pull/82)
+### Bug Fixes 🐛
+* fix(compose-manager): call the installed script path from cron by [@florian-asche](https://github.com/florian-asche) in [#80](https://github.com/florian-asche/PiCompose/pull/80)
+* Add download and extract size to rpi-imager.json entries by [@florian-asche](https://github.com/florian-asche) in [#90](https://github.com/florian-asche/PiCompose/pull/90)
+### Other Changes
+* perf(pipewire): add pi user to the pipewire group for real-time priority by [@florian-asche](https://github.com/florian-asche) in [#69](https://github.com/florian-asche/PiCompose/pull/69)
+* fix(pipewire): install linux-voice-assistant.conf into the directory PipeWire reads by [@florian-asche](https://github.com/florian-asche) in [#70](https://github.com/florian-asche/PiCompose/pull/70)
+* fix(wireplumber): keep audio sink from suspending by [@florian-asche](https://github.com/florian-asche) in [#68](https://github.com/florian-asche/PiCompose/pull/68)
+* fix(pipewire): do not force a 16 kHz clock rate by [@florian-asche](https://github.com/florian-asche) in [#71](https://github.com/florian-asche/PiCompose/pull/71)
+* refactor(wireplumber): merge volume and no-suspend rules into one file by [@florian-asche](https://github.com/florian-asche) in [#72](https://github.com/florian-asche/PiCompose/pull/72)
+* docs(ai): add AGENTS.md and CLAUDE.md for AI agents by [@florian-asche](https://github.com/florian-asche) in [#73](https://github.com/florian-asche/PiCompose/pull/73)
+* ci(repo): add issue forms, PR template, PR label workflow, AI policy and Dependabot by [@florian-asche](https://github.com/florian-asche) in [#74](https://github.com/florian-asche/PiCompose/pull/74)
+* docs(ai): name branches after their type so that changes to the image get built by [@florian-asche](https://github.com/florian-asche) in [#83](https://github.com/florian-asche/PiCompose/pull/83)
+* docs(readme): link the CI badge to the workflow build-all.yml by [@florian-asche](https://github.com/florian-asche) in [#84](https://github.com/florian-asche/PiCompose/pull/84)
+* Rename the stage 01-stage-picompose to 01-stage-base by [@florian-asche](https://github.com/florian-asche) in [#86](https://github.com/florian-asche/PiCompose/pull/86)
+* Split Docker and helper packages of the base stage into separate steps by [@florian-asche](https://github.com/florian-asche) in [#87](https://github.com/florian-asche/PiCompose/pull/87)
+* Install the compose manager, hostname and PipeWire config from picompose-core by [@florian-asche](https://github.com/florian-asche) in [#88](https://github.com/florian-asche/PiCompose/pull/88)
+* bump softprops/action-gh-release from 2 to 3 by [@dependabot](https://github.com/dependabot)[bot] in [#76](https://github.com/florian-asche/PiCompose/pull/76)
+* bump actions/checkout from 3 to 7 by [@dependabot](https://github.com/dependabot)[bot] in [#78](https://github.com/florian-asche/PiCompose/pull/78)
+* ci(dependabot): check for updates daily by [@florian-asche](https://github.com/florian-asche) in [#94](https://github.com/florian-asche/PiCompose/pull/94)
+* bump usimd/pi-gen-action from 1 to 2 by [@dependabot](https://github.com/dependabot)[bot] in [#95](https://github.com/florian-asche/PiCompose/pull/95)
+* bump actions/cache from 4 to 6 by [@dependabot](https://github.com/dependabot)[bot] in [#79](https://github.com/florian-asche/PiCompose/pull/79)
+* bump docker/setup-qemu-action from 3 to 4 by [@dependabot](https://github.com/dependabot)[bot] in [#75](https://github.com/florian-asche/PiCompose/pull/75)
+* bump actions/github-script from 7 to 9 by [@dependabot](https://github.com/dependabot)[bot] in [#77](https://github.com/florian-asche/PiCompose/pull/77)
+* fix(imager): fetch all releases so the development entry is generated by [@florian-asche](https://github.com/florian-asche) in [#99](https://github.com/florian-asche/PiCompose/pull/99)
+* ci(imager): allow triggering the rpi-imager.json workflow manually by [@florian-asche](https://github.com/florian-asche) in [#100](https://github.com/florian-asche/PiCompose/pull/100)
+* fix(imager): authenticate GitHub API requests to avoid the rate limit by [@florian-asche](https://github.com/florian-asche) in [#101](https://github.com/florian-asche/PiCompose/pull/101)
+* ci(build): build images only on main, tags and manual runs by [@florian-asche](https://github.com/florian-asche) in [#102](https://github.com/florian-asche/PiCompose/pull/102)
+* docs(readme): add local-audio and bt-proxy to the projects of the package by [@florian-asche](https://github.com/florian-asche) in [#105](https://github.com/florian-asche/PiCompose/pull/105)
+* ci(release): delete prereleases older than three months by [@florian-asche](https://github.com/florian-asche) in [#103](https://github.com/florian-asche/PiCompose/pull/103)
+* Regenerate the imager JSON after the cleanup workflows by [@florian-asche](https://github.com/florian-asche) in [#106](https://github.com/florian-asche/PiCompose/pull/106)
+* Skip the image build for changes to docs and Markdown files by [@florian-asche](https://github.com/florian-asche) in [#107](https://github.com/florian-asche/PiCompose/pull/107)
+* ci(imager): group imager entries into stable, other versions, development and branches by [@florian-asche](https://github.com/florian-asche) in [#104](https://github.com/florian-asche/PiCompose/pull/104)
+
+## New Contributors
+* [@dependabot](https://github.com/dependabot)[bot] made their first contribution in [#76](https://github.com/florian-asche/PiCompose/pull/76)
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.4...v1.2.0
+
+[Changes][v1.2.0]
+
+
 <a id="v1.1.4"></a>
 # [v1.1.4](https://github.com/florian-asche/PiCompose/releases/tag/v1.1.4) - 2026-07-26
 
 <!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Other Changes
+* feat(lva): add new environment configuration options by [@florian-asche](https://github.com/florian-asche) in [#64](https://github.com/florian-asche/PiCompose/pull/64)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.3...v1.1.4
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.4 -->
+
+## What's Changed
+### Other Changes
+* feat(lva): add new environment configuration options by [@florian-asche](https://github.com/florian-asche) in [#64](https://github.com/florian-asche/PiCompose/pull/64)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.3...v1.1.4
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.4 -->
+
+## What's Changed
+### Other Changes
+* feat(lva): add new environment configuration options by [@florian-asche](https://github.com/florian-asche) in [#64](https://github.com/florian-asche/PiCompose/pull/64)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.3...v1.1.4
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.4 -->
+
+## What's Changed
+### Other Changes
+* feat(lva): add new environment configuration options by [@florian-asche](https://github.com/florian-asche) in [#64](https://github.com/florian-asche/PiCompose/pull/64)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.3...v1.1.4
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.4 -->
+
+## What's Changed
+### Other Changes
+* feat(lva): add new environment configuration options by [@florian-asche](https://github.com/florian-asche) in [#64](https://github.com/florian-asche/PiCompose/pull/64)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.3...v1.1.4
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.4 -->
+
+## What's Changed
+### Other Changes
+* feat(lva): add new environment configuration options by [@florian-asche](https://github.com/florian-asche) in [#64](https://github.com/florian-asche/PiCompose/pull/64)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.3...v1.1.4
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.4 -->
+
+## What's Changed
+### Other Changes
+* feat(lva): add new environment configuration options by [@florian-asche](https://github.com/florian-asche) in [#64](https://github.com/florian-asche/PiCompose/pull/64)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.3...v1.1.4
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.4 -->
+
+## What's Changed
+### Other Changes
+* feat(lva): add new environment configuration options by [@florian-asche](https://github.com/florian-asche) in [#64](https://github.com/florian-asche/PiCompose/pull/64)
+
+
+**Full Changelog**: https://github.com/florian-asche/PiCompose/compare/v1.1.3...v1.1.4
+
+<!-- Release notes generated using configuration in .github/release.yml at v1.1.4 -->
 
 ## What's Changed
 ### Other Changes
@@ -191,6 +321,7 @@
 [Changes][v1.0.0]
 
 
+[v1.2.0]: https://github.com/florian-asche/PiCompose/compare/v1.1.4...v1.2.0
 [v1.1.4]: https://github.com/florian-asche/PiCompose/compare/v1.1.3...v1.1.4
 [v1.1.3]: https://github.com/florian-asche/PiCompose/compare/v1.1.2...v1.1.3
 [v1.1.2]: https://github.com/florian-asche/PiCompose/compare/v1.1.1...v1.1.2
