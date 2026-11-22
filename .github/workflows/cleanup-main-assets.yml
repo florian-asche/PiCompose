@@ -1,0 +1,41 @@
+name: Cleanup old main assets
+
+# The `main` release is never deleted. Only its assets that are older than three months
+# are removed, so the development entry of the imager JSON keeps its recent images.
+
+on:
+  schedule:
+    - cron: '47 3 * * *'
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: "Only list what would be deleted"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete assets of release main older than 3 months
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          DRY_RUN: ${{ inputs.dry-run }}
+        run: |
+          CUTOFF=$(date -u -d '3 months ago' +%Y-%m-%dT%H:%M:%SZ)
+          echo "Deleting assets of release main created before $CUTOFF"
+
+          gh release view main --json assets \
+            --jq ".assets[] | select(.createdAt < \"$CUTOFF\") | .name" |
+          while read -r NAME; do
+            if [ "$DRY_RUN" = "true" ]; then
+              echo "Would delete: $NAME"
+            else
+              echo "Deleting: $NAME"
+              gh release delete-asset main "$NAME" --yes
+            fi
+          done
