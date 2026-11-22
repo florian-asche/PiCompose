@@ -99,6 +99,16 @@ def get_releases_with_files(releases):
     return releases_with_files
 
 
+HARDWARE_ORDER = ["None", "Respeaker-lite", "2MicHat-v1", "2MicHat-v2", "Satellite1-v1.0", "Satellite1-v1.1"]
+
+
+def hardware_sort_key(hardware):
+    """Sort key placing hardware types in HARDWARE_ORDER, unknown ones last by name."""
+    if hardware in HARDWARE_ORDER:
+        return (HARDWARE_ORDER.index(hardware), "")
+    return (len(HARDWARE_ORDER), hardware)
+
+
 def extract_metadata(filename):
     """Extract date and hardware type from filename."""
     original = filename
@@ -274,7 +284,7 @@ def build_date_hardware_subitems(files):
     for date in sorted(grouped.keys(), reverse=True):
         hardware_items = []
         
-        for hardware in grouped[date]:
+        for hardware in sorted(grouped[date], key=hardware_sort_key):
             image_entries = [
                 create_image_entry(f)
                 for f in grouped[date][hardware]
