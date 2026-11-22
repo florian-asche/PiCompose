@@ -39,3 +39,8 @@ jobs:
               gh release delete-asset main "$NAME" --yes
             fi
           done
+
+  generate-rpi-imager-json:
+    needs: cleanup
+    if: ${{ inputs.dry-run != true }}
+    uses: ./.github/workflows/create-rpi-image-json.yml
