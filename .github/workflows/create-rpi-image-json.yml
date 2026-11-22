@@ -2,6 +2,10 @@ name: Create RPI Imager JSON
 
 
 on:
+  pull_request:
+    paths:
+      - scripts/generate-imager-json.py
+      - .github/workflows/create-rpi-image-json.yml
   workflow_call:
   workflow_dispatch:
 
@@ -21,7 +25,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Pull requests only get the generated file as artifact, nothing is published
+      - name: Upload RPI Imager JSON as artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: rpi-imager-json
+          path: ./rpi-imager.json
+          if-no-files-found: error
+
       - name: Delete existing RPI Imager JSON release
+        if: github.event_name != 'pull_request'
         uses: actions/github-script@v9
         with:
           script: |
@@ -47,6 +61,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Delete existing RPI Imager JSON tag
+        if: github.event_name != 'pull_request'
         uses: actions/github-script@v9
         with:
           script: |
@@ -64,6 +79,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release for RPI Imager JSON
+        if: github.event_name != 'pull_request'
         uses: softprops/action-gh-release@v3
         with:
           tag_name: rpi-imager-json
