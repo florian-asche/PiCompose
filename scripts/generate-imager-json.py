@@ -78,6 +78,11 @@ def extract_image_files(release):
     return xz_files
 
 
+def is_version_tag(tag):
+    """Check whether a tag is a release version like v1.2.3 or 1.2.3."""
+    return re.fullmatch(r'v?\d+\.\d+\.\d+', tag) is not None
+
+
 def get_releases_with_files(releases):
     """Get all releases that have image files, excluding 'main' branch."""
     releases_with_files = []
@@ -92,6 +97,16 @@ def get_releases_with_files(releases):
                 'files': files
             })
     return releases_with_files
+
+
+HARDWARE_ORDER = ["None", "Respeaker-lite", "2MicHat-v1", "2MicHat-v2", "Satellite1-v1.0", "Satellite1-v1.1"]
+
+
+def hardware_sort_key(hardware):
+    """Sort key placing hardware types in HARDWARE_ORDER, unknown ones last by name."""
+    if hardware in HARDWARE_ORDER:
+        return (HARDWARE_ORDER.index(hardware), "")
+    return (len(HARDWARE_ORDER), hardware)
 
 
 def extract_metadata(filename):
@@ -269,7 +284,7 @@ def build_date_hardware_subitems(files):
     for date in sorted(grouped.keys(), reverse=True):
         hardware_items = []
         
-        for hardware in grouped[date]:
+        for hardware in sorted(grouped[date], key=hardware_sort_key):
             image_entries = [
                 create_image_entry(f)
                 for f in grouped[date][hardware]
@@ -310,6 +325,24 @@ def get_main_release(releases):
     return None
 
 
+def build_release_group(name, description, releases):
+    """Build an os_list entry with one subitem per release."""
+    return {
+        "name": name,
+        "description": description,
+        "icon": "icons/cat_raspberry_pi_os.png",
+        "subitems": [
+            {
+                "name": r['version'],
+                "description": f"PiCompose {r['tag_name']} release",
+                "icon": "icons/cat_raspberry_pi_os.png",
+                "subitems": build_date_hardware_subitems(r['files'])
+            }
+            for r in releases
+        ]
+    }
+
+
 def build_devices_list():
     """Build the devices list for rpi-imager."""
     return [
@@ -343,6 +376,10 @@ def main():
                 "subitems": build_date_hardware_subitems(latest_files)
             })
 
+    other_versions = [r for r in releases_with_files if is_version_tag(r['tag_name']) and r['tag_name'] != latest_tag]
+    if other_versions:
+        os_list.append(build_release_group("PiCompose - other versions", "Older tagged versions", other_versions))
+
     if main_release:
         os_list.append({
             "name": "PiCompose - development",
@@ -351,20 +388,9 @@ def main():
             "subitems": build_date_hardware_subitems(main_release)
         })
 
-    os_list.append({
-        "name": "PiCompose - all versions / branches",
-        "description": "All available PiCompose versions",
-        "icon": "icons/cat_raspberry_pi_os.png",
-        "subitems": [
-            {
-                "name": r['version'],
-                "description": f"PiCompose {r['tag_name']} release",
-                "icon": "icons/cat_raspberry_pi_os.png",
-                "subitems": build_date_hardware_subitems(r['files'])
-            }
-            for r in releases_with_files
-        ]
-    })
+    branches = [r for r in releases_with_files if not is_version_tag(r['tag_name'])]
+    if branches:
+        os_list.append(build_release_group("PiCompose - branches", "Test builds of branches", branches))
 
     final_data = {
         "imager": {
