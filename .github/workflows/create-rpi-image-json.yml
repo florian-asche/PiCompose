@@ -27,7 +27,7 @@ jobs:
       # Pull requests only get the generated file as artifact, nothing is published
       - name: Upload RPI Imager JSON as artifact
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: rpi-imager-json
           path: ./rpi-imager.json
