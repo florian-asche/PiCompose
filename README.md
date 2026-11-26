@@ -2,41 +2,41 @@
 
 [![CI](https://github.com/florian-asche/PiCompose/actions/workflows/build-all.yml/badge.svg)](https://github.com/florian-asche/PiCompose/actions/workflows/build-all.yml) [![GitHub Release Version](https://img.shields.io/github/v/release/florian-asche/PiCompose?label=version)](https://github.com/florian-asche/PiCompose/releases) [![GitHub License](https://img.shields.io/github/license/florian-asche/PiCompose)](https://github.com/florian-asche/PiCompose/blob/main/LICENSE) [![GitHub last commit](https://img.shields.io/github/last-commit/florian-asche/PiCompose)](https://github.com/florian-asche/PiCompose/commits)
 
-Ready-to-use Raspberry Pi OS images that start your Docker Compose projects on their own, such as the [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant) for Home Assistant, [docker-snapcast](https://github.com/florian-asche/docker-snapcast), [Music Assistants Snapcast](https://github.com/music-assistant/local-audio-addon) or the [bt-proxy](https://github.com/denvera/bt-proxy) Bluetooth proxy. Flash the SD card, put it into your Raspberry Pi and start.
+Ready-to-use [Raspberry Pi OS](https://www.raspberrypi.com/software/) images that start your [Docker Compose](https://docs.docker.com/compose/) projects on their own. Flash the SD card, put it into your Raspberry Pi and start.
 
-PiCompose builds on the official Raspberry Pi OS and adds everything a voice satellite needs: the audio drivers of the supported voice hardware, the PipeWire audio server, Docker and a small manager that deploys your projects at boot and keeps them up to date. There is no manual setup. Write the image to an SD card, set your Wi-Fi in the Raspberry Pi Imager, put the card into the Raspberry Pi and power it on.
+PiCompose builds on the official Raspberry Pi OS and adds everything a voice satellite needs: the audio drivers of the supported voice hardware, the [PipeWire](https://pipewire.org/) audio server, [Docker](https://www.docker.com/) and a small manager that deploys your projects at boot and keeps them up to date. There is no manual setup. Write the image to an SD card, set your Wi-Fi in the [Raspberry Pi Imager](#installation), put the card into the Raspberry Pi and power it on.
 
-Prebuilt images exist for the Satellite1, the ReSpeaker 2-Mic HAT v1 and v2.0, the ReSpeaker Lite and for other hardware. The images with Linux-Voice-Assistant in their name come ready for Home Assistant, with the Linux-Voice-Assistant, Snapcast, Music Assistant Local Audio and the Bluetooth proxy already prepared.
+![Included in the Linux-Voice-Assistant images: Linux Voice Assistant, Snapcast, Music Assistant Local Audio and the Bluetooth proxy](docs/picompose_software.svg)
 
 ![PiCompose: Plug and play. SD card in, power on. Ready to talk.](docs/picompose_plug_and_play.svg)
 
 ## Features
 
-- Automated build of a customized Raspberry Pi OS image using GitHub Actions
-- Prebuilt images with drivers for the supported voice hardware (2-Mic HAT v1/v2, ReSpeaker Lite, Satellite1). The drivers are installed as packages from the APT repository
+- Automated build of a customized Raspberry Pi OS image using [GitHub Actions](.github/workflows/build-all.yml)
+- Prebuilt images with drivers for the supported voice hardware. The drivers are installed as packages from the [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository)
 - No manual configuration of the Raspberry Pi required
 - Docker and Docker Compose are installed
-- Each Docker Compose project found in a special directory on the main partition (compose directory) is deployed automatically, and your own projects are easy to add
-- Configurable regular re-deployments on boot or via Crontab with a simple configuration file
-- Image prepared for audio usage: the PipeWire audio server is started and the system audio volume is set to 100% (one time)
+- Each Docker Compose project found in a special directory on the main partition (compose directory) is deployed automatically, and your own projects are easy to add (see [Configuration](#configuration))
+- Configurable regular re-deployments on boot or via Crontab with a simple [configuration file](#configurationfile)
+- Image prepared for audio usage: the PipeWire audio server is started and the system audio volume is set to 100% (one time), see [PipeWire debugging](docs/pipewire_debugging.md) if something does not work
 - The Keep-Audio-Alive service is started if you use the ReSpeaker Lite
 - The hostname is generated automatically as `picompose-<mac-address>` (the MAC address without colons), unless you changed it with the Imager beforehand
 - SSH is enabled for the user `pi`
-- The [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository) is set up on the device (package `picompose-archive-keyring`, suite `trixie`), so packages of the PiCompose project can be installed with `apt` and the signing key is updated through `apt upgrade`
-- The compose manager, the hostname service and the PipeWire configuration files come from the package `picompose-core` of the [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository), so `apt upgrade` updates them
-- The device updates itself (unattended-upgrades) and its software. No more reflashing.
-- The images with `_Linux-Voice-Assistant` in their name also contain these projects in the project directory. They come from the package `picompose-software-ha-satellite` of the [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository). The default ports are in square brackets:
-  - [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant) - A remote voice satellite implementation using the ESPHome protocol, pre-configured for Home Assistant [6053 API, 6055 peripheral WebSocket API]
-  - [docker-snapcast](https://github.com/florian-asche/docker-snapcast) - A Docker image for Snapcast server and client, providing multi-room audio streaming capabilities. Only the client is used, it is disabled by default [no port, the client connects to your Snapcast server]
-  - [local-audio-addon](https://github.com/music-assistant/local-audio-addon) - Music Assistant Local Audio, a Sendspin player for Music Assistant [8928]
-  - [bt-proxy](https://github.com/denvera/bt-proxy) - An ESPHome-compatible Bluetooth proxy for Home Assistant [6054]
+- The PiCompose APT repository is set up on the device (package [picompose-archive-keyring](https://github.com/florian-asche/PiCompose-Package-Archive-Keyring), suite `trixie`), so packages of the PiCompose project can be installed with `apt` and the signing key is updated through `apt upgrade`
+- The compose manager, the hostname service and the PipeWire configuration files come from the package [picompose-core](https://github.com/florian-asche/PiCompose-Package-Core), so `apt upgrade` updates them
+- The device updates itself ([unattended-upgrades](https://wiki.debian.org/UnattendedUpgrades)) and its software. No more reflashing.
+- The images with `_Linux-Voice-Assistant` in their name also contain these projects in the project directory. They come from the package [picompose-software-ha-satellite](https://github.com/florian-asche/PiCompose-Package-Software-HA-Satellite). The default ports are in square brackets:
+  - <img src="https://brands.home-assistant.io/_/homeassistant/icon.png" alt="" width="20"> [linux-voice-assistant](https://github.com/OHF-Voice/linux-voice-assistant) - A remote voice satellite implementation using the [ESPHome](https://esphome.io/) protocol, pre-configured for Home Assistant [6053 API, 6055 peripheral WebSocket API]
+  - <img src="https://brands.home-assistant.io/_/snapcast/icon.png" alt="" width="20"> [docker-snapcast](https://github.com/florian-asche/docker-snapcast) - A Docker image for [Snapcast](https://github.com/badaix/snapcast) server and client, providing multi-room audio streaming capabilities. Only the client is used, it is disabled by default [no port, the client connects to your Snapcast server]
+  - <img src="https://brands.home-assistant.io/_/music_assistant/icon.png" alt="" width="20"> [local-audio-addon](https://github.com/music-assistant/local-audio-addon) - Music Assistant Local Audio, a Sendspin player for [Music Assistant](https://music-assistant.io/) [8928]
+  - <img src="https://brands.home-assistant.io/_/bluetooth/icon.png" alt="" width="20"> [bt-proxy](https://github.com/denvera/bt-proxy) - An ESPHome-compatible [Bluetooth proxy](https://esphome.io/components/bluetooth_proxy/) for Home Assistant [6054]
 
 ## Requirements
 
-- A 64-bit Raspberry Pi. The hardware pages name the Raspberry Pi Zero 2 W(H), 3 B / 3 B+ and 4 B, other models are not documented here
+- A 64-bit Raspberry Pi. The [hardware pages](#hardware-and-images) name the Raspberry Pi Zero 2 W(H), 3 B / 3 B+ and 4 B, other models are not documented here
 - An SD card
 - A network connection with internet access, because the containers are downloaded on the first start
-- A supported audio hardware (see [Hardware](#hardware-and-images)), or other audio hardware with the base image
+- A supported audio hardware (see [Hardware and images](#hardware-and-images)), or other audio hardware with the base image
 - [Home Assistant voice components](https://www.home-assistant.io/voice_control/), if you use the Linux-Voice-Assistant
 - Optional: the [Raspberry Pi Imager tool](https://www.raspberrypi.com/documentation/computers/getting-started.html#imager-install) to write the image and set Wi-Fi and SSH before the first boot
 
@@ -44,15 +44,54 @@ Prebuilt images exist for the Satellite1, the ReSpeaker 2-Mic HAT v1 and v2.0, t
 
 ### Hardware and images
 
-Click the name of a hardware to open its page. Every hardware has two images, one without and one with `_Linux-Voice-Assistant` in its name. What they contain is described in [Features](#features).
+Click the name or the picture of a hardware to open its page. Every hardware has two images, one without and one with `_Linux-Voice-Assistant` in its name. What they contain is described in [Features](#features).
 
-| Hardware | Images | Driver and extras |
-| -------- | ------ | ----------------- |
-| **[Satellite1](docs/hardware_sattelite1.md)**<br><img src="docs/sattelite1-hat.jpg" alt="Satellite1 HAT Board" width="160"> | `PiCompose_Satellite1-v1.0`<br>`PiCompose_Satellite1-v1.0_Linux-Voice-Assistant` | Satellite1 HAT driver |
-| **[ReSpeaker 2-Mic HAT v1](docs/hardware_2mic_v1.md)**<br><img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" width="160"> | `PiCompose-2MicHat-v1`<br>`PiCompose_2MicHat-v1_Linux-Voice-Assistant` | Seeed voicecard driver (device-tree overlay) |
-| **[ReSpeaker 2-Mic HAT v2.0](docs/hardware_2mic_v2.md)**<br><img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" width="160"> | `PiCompose-2MicHat-v2`<br>`PiCompose_2MicHat-v2_Linux-Voice-Assistant` | Seeed voicecard driver |
-| **[ReSpeaker Lite](docs/hardware_respeaker_lite.md)**<br><img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" width="160"> | `PiCompose-Respeaker_lite`<br>`PiCompose_Respeaker_lite_Linux-Voice-Assistant` | Audio keep-alive service, workaround for connectivity issues in combination with the Pi Zero 2W |
-| **Other hardware** | `PiCompose`<br>`PiCompose_Linux-Voice-Assistant` | No driver |
+<table>
+<tr>
+<td width="190" align="center"><a href="docs/hardware_sattelite1.md"><img src="docs/sattelite1-hat.jpg" alt="Satellite1 HAT Board" width="160"></a></td>
+<td>
+<b><a href="docs/hardware_sattelite1.md">Satellite1</a></b><br>
+Driver and extras: Satellite1 HAT driver<br>
+Image: <code>PiCompose_Satellite1-v1.0</code><br>
+With Linux-Voice-Assistant: <code>PiCompose_Satellite1-v1.0_Linux-Voice-Assistant</code>
+</td>
+</tr>
+<tr>
+<td width="190" align="center"><a href="docs/hardware_2mic_v1.md"><img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" width="160"></a></td>
+<td>
+<b><a href="docs/hardware_2mic_v1.md">ReSpeaker 2-Mic HAT v1</a></b><br>
+Driver and extras: Seeed voicecard driver (device-tree overlay)<br>
+Image: <code>PiCompose-2MicHat-v1</code><br>
+With Linux-Voice-Assistant: <code>PiCompose_2MicHat-v1_Linux-Voice-Assistant</code>
+</td>
+</tr>
+<tr>
+<td width="190" align="center"><a href="docs/hardware_2mic_v2.md"><img src="docs/respeaker_2michats.webp" alt="ReSpeaker 2-Mics Pi HAT" width="160"></a></td>
+<td>
+<b><a href="docs/hardware_2mic_v2.md">ReSpeaker 2-Mic HAT v2.0</a></b><br>
+Driver and extras: Seeed voicecard driver<br>
+Image: <code>PiCompose-2MicHat-v2</code><br>
+With Linux-Voice-Assistant: <code>PiCompose_2MicHat-v2_Linux-Voice-Assistant</code>
+</td>
+</tr>
+<tr>
+<td width="190" align="center"><a href="docs/hardware_respeaker_lite.md"><img src="docs/respeaker_lite.jpg" alt="ReSpeaker Lite Board" width="160"></a></td>
+<td>
+<b><a href="docs/hardware_respeaker_lite.md">ReSpeaker Lite</a></b><br>
+Driver and extras: Audio keep-alive service, workaround for connectivity issues in combination with the Pi Zero 2W<br>
+Image: <code>PiCompose-Respeaker_lite</code><br>
+With Linux-Voice-Assistant: <code>PiCompose_Respeaker_lite_Linux-Voice-Assistant</code>
+</td>
+</tr>
+<tr>
+<td width="190" align="center"><b>Other hardware</b></td>
+<td>
+Driver and extras: none<br>
+Image: <code>PiCompose</code><br>
+With Linux-Voice-Assistant: <code>PiCompose_Linux-Voice-Assistant</code>
+</td>
+</tr>
+</table>
 
 ### Installation
 
@@ -82,11 +121,11 @@ Write the image to your SD card with the [Raspberry Pi Imager tool](https://www.
 
 #### Without the Raspberry Pi Imager
 
-[Download](https://github.com/florian-asche/PiCompose/releases) the image and write it to the SD card with a tool of your choice. Configure keyboard, timezone and wifi credentials with the [`raspi-config` tool](https://www.raspberrypi.com/documentation/computers/configuration.html#raspi-config). You need to connect a monitor, keyboard, and mouse to access the Pi initially to configure SSH and WiFi via `raspi-config`.
+[Download](https://github.com/florian-asche/PiCompose/releases) the image and write it to the SD card with a tool of your choice. Configure keyboard, timezone and wifi credentials with the [raspi-config tool](https://www.raspberrypi.com/documentation/computers/configuration.html#raspi-config). You need to connect a monitor, keyboard, and mouse to access the Pi initially to configure SSH and WiFi via `raspi-config`.
 
 ### Configuration
 
-You can customize the PiCompose configuration in the `/compose` directory on the root filesystem. You can change how it is updated, how it is handling a reboot and you can remove `snapcast`, `local-audio` or `bt-proxy` if you dont want to use them. The `docker-compose.yml` of `lva`, `snapcast`, `local-audio` and `bt-proxy` belongs to the package and is replaced when the package is upgraded, so change `picompose.conf` and `.env` instead.
+You can customize the PiCompose configuration in the `/compose` directory on the root filesystem. You can change how it is updated, how it is handling a reboot and you can remove `snapcast`, `local-audio` or `bt-proxy` if you dont want to use them. The `docker-compose.yml` of `lva`, `snapcast`, `local-audio` and `bt-proxy` belongs to the package and is replaced when the package is upgraded, so change `picompose.conf` (see [Configurationfile](#configurationfile)) and `.env` instead.
 
 You can also add your own docker-compose projects to the system:
 
@@ -129,18 +168,18 @@ CRON_IMAGE_PULL=true
 
 ### First start
 
-1. Make sure that you configured your wifi credentials before the first boot. You can do this with the Raspberry Pi Imager when writing the image to your SD card.
+1. Make sure that you configured your wifi credentials before the first boot. You can do this with the [Raspberry Pi Imager](#installation) when writing the image to your SD card.
 2. On the first boot the system creates new SSH host keys. If you have a monitor connected, you can see that. The system then reboots automatically.
 3. PiCompose downloads and installs the containers. This can take some time, because the images come from the internet. You can follow the progress in the logfile `/var/log/picompose.log`.
-4. The Linux-Voice-Assistant and the Local Audio Addon (Sendspin) then show up in the Home Assistant discovery.
+4. The Linux-Voice-Assistant and the Local Audio Addon (Sendspin) then show up in the Home Assistant [discovery](https://www.home-assistant.io/integrations/esphome/).
 
 You can log in with the user `pi` if needed. If you did not change the password with the Imager, it is `raspberry`, so change it.
 
-Snapcast is disabled by default, `lva`, `local-audio` and `bt-proxy` are enabled. You can change that in the `picompose.conf` of the project and reboot.
+Snapcast is disabled by default, `lva`, `local-audio` and `bt-proxy` are enabled. You can change that in the `picompose.conf` of the project (see [Configurationfile](#configurationfile)) and reboot.
 
 ## Build information
 
-PiCompose uses the official [pi-gen](https://github.com/RPi-Distro/pi-gen) tool from Raspberry Pi to create a customized Raspberry Pi OS image. GitHub Actions build every image variant and attach it to a GitHub release. A generated `rpi-imager.json` makes the images selectable in the Raspberry Pi Imager. See [DEVELOPMENT.md](DEVELOPMENT.md) for details.
+PiCompose uses the official [pi-gen](https://github.com/RPi-Distro/pi-gen) tool from Raspberry Pi to create a customized Raspberry Pi OS image. [GitHub Actions](.github/workflows/build-all.yml) build every image variant and attach it to a [GitHub release](https://github.com/florian-asche/PiCompose/releases). A generated [rpi-imager.json](https://github.com/florian-asche/PiCompose/releases/download/rpi-imager-json/rpi-imager.json) makes the images selectable in the Raspberry Pi Imager. See [DEVELOPMENT.md](DEVELOPMENT.md) for details.
 
 ## Development
 
