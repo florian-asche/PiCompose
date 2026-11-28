@@ -30,6 +30,7 @@ PiCompose builds on the official Raspberry Pi OS and adds everything a voice sat
   - <img src="https://brands.home-assistant.io/_/snapcast/icon.png" alt="" width="20"> [docker-snapcast](https://github.com/florian-asche/docker-snapcast) - A Docker image for [Snapcast](https://github.com/badaix/snapcast) server and client, providing multi-room audio streaming capabilities. Only the client is used, it is disabled by default [no port, the client connects to your Snapcast server]
   - <img src="https://brands.home-assistant.io/_/music_assistant/icon.png" alt="" width="20"> [local-audio-addon](https://github.com/music-assistant/local-audio-addon) - Music Assistant Local Audio, a Sendspin player for [Music Assistant](https://music-assistant.io/) [8928]
   - <img src="https://brands.home-assistant.io/_/bluetooth/icon.png" alt="" width="20"> [bt-proxy](https://github.com/denvera/bt-proxy) - An ESPHome-compatible [Bluetooth proxy](https://esphome.io/components/bluetooth_proxy/) for Home Assistant [6054]
+  - <img src="https://brands.home-assistant.io/_/esphome/icon.png" alt="" width="20"> [linux-peripherals-controller](https://github.com/OHF-Voice/linux-peripherals-controller) - Drives the LEDs, buttons and HATs of the device for the Linux-Voice-Assistant. It is disabled by default, because it needs the device type (`DEVICE_TYPE`) in its `.env` [6056]
 
 ## Requirements
 
@@ -125,7 +126,7 @@ Write the image to your SD card with the [Raspberry Pi Imager tool](https://www.
 
 ### Configuration
 
-You can customize the PiCompose configuration in the `/compose` directory on the root filesystem. You can change how it is updated, how it is handling a reboot and you can remove `snapcast`, `local-audio` or `bt-proxy` if you dont want to use them. The `docker-compose.yml` of `lva`, `snapcast`, `local-audio` and `bt-proxy` belongs to the package and is replaced when the package is upgraded, so change `picompose.conf` (see [Configurationfile](#configurationfile)) and `.env` instead.
+You can customize the PiCompose configuration in the `/compose` directory on the root filesystem. You can change how it is updated, how it is handling a reboot and you can remove `snapcast`, `local-audio`, `bt-proxy` or `lpc` if you dont want to use them. The `docker-compose.yml` of `lva`, `snapcast`, `local-audio`, `bt-proxy` and `lpc` belongs to the package and is replaced when the package is upgraded, so change `picompose.conf` (see [Configurationfile](#configurationfile)) and `.env` instead.
 
 You can also add your own docker-compose projects to the system:
 
@@ -175,7 +176,7 @@ CRON_IMAGE_PULL=true
 
 You can log in with the user `pi` if needed. If you did not change the password with the Imager, it is `raspberry`, so change it.
 
-Snapcast is disabled by default, `lva`, `local-audio` and `bt-proxy` are enabled. You can change that in the `picompose.conf` of the project (see [Configurationfile](#configurationfile)) and reboot.
+`snapcast` and `lpc` are disabled by default, `lva`, `local-audio` and `bt-proxy` are enabled. To use `lpc`, set `DEVICE_TYPE` in `/compose/lpc/.env` first. You can change that in the `picompose.conf` of the project (see [Configurationfile](#configurationfile)) and reboot.
 
 ## Build information
 
